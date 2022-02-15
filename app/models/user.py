@@ -17,14 +17,13 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
-    first_name = db.Column(db.String(40), nullable=False)
-    last_name = db.Column(db.String(40), nullable=False)
+    full_name = db.Column(db.String, nullable=False)
     profile_pic = db.Column(db.String)
 
     user_likes = db.relationship('PostLikes', back_populates='user')
     user_posts = db.relationship('Post', back_populates='user')
     user_comments = db.relationship('Comment', back_populates='user')
-    
+
 
 
     followers = db.relationship(
