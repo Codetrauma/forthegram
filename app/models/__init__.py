@@ -9,6 +9,7 @@ class Comments(db.Model):
   user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
   post_id = db.Column(db.Integer, db.ForeignKey('posts.id'), nullable=False)
 
+
   def to_dict(self):
     return {
       'id': self.id,

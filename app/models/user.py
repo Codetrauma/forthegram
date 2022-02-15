@@ -21,8 +21,11 @@ class User(db.Model, UserMixin):
     last_name = db.Column(db.String(40), nullable=False)
     profile_pic = db.Column(db.String)
 
-
+    user_likes = db.relationship('PostLikes', back_populates='user')
+    user_posts = db.relationship('Post', back_populates='user')
+    user_comments = db.relationship('Comment', back_populates='user')
     
+
 
     followers = db.relationship(
         "User",
