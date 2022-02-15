@@ -10,7 +10,7 @@ class PostLikes(db.Model):
     post_id = db.Column(db.Integer, db.ForeignKey('posts.id'), nullable=False)
 
     user = db.relationship('User', back_populates='user_likes')
-    post = db.relationship('Post', back_populates='post_likes')
+    post = db.relationship('Post', back_populates='likes')
 
     def to_dict(self):
       return {

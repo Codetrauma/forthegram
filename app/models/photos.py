@@ -8,4 +8,4 @@ class Photos(db.Model):
   photo = db.Column(db.String(500), nullable=False)
   post_id = db.Column(db.Integer, db.ForeignKey('posts.id'), nullable=False)
 
-  post = db.relationship('Posts', back_populates='photos')
+  post = db.relationship('Post', back_populates='photos')
