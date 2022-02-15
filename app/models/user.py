@@ -22,6 +22,8 @@ class User(db.Model, UserMixin):
     profile_pic = db.Column(db.String)
 
 
+    
+
     followers = db.relationship(
         "User",
         secondary=follows,
