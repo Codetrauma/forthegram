@@ -8,11 +8,11 @@ class Post(db.Model):
     caption = db.Column(db.String(500), nullable=False)
 
     user = db.relationship('User', back_populates='user_posts')
-    comments = db.relationship('Comment', back_populates='post')
+    comments = db.relationship('Comment', back_populates='post', cascade="all, delete-orphan")
     likes = db.relationship('PostLikes', back_populates='post')
     photos = db.relationship('Photos', back_populates='post')
 
-    
+
     def to_dict(self):
         return {
             'id': self.id,

@@ -10,7 +10,7 @@ class Comment(db.Model):
 
     user = db.relationship('User', back_populates='user_comments')
     post = db.relationship('Post', back_populates='comments')
-  
+
     def to_dict(self):
       return {
         'id': self.id,
