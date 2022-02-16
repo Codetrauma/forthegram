@@ -2,30 +2,34 @@ import { React, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadAllPosts } from '../../store/posts';
+import { loadAllComments } from '../../store/comments';
 import { addComment } from '../../store/comments';
 
 function Dashboard() {
   const dispatch = useDispatch();
 
-  const posts = useSelector(state => state.posts.entries);
+  const posts = useSelector(state => state.posts?.entries);
   const sessionUser = useSelector(state => state.session.user);
-
-  useEffect(() => {
-    dispatch(loadAllPosts());
-  }, [dispatch]);
+  const comments = useSelector(state => state.comments?.entries);
 
   const [comment, setComment] = useState('');
   const [image, setImage] = useState('');
 
+    useEffect(() => {
+      dispatch(loadAllPosts());
+      dispatch(loadAllComments());
+    }, [dispatch]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const newComment = {
-      post_id: comment.post_id,
+      post_id: e.target.value,
       comment,
+      user_id: sessionUser.id,
     }
-    console.log(newComment)
-    // dispatch(addComment(post));
-
+    dispatch(addComment(newComment));
+    return newComment;
+    setComment('');
   }
 
   if (sessionUser) {
@@ -45,7 +49,7 @@ function Dashboard() {
               ))}
               <form>
                 <input type='text' value={comment.comment} onChange={e => setComment(e.target.value)} />
-                <button type='submit' onClick={handleSubmit}>Post</button>
+                <button type='submit' value={post.id} onClick={handleSubmit}>Post</button>
               </form>
             </li>
           ))}
