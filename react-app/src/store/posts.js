@@ -28,8 +28,9 @@ const update = (post) => ({
 export const loadAllPosts = () => async dispatch => {
   const response = await fetch('/api/posts');
   if (response.ok) {
-    const posts = await response.json();
-    dispatch(loadPosts(posts));
+    const all_posts = await response.json();
+    dispatch(loadPosts(all_posts));
+    return all_posts;
   }
 }
 
@@ -71,14 +72,14 @@ export const updatePost = (post) => async dispatch => {
   }
 }
 
-const initialState = {entries: []};
+const initialState = {};
 
 const postReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD_POSTS:
       return {
         ...state,
-        entries: [action.list]
+        entries: action.list
       };
     case ADD_ONE:
       return {
