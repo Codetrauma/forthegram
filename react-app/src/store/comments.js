@@ -59,6 +59,22 @@ export const removeComment = (id) => async dispatch => {
   }
 }
 
+export const updateComment = (data) => async dispatch => {
+  const response = await fetch(`/api/comments/${data.id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  });
+  if (response.ok) {
+    const updated = await response.json();
+    dispatch(update(updated));
+    return updated;
+  }
+}
+
+
 const initialState = {entries: []}
 
 const commentReducer = (state = initialState, action) => {
@@ -75,6 +91,11 @@ const commentReducer = (state = initialState, action) => {
     case REMOVE: {
       newState = {...state};
       delete newState[action.comment]
+      return newState;
+    };
+    case UPDATE: {
+      newState = {...state};
+      newState[action.comment.id] = action.comment;
       return newState;
     };
     default:
