@@ -34,13 +34,13 @@ export const loadAllComments = (post) => async dispatch => {
   }
 }
 
-export const addComment = (comment) => async dispatch => {
-  const response = await fetch(`/api/posts/${comment.post_id}/comments`, {
+export const addComment = (data) => async dispatch => {
+  const response = await fetch(`/api/posts/${data.post_id}/comments`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(comment)
+    body: JSON.stringify(data)
   });
   if (response.ok) {
     const newComment = await response.json();

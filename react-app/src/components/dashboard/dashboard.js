@@ -2,7 +2,7 @@ import { React, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadAllPosts } from '../../store/posts';
-
+import { addComment } from '../../store/comments';
 
 function Dashboard() {
   const dispatch = useDispatch();
@@ -19,9 +19,13 @@ function Dashboard() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const post = {
+    const newComment = {
+      post_id: comment.post_id,
       comment,
     }
+    console.log(newComment)
+    // dispatch(addComment(post));
+
   }
 
   if (sessionUser) {
@@ -31,7 +35,7 @@ function Dashboard() {
           {posts?.posts.map(post => (
             <li key={post.id}>
               <h4>{post.user.username}</h4>
-              <img src='https://i.imgur.com/f6RGXwB.jpg' alt={post.caption} />
+              <img src={post.photos[0]?.photo} alt={post.caption} />
               <h3>{post.caption}</h3>
               {post?.comments.map(comment => (
                 <div>
