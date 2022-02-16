@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loadAllPosts } from '../../store/posts';
 import { loadAllComments } from '../../store/comments';
 import { addComment } from '../../store/comments';
+import { removeComment } from '../../store/comments';
 
 function Dashboard() {
   const dispatch = useDispatch();
@@ -33,6 +34,9 @@ function Dashboard() {
   }
   const handleDelete = async (e) => {
     e.preventDefault();
+    const id = e.target.value;
+    console.log('COMMENT', id);
+    dispatch(removeComment(id));
   }
 
   if (sessionUser) {
@@ -48,7 +52,7 @@ function Dashboard() {
                 <div>
                   <h4>{comment?.user.username}</h4>
                   <p key={comment?.id}>{comment.comment}</p>
-                  {sessionUser?.id === comment.user_id ? <button type='submit' onClick={handleDelete}>x</button> : <></>}
+                  {sessionUser?.id === comment.user_id ? <button type='submit' value={comment.id} onClick={handleDelete}>x</button> : <></>}
                 </div>
               ))}
               <form>
