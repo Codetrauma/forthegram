@@ -26,6 +26,7 @@ function App() {
 
   useEffect(() => {
     (async() => {
+      await dispatch(authenticate()).then(() => setLoaded(true))
       await dispatch(loadAllPosts());
       await dispatch(loadAllComments());
     })();

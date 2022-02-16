@@ -20,16 +20,19 @@ function Dashboard() {
       dispatch(loadAllComments());
     }, [dispatch]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const newComment = {
       post_id: e.target.value,
       comment,
       user_id: sessionUser.id,
     }
-    dispatch(addComment(newComment));
-    return newComment;
+    await dispatch(addComment(newComment));
     setComment('');
+    return newComment;
+  }
+  const handleDelete = async (e) => {
+    e.preventDefault();
   }
 
   if (sessionUser) {
@@ -45,10 +48,11 @@ function Dashboard() {
                 <div>
                   <h4>{comment?.user.username}</h4>
                   <p key={comment?.id}>{comment.comment}</p>
+                  {sessionUser?.id === comment.user_id ? <button type='submit' onClick={handleDelete}>x</button> : <></>}
                 </div>
               ))}
               <form>
-                <input type='text' value={comment.comment} onChange={e => setComment(e.target.value)} />
+                <input type='text' onChange={e => setComment(e.target.value)} />
                 <button type='submit' value={post.id} onClick={handleSubmit}>Post</button>
               </form>
             </li>

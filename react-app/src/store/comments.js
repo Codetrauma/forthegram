@@ -57,10 +57,9 @@ const commentReducer = (state = initialState, action) => {
     case LOAD_COMMENTS:
       return {
         ...state,
-        entries: [action.comments['comments']]
+        entries: action.comments['comments']
       };
     case ADD_ONE: {
-      console.log(state.entries)
       return {...state, entries: [...state.entries, action.comments]}
     };
     default:
