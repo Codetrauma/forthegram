@@ -15,7 +15,6 @@ class PostLikes(db.Model):
     def to_dict(self):
       return {
         'id': self.id,
-        'liked': self.liked,
         'user_id': self.user_id,
         'post_id': self.post_id
       }

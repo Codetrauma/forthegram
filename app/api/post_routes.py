@@ -10,8 +10,25 @@ posts_routes = Blueprint('posts', __name__)
 @posts_routes.route('/')
 def get_all_posts():
     """
-    Gets all the posts
+    Gets all the posts and posts photos put together in JSON format
     """
+    # posts = Post.query.all()
+    # photos = Photos.query.all()
+
+    # posts_photos = []
+    # for post in posts:
+    #     for photo in photos:
+    #         if post.id == photo.post_id:
+    #             posts_photos.append({
+    #                 'post_id': post.id,
+    #                 'photo': photo.photo
+    #             })
+    # return {
+    #     'posts': [post.to_dict() for post in posts],
+    #     'posts_photos': posts_photos
+    # }
+
+
     posts = Post.query.all()
     return {'posts': [post.to_dict() for post in posts]}
 
