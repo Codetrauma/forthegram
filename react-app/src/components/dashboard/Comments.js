@@ -1,12 +1,14 @@
-import { React, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateComment, removeComment } from '../../store/comments';
+import { updateComment, removeComment, loadAllComments } from '../../store/comments';
+import { loadAllPosts } from '../../store/posts';
 
 
 const Comments = ({comments}) => {
   const dispatch = useDispatch();
-  console.log(comments);
+
   const sessionUser = useSelector(state => state.session.user);
+  const stateComments = useSelector(state => state.posts)
 
   const [showEditForm, setShowEditForm] = useState(false);
   const [comment, setComment] = useState('');
@@ -14,7 +16,8 @@ const Comments = ({comments}) => {
   const handleDelete = async (e) => {
     e.preventDefault();
     const id = e.target.value;
-    dispatch(removeComment(id));
+    await dispatch(removeComment(id));
+    return;
   }
 
   const handleEdit = async (e) => {
@@ -23,9 +26,13 @@ const Comments = ({comments}) => {
       id: e.target.value,
       'text': comment,
     }
-    dispatch(updateComment(editComment));
+    await dispatch(updateComment(editComment));
   }
-
+  
+  // useEffect(() => {
+  //   dispatch(loadAllPosts())
+  //   dispatch(loadAllComments())
+  // }, [dispatch])
   return (
     <div>
       <h4>{comments.user?.username}</h4>

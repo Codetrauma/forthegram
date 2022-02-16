@@ -2,14 +2,15 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
-
+import homebutton from '../images/homebutton.png';
+import PostModal from '../components/PostModal/PostModal';
 const NavBar = () => {
   return (
     <nav>
       <ul>
         <li>
           <NavLink to='/' exact={true} activeClassName='active'>
-            Home
+            <img src={homebutton} alt='home' height='30px'/>
           </NavLink>
         </li>
         <li>
@@ -30,6 +31,7 @@ const NavBar = () => {
         <li>
           <LogoutButton />
         </li>
+        <PostModal />
       </ul>
     </nav>
   );
