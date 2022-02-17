@@ -2,11 +2,12 @@ import { React, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updatePost } from '../../store/posts';
 import Comments from './Comments';
-import EditCaption from '../PostModal/EditPostModal'
+// import EditCaption from '../PostModal/EditPostModal'
+import EditPostModal from '../PostModal/EditPostModal';
 
 const Captions = ({ post }) => {
   const dispatch = useDispatch();
-  console.log(post)
+  // console.log(post)
   const sessionUser = useSelector(state => state.session.user);
 
 
@@ -19,7 +20,7 @@ const Captions = ({ post }) => {
   return (
     <div>
       <h3>{post.caption}</h3>
-      {sessionUser?.id === post.user_id ? <EditCaption /> : <></>}
+      {sessionUser?.id === post.user_id ? <EditPostModal posts={post} /> : <></>}
       {sessionUser?.id === post.user_id ? <button>Delete Post</button> : <></>}
     </div>
   )

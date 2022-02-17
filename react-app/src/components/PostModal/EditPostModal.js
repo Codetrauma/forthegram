@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 import { Modal } from '../../context/Modal';
-import EditPost from './EditPost'
-function AddPost() {
+import EditCaption from './EditPost'
+
+function EditPost({ posts }) {
   const [showModal, setShowModal] = useState(false);
 
 
-    return (
-      <>
-        <button className='answer-button' onClick={() => setShowModal(true)}>Edit Caption</button>
-        {showModal && (
-          <Modal onClose={() => setShowModal(false)}>
-            <EditPost setShowModel={setShowModal}/>
-          </Modal>
-        )}
-      </>
-    );
+  return (
+    <>
+      <button className='answer-button' onClick={() => setShowModal(true)}>Edit Caption</button>
+      {showModal && (
+        <Modal onClose={() => setShowModal(false)}>
+          <EditCaption setShowModal={setShowModal} posts={posts}/>
+        </Modal>
+      )}
+    </>
+  );
 }
 
-export default AddPost;
+export default EditPost;
