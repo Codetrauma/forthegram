@@ -31,8 +31,23 @@
   margin-bottom: 10px;
 }
 
-.hidden-button {
-  display: none;
+.input-post-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 11px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid lightgray;
+}
+.post-button {
+  border: none;
+  height: 34px;
+  color: gray;
+  background-color: light;
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
 }
 
 .comment-input {
@@ -41,7 +56,7 @@
   border-top: 1px solid lightgray;
   border-left: none;
   border-right: none;
-  border-bottom: none;
+  border-bottom: 1px solid lightgray;
   padding-left: 10px;
   /* margin-bottom: 10px; */
 }

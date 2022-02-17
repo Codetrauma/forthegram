@@ -25,6 +25,6 @@ const Captions = ({ post }) => {
     </div>
   )
 
-  }
+}
 
 export default Captions
