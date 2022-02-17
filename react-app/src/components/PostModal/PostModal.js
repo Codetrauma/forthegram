@@ -7,7 +7,7 @@ function AddPost() {
 
     return (
       <>
-        <button className='answer-button' onClick={() => setShowModal(true)}>Answer!</button>
+        <button className='answer-button' onClick={() => setShowModal(true)}>+</button>
         {showModal && (
           <Modal onClose={() => setShowModal(false)}>
             <UploadPicture setShowModel={setShowModal}/>

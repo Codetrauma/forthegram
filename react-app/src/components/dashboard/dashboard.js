@@ -13,15 +13,18 @@ function Dashboard() {
   const postObj = useSelector(state => state.posts)
   const posts = Object.values(postObj)
   const sessionUser = useSelector(state => state.session.user);
-  // const comments = useSelector(state => state.posts);
+  const commentObj = useSelector(state => state.comments)
+  const comments = Object.values(commentObj)
+  console.log('COMMENTS', comments)
+  console.log('POSTS', posts)
 
 
   const [comment, setComment] = useState('');
 
-    useEffect(() => {
-      dispatch(loadAllPosts());
-      dispatch(loadAllComments());
-    }, [comment, dispatch]);
+  useEffect(() => {
+    dispatch(loadAllPosts());
+    dispatch(loadAllComments());
+  }, [comment, dispatch]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
