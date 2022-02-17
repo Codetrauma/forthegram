@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loadAllPosts } from '../../store/posts';
 import { loadAllComments, updateComment, addComment, removeComment } from '../../store/comments';
 import Comments  from './Comments'
+import Captions from './Caption'
 import './dashboard.css'
 
 function Dashboard() {
@@ -45,7 +46,7 @@ function Dashboard() {
             <li key={post.id} className='posts'>
               <h4>{post.user.username}</h4>
               <img src={post.photos[0]?.photo} alt={post.caption} />
-              <h3>{post.caption}</h3>
+              <Captions post={post} />
               {post?.comments?.map(comment => (
                 <Comments comments={comment}/>
               ))}

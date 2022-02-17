@@ -24,7 +24,7 @@ const UploadPicture = ({ setShowModal }) => {
         const data = await dispatch(addPost(formData))
         if (data) {
             setImageLoading(false);
-            // setShowModal(false);
+            setShowModal(false);
         // console.log("error");
         }
     }

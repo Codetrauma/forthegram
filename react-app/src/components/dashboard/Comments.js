@@ -4,7 +4,7 @@ import { updateComment, removeComment, loadAllComments } from '../../store/comme
 import { loadAllPosts } from '../../store/posts';
 
 
-const Comments = ({comments}) => {
+const Comments = ({ comments }) => {
   const dispatch = useDispatch();
 
   const sessionUser = useSelector(state => state.session.user);
@@ -28,7 +28,7 @@ const Comments = ({comments}) => {
     }
     await dispatch(updateComment(editComment));
   }
-  
+
   // useEffect(() => {
   //   dispatch(loadAllPosts())
   //   dispatch(loadAllComments())

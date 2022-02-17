@@ -20,7 +20,7 @@ def get_post(post_id):
     post = Post.query.get(post_id)
     return {'post': post.to_dict()}
 
-@posts_routes.route('/new', methods=['POST'])
+@posts_routes.route('/new/', methods=['POST'])
 def create_post():
     """
     Creates a post
