@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Modal } from '../../context/Modal';
-
+import UploadPicture from '../UploadImage/UploadImage';
 function AddPost() {
   const [showModal, setShowModal] = useState(false);
 
@@ -10,7 +10,7 @@ function AddPost() {
         <button className='answer-button' onClick={() => setShowModal(true)}>Answer!</button>
         {showModal && (
           <Modal onClose={() => setShowModal(false)}>
-            {/* <CreateAnswer setShowModal={setShowModal} /> */}
+            <UploadPicture setShowModel={setShowModal}/>
           </Modal>
         )}
       </>

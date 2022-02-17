@@ -9,7 +9,9 @@ import './dashboard.css'
 function Dashboard() {
   const dispatch = useDispatch();
 
-  const posts = useSelector(state => state.posts?.entries);
+  // const posts = useSelector(state => state.posts?.entries);
+  const postObj = useSelector(state => state.posts)
+  const posts = Object.values(postObj)
   const sessionUser = useSelector(state => state.session.user);
   // const comments = useSelector(state => state.posts);
 
@@ -38,7 +40,7 @@ function Dashboard() {
     return (
       <div>
         <ul>
-          {posts?.posts.map(post => (
+          {posts?.map(post => (
             <li key={post.id} className='posts'>
               <h4>{post.user.username}</h4>
               <img src={post.photos[0]?.photo} alt={post.caption} />

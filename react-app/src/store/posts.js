@@ -35,16 +35,14 @@ export const loadAllPosts = () => async dispatch => {
 }
 
 export const addPost = (post) => async dispatch => {
-  const response = await fetch('/api/posts/', {
+  const response = await fetch('/api/posts/new', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(post)
+    body: post
   });
   if (response.ok) {
     const newPost = await response.json();
     dispatch(addOne(newPost));
+    return newPost
   }
 }
 
@@ -77,25 +75,26 @@ const initialState = {};
 const postReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD_POSTS:
-      return {
-        ...state,
-        entries: action.list
-      };
+      const allPosts = {}
+      action.list.posts.forEach((post) => {
+        allPosts[post.id] = post
+      })
+      return {...allPosts}
     case ADD_ONE:
       return {
         ...state,
-        entries: [...state.entries, action.post]
+        [action.post.id]: action.post
       };
-    case REMOVE:
-      return {
-        ...state,
-        entries: state.entries.filter(p => p.id !== action.post.id)
-      };
-    case UPDATE:
-      return {
-        ...state,
-        entries: state.entries.map(p => p.id === action.post.id ? action.post : p)
-      };
+    case REMOVE: {
+      const newState = {...state}
+      delete newState[action.post.id]
+      return newState
+    }
+    case UPDATE: {
+      const newState = {...state}
+      newState[action.post.post.id] = action.post.post
+      return newState
+    }
     default:
       return state;
   }
