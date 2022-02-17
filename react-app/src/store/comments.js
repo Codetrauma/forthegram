@@ -26,7 +26,7 @@ const update = (comment) => ({
 })
 
 export const loadAllComments = () => async dispatch => {
-  const response = await fetch(`/api/comments`);
+  const response = await fetch(`/api/comments/`);
   if (response.ok) {
     const all_comments = await response.json();
     dispatch(loadComments(all_comments));
@@ -35,7 +35,7 @@ export const loadAllComments = () => async dispatch => {
 }
 
 export const addComment = (data) => async dispatch => {
-  const response = await fetch(`/api/posts/${data.post_id}/comments`, {
+  const response = await fetch(`/api/posts/${data.post_id}/comments/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -50,7 +50,7 @@ export const addComment = (data) => async dispatch => {
 }
 
 export const removeComment = (id) => async dispatch => {
-  const response = await fetch(`/api/comments/${id}`, {
+  const response = await fetch(`/api/comments/${id}/`, {
     method: 'DELETE',
   });
   if (response.ok) {
@@ -61,7 +61,7 @@ export const removeComment = (id) => async dispatch => {
 }
 
 export const updateComment = (data) => async dispatch => {
-  const response = await fetch(`/api/comments/${data.id}`, {
+  const response = await fetch(`/api/comments/${data.id}/`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
@@ -82,13 +82,16 @@ const commentReducer = (state = initialState, action) => {
   let newState;
   switch (action.type) {
     case LOAD_COMMENTS:
-      return {
-        ...state,
-        entries: action.comments['comments']
-      };
-    case ADD_ONE: {
-      return {...state, entries: [...state.entries, action.comments]}
-    };
+     const allComments = {}
+     action.comments.comments.forEach((comment) => {
+       allComments[comment.id] = comment
+     })
+     return {...allComments}
+    case ADD_ONE:
+    return {
+      ...state,
+      [action.comment.id]: action.comment
+    }
     case REMOVE: {
       newState = {...state};
       delete newState[action.comment]

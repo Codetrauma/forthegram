@@ -26,7 +26,7 @@ const update = (post) => ({
 })
 
 export const loadAllPosts = () => async dispatch => {
-  const response = await fetch('/api/posts');
+  const response = await fetch('/api/posts/');
   if (response.ok) {
     const all_posts = await response.json();
     dispatch(loadPosts(all_posts));
@@ -35,7 +35,7 @@ export const loadAllPosts = () => async dispatch => {
 }
 
 export const addPost = (post) => async dispatch => {
-  const response = await fetch('/api/posts/new', {
+  const response = await fetch('/api/posts/new/', {
     method: 'POST',
     body: post
   });
@@ -47,7 +47,7 @@ export const addPost = (post) => async dispatch => {
 }
 
 export const removePost = (post) => async dispatch => {
-  const response = await fetch(`/api/posts/${post.id}`, {
+  const response = await fetch(`/api/posts/${post.id}/`, {
     method: 'DELETE'
   });
   if (response.ok) {
@@ -57,7 +57,7 @@ export const removePost = (post) => async dispatch => {
 }
 
 export const updatePost = (post) => async dispatch => {
-  const response = await fetch(`/api/posts/${post.id}`, {
+  const response = await fetch(`/api/posts/${post.id}/`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
