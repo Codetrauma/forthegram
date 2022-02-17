@@ -2,13 +2,13 @@ import { React, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateComment, removeComment, loadAllComments } from '../../store/comments';
 import { loadAllPosts } from '../../store/posts';
-
+import { useHistory } from 'react-router-dom';
 
 const Comments = ({ comments }) => {
   const dispatch = useDispatch();
-
+  const history = useHistory();
   const sessionUser = useSelector(state => state.session.user);
-  const stateComments = useSelector(state => state.posts)
+  // const stateComments = useSelector(state => state.comments);
 
   const [showEditForm, setShowEditForm] = useState(false);
   const [comment, setComment] = useState('');
@@ -17,7 +17,8 @@ const Comments = ({ comments }) => {
     e.preventDefault();
     const id = e.target.value;
     await dispatch(removeComment(id));
-    return;
+    await dispatch(loadAllPosts());
+    history.push('/')
   }
 
   const handleEdit = async (e) => {
@@ -27,12 +28,10 @@ const Comments = ({ comments }) => {
       'text': comment,
     }
     await dispatch(updateComment(editComment));
+    setShowEditForm(!showEditForm);
+    await dispatch(loadAllPosts());
   }
 
-  // useEffect(() => {
-  //   dispatch(loadAllPosts())
-  //   dispatch(loadAllComments())
-  // }, [dispatch])
   return (
     <div className='comments-wrapper'>
       <h4 className='comment-username'>{comments.user?.username}</h4>

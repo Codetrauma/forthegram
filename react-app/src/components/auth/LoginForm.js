@@ -28,6 +28,10 @@ const LoginForm = () => {
     setPassword(e.target.value);
   };
 
+  const handleDemoLogin = (e) => {
+    dispatch(login('demo@aa.io', 'password'));
+  }
+
   if (user) {
     return <Redirect to='/' />;
   }
@@ -60,8 +64,9 @@ const LoginForm = () => {
           value={password}
           onChange={updatePassword}
         />
-        <button className='login-submit-button' type='submit'>Login</button>
+        <button disabled={password.length > 5 ? false : true} className='login-submit-button' type='submit'>Login</button>
       </div>
+      <button className='demo-user-button' onClick={handleDemoLogin}>Demo User</button>
       <p>Forgot your password? That's unfortunate</p>
     </form>
     </div>
