@@ -34,9 +34,9 @@ const Comments = ({ comments }) => {
   //   dispatch(loadAllComments())
   // }, [dispatch])
   return (
-    <div>
-      <h4>{comments.user?.username}</h4>
-      <p>{comments.comment}</p>
+    <div className='comments-wrapper'>
+      <h4 className='comment-username'>{comments.user?.username}</h4>
+      <p className='single-comment'>{comments.comment}</p>
       {sessionUser?.id === comments.user_id ? <button type='submit' value={comments.id} onClick={handleDelete}>x</button> : <></>}
       {sessionUser?.id === comments.user_id ? <button type='submit' value={comments.id} onClick={(e) => setShowEditForm(!showEditForm)}>Edit</button> : <></>}
       {showEditForm && (

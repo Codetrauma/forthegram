@@ -18,8 +18,8 @@ const Captions = ({ post }) => {
   }
 
   return (
-    <div>
-      <h3>{post.caption}</h3>
+    <div classname='captions-wrapper'>
+      <h3 className='captions'>{post.caption}</h3>
       {sessionUser?.id === post.user_id ? <EditPostModal posts={post} /> : <></>}
       {sessionUser?.id === post.user_id ? <button onClick={handleDelete}>Delete Post</button> : <></>}
     </div>

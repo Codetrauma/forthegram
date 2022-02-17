@@ -40,19 +40,19 @@ function Dashboard() {
 
   if (sessionUser) {
     return (
-      <div>
-        <ul>
+      <div className='posts-wrapper'>
+        <ul className='ul-posts'>
           {posts?.map(post => (
             <li key={post.id} className='posts'>
-              <h4>{post.user.username}</h4>
-              <img src={post.photos[0]?.photo} alt={post.caption} />
+              <h4 className='posts-username'>{post.user.username}</h4>
+              <img className='posts-images' src={post.photos[0]?.photo} alt={post.caption} />
               <Captions post={post} />
               {post?.comments?.map(comment => (
                 <Comments comments={comment}/>
               ))}
               <form>
-                <input type='text' onChange={e => setComment(e.target.value)} />
-                <button type='submit' value={post.id} onClick={handleSubmit}>Post</button>
+                <input className='comment-input' placeholder='Enter a comment' type='text' onChange={e => setComment(e.target.value)} />
+                <button className='hidden-button' type='submit' value={post.id} onClick={handleSubmit}></button>
               </form>
             </li>
           ))}
