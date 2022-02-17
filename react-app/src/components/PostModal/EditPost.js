@@ -6,15 +6,16 @@ const EditCaption = ({ posts, setShowModal }) => {
   const dispatch = useDispatch();
   console.log(posts, setShowModal)
 
-  // console.log(posts, setShowModal)
   const [caption, setCaption] = useState('')
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newCaption = {
+      'id': posts.id,
       'caption': caption
     }
     console.log(newCaption)
+    dispatch(updatePost(newCaption))
     setShowModal(false);
   }
 
