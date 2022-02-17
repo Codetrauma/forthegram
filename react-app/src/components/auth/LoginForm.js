@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { login } from '../../store/session';
+import { NavLink } from 'react-router-dom';
+import './login.css'
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
@@ -31,6 +33,8 @@ const LoginForm = () => {
   }
 
   return (
+    <div className='login-wrapper'>
+      <h2 className='login-title'>ForTheGram</h2>
     <form onSubmit={onLogin}>
       <div>
         {errors.map((error, ind) => (
@@ -38,8 +42,8 @@ const LoginForm = () => {
         ))}
       </div>
       <div>
-        <label htmlFor='email'>Email</label>
         <input
+          className='email-input'
           name='email'
           type='text'
           placeholder='Email'
@@ -48,17 +52,20 @@ const LoginForm = () => {
         />
       </div>
       <div>
-        <label htmlFor='password'>Password</label>
         <input
+          className='password-input'
           name='password'
           type='password'
           placeholder='Password'
           value={password}
           onChange={updatePassword}
         />
-        <button type='submit'>Login</button>
+        <button className='login-submit-button' type='submit'>Login</button>
       </div>
+      <p>Forgot your password? That's unfortunate</p>
     </form>
+    </div>
+
   );
 };
 

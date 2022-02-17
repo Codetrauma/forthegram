@@ -1,0 +1,48 @@
+
+.login-wrapper {
+  width: 18%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc5c5;
+  padding-bottom: 30px;
+}
+
+.login-title {
+  font-family: Dancing Script;
+  font-weight: bold;
+  font-size: 2.5em;
+}
+
+.email-input {
+  width: 100%;
+  height: 30px;
+  border: 1px solid #ccc5c5;
+  border-radius: 5px;
+  padding-left: 10px;
+  margin-bottom: 10px;
+}
+
+.password-input {
+  width: 100%;
+  height: 30px;
+  border: 1px solid #ccc5c5;
+  border-radius: 5px;
+  padding-left: 10px;
+  margin-bottom: 10px;
+}
+
+.login-submit-button {
+  width: 105%;
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  background-color: #14ffeb;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.2em;
+  cursor: pointer;
+}
