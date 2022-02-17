@@ -1,9 +1,7 @@
-import { React, useEffect, useState } from 'react';
+import { React } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updatePost } from '../../store/posts';
-import Comments from './Comments';
-// import EditCaption from '../PostModal/EditPostModal'
 import EditPostModal from '../PostModal/EditPostModal';
+import { removePost } from '../../store/posts';
 
 const Captions = ({ post }) => {
   const dispatch = useDispatch();
@@ -13,15 +11,17 @@ const Captions = ({ post }) => {
 
   const handleDelete = async (e) => {
     e.preventDefault();
-    const id = e.target.value;
-    return;
+    const deletePost = {
+      'id': post.id
+    }
+    dispatch(removePost(deletePost))
   }
 
   return (
     <div>
       <h3>{post.caption}</h3>
       {sessionUser?.id === post.user_id ? <EditPostModal posts={post} /> : <></>}
-      {sessionUser?.id === post.user_id ? <button>Delete Post</button> : <></>}
+      {sessionUser?.id === post.user_id ? <button onClick={handleDelete}>Delete Post</button> : <></>}
     </div>
   )
 
