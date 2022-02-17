@@ -1,5 +1,4 @@
 import { React, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadAllPosts } from '../../store/posts';
 import { loadAllComments, updateComment, addComment, removeComment } from '../../store/comments';
@@ -49,7 +48,7 @@ function Dashboard() {
             <li key={post.id} className='posts'>
               <h4 className='posts-username'>{post.user.username}</h4>
               <img className='posts-images' src={post.photos[0]?.photo} alt={post.caption} />
-              <Likes post={post} />
+              <Likes posts={post} />
               <Captions post={post} />
               {post?.comments?.map(comment => (
                 <Comments comments={comment} />
