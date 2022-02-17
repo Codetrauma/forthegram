@@ -5,9 +5,9 @@ const REMOVE = 'comments/REMOVE';
 const UPDATE = 'comments/UPDATE';
 
 
-const loadComments = (list) => ({
+const loadComments = (comments) => ({
   type: LOAD_COMMENTS,
-  list
+  comments
 })
 
 const addOne = (comment) => ({
@@ -25,8 +25,8 @@ const update = (comment) => ({
   comment
 })
 
-export const loadAllComments = (post) => async dispatch => {
-  const response = await fetch(`/api/posts/${post.id}/comments`);
+export const loadAllComments = () => async dispatch => {
+  const response = await fetch(`/api/comments`);
   if (response.ok) {
     const all_comments = await response.json();
     dispatch(loadComments(all_comments));
@@ -45,33 +45,60 @@ export const addComment = (data) => async dispatch => {
   if (response.ok) {
     const newComment = await response.json();
     dispatch(addOne(newComment));
+    return newComment;
   }
 }
 
-const initialState = {}
+export const removeComment = (id) => async dispatch => {
+  const response = await fetch(`/api/comments/${id}`, {
+    method: 'DELETE',
+  });
+  if (response.ok) {
+    const deleted = await response.json()
+    dispatch(remove(deleted));
+    return deleted;
+  }
+}
+
+export const updateComment = (data) => async dispatch => {
+  const response = await fetch(`/api/comments/${data.id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  });
+  if (response.ok) {
+    const updated = await response.json();
+    dispatch(update(updated));
+    return updated;
+  }
+}
+
+
+const initialState = {entries: []}
 
 const commentReducer = (state = initialState, action) => {
+  let newState;
   switch (action.type) {
     case LOAD_COMMENTS:
       return {
         ...state,
-        entries: action.list
+        entries: action.comments['comments']
       };
-    case ADD_ONE:
-      return {
-        ...state,
-        entries: [...state.entries, action.comment]
-      };
-    case REMOVE:
-      return {
-        ...state,
-        entries: state.entries.filter(p => p.id !== action.comment.id)
-      };
-    case UPDATE:
-      return {
-        ...state,
-        entries: state.entries.map(p => p.id === action.comment.id ? action.comment : p)
-      };
+    case ADD_ONE: {
+      return {...state, entries: [...state.entries, action.comments]}
+    };
+    case REMOVE: {
+      newState = {...state};
+      delete newState[action.comment]
+      return newState;
+    };
+    case UPDATE: {
+      newState = {...state};
+      newState[action.comment.id] = action.comment;
+      return newState;
+    };
     default:
       return state;
   }

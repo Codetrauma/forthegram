@@ -9,6 +9,10 @@ import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
 import Dashboard from './components/dashboard/dashboard';
+import { loadAllComments } from './store/comments';
+import { loadAllPosts } from './store/posts';
+
+
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
@@ -19,6 +23,14 @@ function App() {
       setLoaded(true);
     })();
   }, [dispatch]);
+
+  useEffect(() => {
+    (async() => {
+      await dispatch(authenticate()).then(() => setLoaded(true))
+      await dispatch(loadAllPosts());
+      await dispatch(loadAllComments());
+    })();
+  }, [dispatch, loaded]);
 
   if (!loaded) {
     return null;

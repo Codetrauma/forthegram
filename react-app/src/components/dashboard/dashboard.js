@@ -2,50 +2,55 @@ import { React, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadAllPosts } from '../../store/posts';
-import { addComment } from '../../store/comments';
+import { loadAllComments, updateComment, addComment, removeComment } from '../../store/comments';
+import Comments  from './Comments'
+import './dashboard.css'
 
 function Dashboard() {
   const dispatch = useDispatch();
 
-  const posts = useSelector(state => state.posts.entries);
+  // const posts = useSelector(state => state.posts?.entries);
+  const postObj = useSelector(state => state.posts)
+  const posts = Object.values(postObj)
   const sessionUser = useSelector(state => state.session.user);
+  // const comments = useSelector(state => state.posts);
 
-  useEffect(() => {
-    dispatch(loadAllPosts());
-  }, [dispatch]);
 
   const [comment, setComment] = useState('');
-  const [image, setImage] = useState('');
 
-  const handleSubmit = (e) => {
+    useEffect(() => {
+      dispatch(loadAllPosts());
+      dispatch(loadAllComments());
+    }, [comment, dispatch]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const newComment = {
-      post_id: comment.post_id,
+      post_id: e.target.value,
       comment,
+      user_id: sessionUser.id,
     }
-    console.log(newComment)
-    // dispatch(addComment(post));
-
+    await dispatch(addComment(newComment));
+    dispatch(loadAllComments())
+    setComment('');
+    return newComment;
   }
 
   if (sessionUser) {
     return (
       <div>
         <ul>
-          {posts?.posts.map(post => (
-            <li key={post.id}>
+          {posts?.map(post => (
+            <li key={post.id} className='posts'>
               <h4>{post.user.username}</h4>
               <img src={post.photos[0]?.photo} alt={post.caption} />
               <h3>{post.caption}</h3>
-              {post?.comments.map(comment => (
-                <div>
-                  <h4>{comment?.user.username}</h4>
-                  <p key={comment?.id}>{comment.comment}</p>
-                </div>
+              {post?.comments?.map(comment => (
+                <Comments comments={comment}/>
               ))}
               <form>
-                <input type='text' value={comment.comment} onChange={e => setComment(e.target.value)} />
-                <button type='submit' onClick={handleSubmit}>Post</button>
+                <input type='text' onChange={e => setComment(e.target.value)} />
+                <button type='submit' value={post.id} onClick={handleSubmit}>Post</button>
               </form>
             </li>
           ))}
