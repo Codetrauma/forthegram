@@ -15,8 +15,6 @@ function Dashboard() {
   const sessionUser = useSelector(state => state.session.user);
   const commentObj = useSelector(state => state.comments)
   const comments = Object.values(commentObj)
-  console.log('COMMENTS', comments)
-  console.log('POSTS', posts)
 
 
   const [comment, setComment] = useState('');

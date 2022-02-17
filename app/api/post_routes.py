@@ -53,7 +53,7 @@ def create_post():
 
         return {'errors': form.errors}
 
-@posts_routes.route('/<int:post_id>', methods=['DELETE'])
+@posts_routes.route('/<int:post_id>/', methods=['DELETE'])
 def delete_post(post_id):
     """
     Deletes a post
@@ -64,7 +64,7 @@ def delete_post(post_id):
     db.session.commit()
     return data
 
-@posts_routes.route('/<int:post_id>', methods=['PUT'])
+@posts_routes.route('/<int:post_id>/', methods=['PUT'])
 def update_post(post_id):
     """
     Updates a post
@@ -83,7 +83,7 @@ def get_post_comments(post_id):
     post = Post.query.get(post_id)
     return {'comments': [comment.to_dict() for comment in post.comments]}
 
-@posts_routes.route('/<int:post_id>/comments', methods=['POST'])
+@posts_routes.route('/<int:post_id>/comments/', methods=['POST'])
 def create_comment(post_id):
     """
     Creates a comment
@@ -96,7 +96,7 @@ def create_comment(post_id):
     db.session.commit()
     return {'comment': comment.to_dict()}
 
-@posts_routes.route('/<int:post_id>/comments/<int:comment_id>', methods=['DELETE'])
+@posts_routes.route('/<int:post_id>/comments/<int:comment_id>/', methods=['DELETE'])
 def delete_comment(post_id, comment_id):
     """
     Deletes a comment
@@ -108,7 +108,7 @@ def delete_comment(post_id, comment_id):
     return {'message': 'Comment deleted'}
 
 
-@posts_routes.route('/<int:post_id>/comments/<int:comment_id>', methods=['PUT'])
+@posts_routes.route('/<int:post_id>/comments/<int:comment_id>/', methods=['PUT'])
 def update_comment(post_id, comment_id):
     """
     Updates a comment
