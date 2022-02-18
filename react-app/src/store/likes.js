@@ -2,12 +2,19 @@
 const LOAD_LIKES = 'likes/LOAD_LIKES';
 const ADD_ONE = 'likes/ADD_ONE';
 const REMOVE = 'likes/REMOVE';
+const LOAD_POST_LIKES = 'likes/LOAD_POST_LIKES';
 
 
 const loadLikes = (likes) => ({
   type: LOAD_LIKES,
   likes
 })
+
+const postLikes = (likes) => ({
+  type: LOAD_POST_LIKES,
+  likes
+})
+
 
 const addOne = (like) => ({
   type: ADD_ONE,
@@ -44,6 +51,7 @@ export const addLike = (data) => async dispatch => {
 }
 
 export const removeLike = (id) => async dispatch => {
+  console.log('SOMETHING STUPID', id)
   const response = await fetch(`/api/likes/${id}/`, {
     method: 'DELETE',
   });
@@ -52,6 +60,9 @@ export const removeLike = (id) => async dispatch => {
     dispatch(remove(deleted));
   }
 }
+
+
+
 
 const initialState = {}
 
@@ -63,14 +74,14 @@ const likeReducer = (state = initialState, action) => {
       action.likes.likes.forEach((like) => {
         allLikes[like.id] = like
       })
-      return {...allLikes}
+      return { ...allLikes }
     case ADD_ONE:
       return {
         ...state,
         [action.like.id]: action.like
       }
     case REMOVE: {
-      newState = {...state};
+      newState = { ...state };
       delete newState[action.like]
       return newState;
     };
