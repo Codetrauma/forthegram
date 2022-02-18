@@ -18,8 +18,9 @@ function Dashboard() {
   const commentObj = useSelector(state => state.comments)
   const comments = Object.values(commentObj)
 
-
+  // console.log(posts)
   const [comment, setComment] = useState('');
+
 
   useEffect(() => {
     dispatch(loadAllPosts());
@@ -48,15 +49,16 @@ function Dashboard() {
             <li key={post.id} className='posts'>
               <h4 className='posts-username'>{post.user.username}</h4>
               <img className='posts-images' src={post.photos[0]?.photo} alt={post.caption} />
-              <Likes posts={post} />
+              <Likes post={post} />
               <Captions post={post} />
               {post?.comments?.map(comment => (
                 <Comments comments={comment} />
               ))}
               <form className='post-comment-form'>
                 <div className='input-post-container'>
-                <input className='comment-input' placeholder='Enter a comment' type='text' onChange={e => setComment(e.target.value)} />
-                <button className='post-button' type='submit' value={post.id} onClick={handleSubmit}>Post</button>
+                  {/* {errors.map((error, idx) => <li className='errors' key={idx}>{error}</li>)} */}
+                <input className='comment-input' placeholder='Enter a comment' type='text' value={comment} onSubmit={e => setComment('')} onChange={e => setComment(e.target.value)} />
+                <button disabled={comment.length <= 0 ? true : false} className='post-button' type='submit' value={post.id} onClick={handleSubmit}>Post</button>
                 </div>
               </form>
             </li>

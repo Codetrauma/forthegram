@@ -1,22 +1,23 @@
-import { React } from 'react';
+import { React, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadAllPosts } from '../../store/posts';
 import { addLike, loadAllLikes, removeLike } from '../../store/likes';
 
-const Likes = ({ posts }) => {
+const Likes = ({ post }) => {
   const dispatch = useDispatch();
-  // console.log(posts.likes)
+  // console.log(post)
 
 
   const sessionUser = useSelector(state => state.session.user);
-  const likes = useSelector(state => state.likes.likes)
-  console.log(likes);
+  const likes = useSelector(state => state.likes)
+  const allLikes = Object.values(likes);
 
+  
 
   const handleLike = async (e) => {
     e.preventDefault();
     const likePost = {
-      'id': posts.id
+      'id': post.id
     }
     await dispatch(addLike(likePost))
     dispatch(loadAllPosts())
@@ -32,9 +33,9 @@ const Likes = ({ posts }) => {
 
   return (
     <div className='likes-wrapper'>
-      {sessionUser.id === posts ? <button onClick={handleLike}>LIKED</button>
+      {sessionUser.id === post ? <button onClick={handleLike}>LIKED</button>
       :
-      <button value={posts.id} onClick={handleUnlike}>NOT LIKED</button> }
+      <button value={post.id} onClick={handleUnlike}>NOT LIKED</button> }
     </div>
 
   )
