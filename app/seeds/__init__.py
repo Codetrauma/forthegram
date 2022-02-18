@@ -13,6 +13,10 @@ seed_commands = AppGroup('seed')
 @seed_commands.command('all')
 def seed():
     seed_users()
+    seed_posts()
+    seed_comments()
+    seed_post_likes()
+    seed_photos()
     # Add other seed functions here
 
 
@@ -20,6 +24,10 @@ def seed():
 @seed_commands.command('undo')
 def undo():
     undo_users()
+    undo_comments()
+    undo_posts()
+    undo_post_likes()
+    undo_photos()
     # Add other undo functions here
 
 @seed_commands.command('reset')
