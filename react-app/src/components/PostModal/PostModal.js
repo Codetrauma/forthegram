@@ -5,16 +5,16 @@ function AddPost() {
   const [showModal, setShowModal] = useState(false);
 
 
-    return (
-      <>
-        <button className='answer-button' onClick={() => setShowModal(true)}>+</button>
-        {showModal && (
-          <Modal onClose={() => setShowModal(false)}>
-            <UploadPicture setShowModel={setShowModal}/>
-          </Modal>
-        )}
-      </>
-    );
+  return (
+    <>
+      <button className='answer-button' onClick={() => setShowModal(true)}>+</button>
+      {showModal && (
+        <Modal onClose={() => setShowModal(false)}>
+          <UploadPicture setShowModal={setShowModal} />
+        </Modal>
+      )}
+    </>
+  );
 }
 
 export default AddPost;

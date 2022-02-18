@@ -56,7 +56,6 @@ export const removeComment = (id) => async dispatch => {
   if (response.ok) {
     const deleted = await response.json()
     dispatch(remove(deleted));
-    return deleted;
   }
 }
 
@@ -76,7 +75,7 @@ export const updateComment = (data) => async dispatch => {
 }
 
 
-const initialState = {entries: []}
+const initialState = {}
 
 const commentReducer = (state = initialState, action) => {
   let newState;
