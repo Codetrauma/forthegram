@@ -36,3 +36,11 @@ def delete_like(post_id):
     db.session.delete(like)
     db.session.commit()
     return like.to_dict()
+
+@like_routes.route('/<int:post_id>/', methods=['GET'])
+def get_like(post_id):
+    """
+    Gets all likes of a post
+    """
+    likes = PostLikes.query.filter_by(post_id=post_id).all()
+    return {'likes': [like.to_dict() for like in likes]}
