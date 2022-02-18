@@ -13,9 +13,17 @@ const SignUpForm = () => {
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
+  const emailPattern = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+  const isEmail = field => emailPattern.test(field)
+
   const onSignUp = async (e) => {
+    let newErrors = []
     e.preventDefault();
-    if (password === repeatPassword) {
+    if (!isEmail(email)) {
+      newErrors.push('Please enter a valid email.')
+      setErrors(newErrors)
+    }
+    else if (password === repeatPassword) {
       const data = await dispatch(signUp(username, full_name, email, password));
       if (data) {
         setErrors(data)

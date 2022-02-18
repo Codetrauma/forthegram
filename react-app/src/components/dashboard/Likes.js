@@ -12,7 +12,8 @@ const Likes = ({ post }) => {
   const likes = useSelector(state => state.likes)
   const allLikes = Object.values(likes);
   console.log(likes);
-
+  const postObj = useSelector(state => state.posts)
+  const posts = Object.values(postObj)
 
 
   const handleLike = async (e) => {
@@ -34,7 +35,7 @@ const Likes = ({ post }) => {
 
   return (
     <div className='likes-wrapper'>
-      {sessionUser.id === likes[post.id] ? <button onClick={handleLike}>LIKED</button>
+      {sessionUser.id === likes ? <button onClick={handleLike}>LIKED</button>
       :
       <button value={post.id} onClick={handleUnlike}>NOT LIKED</button> }
     </div>
