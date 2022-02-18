@@ -9,7 +9,7 @@ class Post(db.Model):
 
     user = db.relationship('User', back_populates='user_posts')
     comments = db.relationship('Comment', back_populates='post', cascade="all, delete-orphan")
-    likes = db.relationship('PostLikes', back_populates='post')
+    likes = db.relationship('PostLikes', back_populates='post', cascade="all, delete-orphan")
     photos = db.relationship('Photos', back_populates='post', cascade='all, delete-orphan')
 
 
