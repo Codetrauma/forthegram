@@ -69,6 +69,7 @@ const LoginForm = () => {
       <button className='demo-user-button' onClick={handleDemoLogin}>Demo User</button>
       <p>Forgot your password? That's unfortunate</p>
     </form>
+      <NavLink to='/sign-up/'>Signup</NavLink>
     </div>
 
   );

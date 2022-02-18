@@ -13,6 +13,7 @@ def user_exists(form, field):
         raise ValidationError('Email address is already in use.')
 
 
+
 def username_exists(form, field):
     # Checking if username is already in use
     username = field.data
