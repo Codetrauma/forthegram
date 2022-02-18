@@ -27,58 +27,33 @@ def create_post():
     """
     form = CreatePostForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    # if form['image'].data:
-    #     image = form['image'].data
-    #     if not allowed_file(image.filename):
-    #         return {'errors': 'Filetype not allowed'}, 400
-    #     image.filename = get_unique_filename(image.filename)
-
-
-    #     upload = upload_file_to_s3(image)
-    #     if "url" not in upload:
-    #         return upload, 400
-    #     url = upload['url']
-
-
-    #     if form.validate_on_submit():
-    #         data = form.data
-    #         post = Post(user_id=current_user.id, caption=data['caption'])
-    #         db.session.add(post)
-    #         db.session.commit()
-
-
-    #         photo = Photos(photo=url, post_id=post.id)
-    #         db.session.add(photo)
-    #         db.session.commit()
-    #         return post.to_dict()
-
-    #     return {'errors': form.errors}
-    if "image" not in request.files:
-        return {"errors": ["Please upload photo"]}, 400
-    image = request.files["image"]
-    if not allowed_file(image.filename):
-        return {"errors": ["File type not permitted"]}, 400
-    if form.validate_on_submit():
-        data = form.data
-        post = Post(user_id=current_user.id, caption=data['caption'])
-        db.session.add(post)
-        db.session.commit()
-
+    if form['image'].data:
+        image = form['image'].data
+        if not allowed_file(image.filename):
+            return {'errors': 'Filetype not allowed'}, 400
         image.filename = get_unique_filename(image.filename)
+
+
         upload = upload_file_to_s3(image)
         if "url" not in upload:
             return upload, 400
+        url = upload['url']
 
-        url = upload["url"]
 
-        photo = Photos(photo=url, post_id=post.id)
-        db.session.add(photo)
-        db.session.commit()
+        if form.validate_on_submit():
+            data = form.data
+            post = Post(user_id=current_user.id, caption=data['caption'])
+            db.session.add(post)
+            db.session.commit()
 
-        return post.to_dict()
 
-    return {'errors': form.errors}, 401
+            photo = Photos(photo=url, post_id=post.id)
+            db.session.add(photo)
+            db.session.commit()
+            return post.to_dict()
 
+        return {'errors': form.errors}
+    
 @posts_routes.route('/<int:post_id>/', methods=['DELETE'])
 def delete_post(post_id):
     """
