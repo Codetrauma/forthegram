@@ -2,6 +2,8 @@ import { React, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadAllPosts } from '../../store/posts';
 import { addLike, loadAllLikes, removeLike, postsLikes } from '../../store/likes';
+import heartIconRed from '../../images/heart-icon-red.png'
+import heartIcon from '../../images/heart-icon.png'
 
 const Likes = ({ post }) => {
   const dispatch = useDispatch();
@@ -39,12 +41,13 @@ const Likes = ({ post }) => {
     dispatch(loadAllPosts())
     dispatch(loadAllLikes())
   }
-
+  // <button onClick={handleUnlike}>LIKED</button>
+  // <button value={post} onClick={handleLike}>NOT LIKED</button>
   return (
     <div className='likes-wrapper'>
-      {sessionUser.id === oneLike[0]?.user_id ? <button onClick={handleUnlike}>LIKED</button>
+      {sessionUser.id === oneLike[0]?.user_id ? <img className='heartIcon' onClick={handleUnlike} src={heartIconRed} height='50'/>
       :
-      <button value={post} onClick={handleLike}>NOT LIKED</button> }
+      <img className='heartIcon' onClick={handleLike} src={heartIcon} height='50'/>}
     </div>
 
   )
