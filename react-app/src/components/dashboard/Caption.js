@@ -20,6 +20,9 @@ const Captions = ({ post }) => {
   return (
     <div className='captions-wrapper'>
       <div className='captions-container'>
+        <div className='likes-container'>
+          <p className='likes-counter'>{post.likes.length} likes</p>
+        </div>
         <div className='caption'>
         <p className='caption-username'>{post.user.username}</p><p className='captions'>{post.caption}</p>
         </div>

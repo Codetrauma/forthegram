@@ -17,7 +17,7 @@
 }
 
 .posts-username {
-  font-size: 1.5em;
+  font-size: 1.2em;
   font-weight: bold;
   margin-bottom: 10px;
   margin-top: 10px;
@@ -68,15 +68,15 @@
 
 .comments-wrapper {
   background-color: white;
+
+  width: 100%;
 }
 
 .comment-username {
   background-color: white;
 }
 
-.single-comment {
-  background-color: white;
-}
+
 
 .captions-wrapper {
   background-color: white;
@@ -175,4 +175,77 @@
   background-color: white;
   width: 100%;
   padding-left: 15px;
+}
+
+.likes-counter {
+  background-color: white;
+  font-weight: bold;
+  padding-left: 20px;
+}
+
+.likes-container {
+  background-color: white;
+}
+
+.post-username-container {
+  background-color: white;
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 20px;
+  height: 50px;
+}
+
+.comments-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: white;
+  width: 90%;
+  height: 35px;
+  padding-left: 20px;
+}
+
+.single-comment {
+  background-color: white;
+  padding-left: 15px;
+  width: 100%;
+}
+
+.comment-button-container {
+  background-color: white;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  padding-left: 20px;
+  height: 50px;
+}
+
+.comment-buttons {
+  background-color: white;
+  border: 1px solid black;
+  font-weight: bold;
+}
+
+.edit-comment-form {
+  background-color: white;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 20px;
+  height: 50px;
+}
+
+.comment-buttons-delete {
+  background-color: white;
+  border: 1px solid black;
+  font-weight: bold;
+  margin-left: 8px;
 }

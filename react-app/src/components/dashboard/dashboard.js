@@ -47,7 +47,9 @@ function Dashboard() {
         <ul className='ul-posts'>
           {posts?.map(post => (
             <li key={post.id} className='posts'>
+              <div className='post-username-container'>
               <h4 className='posts-username'>{post.user.username}</h4>
+              </div>
               <img className='posts-images' src={post.photos[0]?.photo} alt={post.caption} />
               <Likes post={post.id} />
               <Captions post={post} />
