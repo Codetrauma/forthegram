@@ -13,9 +13,9 @@ const NavBar = () => {
         <ul className='nav-header'>
           <NavLink to='/'>ForTheGram</NavLink>
           <li>
-            {/* <NavLink to='/' exact={true} activeClassName='active'>
+            <NavLink to='/' exact={true} activeClassName='active'>
               <img src={homebutton} alt='home' height='25px' />
-            </NavLink> */}
+            </NavLink>
           </li>
           <li>
           <PostModal />
