@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { addPost } from "../../store/posts";
 import { useDispatch } from "react-redux";
@@ -25,7 +25,7 @@ const UploadPicture = ({ setShowModal }) => {
         if (data) {
             setImageLoading(false);
             setShowModal(false);
-        // console.log("error");
+            // console.log("error");
         }
     }
 
@@ -35,16 +35,20 @@ const UploadPicture = ({ setShowModal }) => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={updateImage}
-            />
-            <textarea value={caption} onChange={(e) => setCaption(e.target.value)} />
-            <button type="submit">Submit</button>
-            {(imageLoading)&& <p>Loading...</p>}
-        </form>
+        <div className='form-wrapper'>
+            <h1>Create a Post!</h1>
+            <form className='post-modal-form' onSubmit={handleSubmit}>
+                <input
+                    className='upload-image-div'
+                    type="file"
+                    accept="image/*"
+                    onChange={updateImage}
+                />
+                <textarea className='post-textarea' rows='7' cols='40' value={caption} onChange={(e) => setCaption(e.target.value)} />
+                <button className='post-modal-submit' type="submit">Submit</button>
+                {(imageLoading) && <p>Loading...</p>}
+            </form>
+        </div>
     )
 }
 

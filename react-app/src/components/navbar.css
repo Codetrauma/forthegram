@@ -1,7 +1,7 @@
 .navbar-wrapper {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
+  align-items: space-between;
   flex-direction: row;
   padding: 0 1rem;
   background-color: white;
@@ -12,20 +12,104 @@
   top: 0;
 }
 
-.nav-header {
-  background-color: white;
+.nav-wrapper {
   display: flex;
-  justify-content: space-between;
-  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
   align-items: center;
+  flex-direction: row;
   padding: 0 1rem;
-  height: 50px;
+  background-color: white;
 }
 
-.nav-header > li {
-  display: flex;
-  align-items: center;
+.home-forthegram {
+  font-size: 1.5rem;
+  font-weight: bold;
+  font-family: Dancing Script;
+  text-decoration: none;
+  background-color: white;
   justify-content: space-around;
-  height: 100%;
+}
+
+.right-side-navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
   padding: 0 1rem;
+  background-color: white;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: space-between;
+  width: 100%;
+}
+
+.forthegram-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  font-family: Dancing Script;
+  text-decoration: none;
+  background-color: white;
+}
+
+.forthegram-text:visited {
+  font-size: 1.5rem;
+  font-weight: bold;
+  font-family: Dancing Script;
+  text-decoration: none;
+  color: black;
+  background-color: white;
+}
+
+.logout-button {
+  border: none;
+  background-color: white;
+  border: 1px solid black
+}
+
+.answer-button {
+  border-radius: 20px;
+  border: 1px solid black;
+
+}
+
+.form-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 0 1rem;
+  background-color: white;
+}
+
+.post-modal-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 0 1rem;
+  background-color: white;
+}
+
+.post-modal-submit {
+  background-color: white;
+  border: 1px solid black;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.upload-image-div {
+
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+.post-textarea {
+  resize: none;
 }

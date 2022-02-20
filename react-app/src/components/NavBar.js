@@ -9,20 +9,20 @@ import './navbar.css'
 const NavBar = () => {
   return (
     <div className='navbar-wrapper'>
-      <nav>
-        <ul className='nav-header'>
-          <NavLink to='/'>ForTheGram</NavLink>
-          <li>
+      <div className='navbar-container'>
+        <nav className='nav-wrapper'>
+          <div className='home-forthegram'>
+            <NavLink className='forthegram-text' to='/'>ForTheGram</NavLink>
+          </div>
+          <div className='right-side-navbar'>
             <NavLink to='/' exact={true} activeClassName='active'>
               <img src={homebutton} alt='home' height='25px' />
             </NavLink>
-          </li>
-          <li>
-          <PostModal />
-          </li>
+            <PostModal />
             <LogoutButton />
-        </ul>
-      </nav>
+          </div>
+        </nav>
+      </div>
     </div>
   );
 }
