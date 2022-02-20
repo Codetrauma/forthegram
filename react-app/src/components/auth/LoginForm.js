@@ -45,7 +45,7 @@ const LoginForm = () => {
         <form onSubmit={onLogin}>
           <div>
             {errors.map((error, ind) => (
-              <div key={ind}>{error}</div>
+              <div className='errors' key={ind}>{error}</div>
             ))}
           </div>
           <div>
@@ -75,7 +75,7 @@ const LoginForm = () => {
             <div className='or-line'></div>
           </div>
           <button className='demo-user-button' onClick={handleDemoLogin}>Demo User</button>
-          <p>Forgot your password? That's unfortunate</p>
+         
         </form>
         <div className='signup-wrapper'>
           <p>Don't have an account? <NavLink className='sign-up-button' to='/sign-up/'>Sign Up</NavLink></p>

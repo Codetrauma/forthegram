@@ -56,7 +56,7 @@ html {
 
 .login-submit-button:disabled {
   width: 105%;
-  height: 40px;
+  height: 30px;
   border: none;
   border-radius: 5px;
   background-color: #9dd8ff;
@@ -88,7 +88,7 @@ html {
 
 .login-submit-button {
   width: 105%;
-  height: 40px;
+  height: 30px;
   border: none;
   border-radius: 5px;
   background-color: #0095f6;
@@ -134,4 +134,10 @@ html {
   text-decoration: none;
   color: #0095f6;
   font-weight: bold;
+}
+
+.errors {
+  color: red;
+  font-size: 0.8em;
+  margin-bottom: 10px;
 }

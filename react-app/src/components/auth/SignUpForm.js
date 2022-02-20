@@ -24,6 +24,16 @@ const SignUpForm = () => {
       newErrors.push('Please enter a valid email.')
       setErrors(newErrors)
     }
+    else if (password !== repeatPassword) {
+      newErrors.push('Passwords do not match')
+      setErrors(newErrors)
+    }
+    else if (password.length < 8) {
+      newErrors.push('Password must be at least 8 characters long')
+    }
+    else if (username.length < 6) {
+      newErrors.push('Username must be at least 6 characters long')
+    }
     else if (password === repeatPassword) {
       const data = await dispatch(signUp(username, full_name, email, password));
       if (data) {
@@ -59,8 +69,8 @@ const SignUpForm = () => {
   return (
     <div className='signup-form-wrapper-div'>
       <div className='signup-form-wrapper'>
-      <h2 className='login-title'>ForTheGram</h2>
-      <p className='p-header'>Sign up to see photos and videos from your friends.</p>
+        <h2 className='login-title'>ForTheGram</h2>
+        <p className='p-header'>Sign up to see photos and videos from your friends.</p>
         <form onSubmit={onSignUp}>
           <div>
             {errors.map((error, ind) => (
@@ -70,7 +80,7 @@ const SignUpForm = () => {
           <div>
 
             <input className='username-input'
-            placeholder='Username'
+              placeholder='Username'
               type='text'
               name='username'
               onChange={updateUsername}
@@ -80,7 +90,7 @@ const SignUpForm = () => {
           <div>
 
             <input className='email-input'
-            placeholder='Email Address'
+              placeholder='Email Address'
               type='text'
               name='email'
               onChange={updateEmail}
@@ -90,7 +100,7 @@ const SignUpForm = () => {
           <div>
 
             <input className='name-input'
-            placeholder='Full Name'
+              placeholder='Full Name'
               type='text'
               name='full_name'
               onChange={updateFullname}
@@ -100,7 +110,7 @@ const SignUpForm = () => {
           <div>
 
             <input className='password-input'
-            placeholder='Password'
+              placeholder='Password'
               type='password'
               name='password'
               onChange={updatePassword}
@@ -110,7 +120,7 @@ const SignUpForm = () => {
           <div>
 
             <input className='password-input'
-            placeholder='Confirm Password'
+              placeholder='Confirm Password'
               type='password'
               name='repeat_password'
               onChange={updateRepeatPassword}
