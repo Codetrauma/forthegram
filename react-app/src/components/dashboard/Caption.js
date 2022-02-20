@@ -19,9 +19,16 @@ const Captions = ({ post }) => {
 
   return (
     <div className='captions-wrapper'>
-      <h3 className='captions'>{post.caption}</h3>
-      {sessionUser?.id === post.user_id ? <EditPostModal posts={post} /> : <></>}
-      {sessionUser?.id === post.user_id ? <button onClick={handleDelete}>Delete Post</button> : <></>}
+      <div className='captions-container'>
+        <div className='likes-container'>
+          <p className='likes-counter'>{post.likes.length} likes</p>
+        </div>
+        <div className='caption'>
+        <p className='caption-username'>{post.user.username}</p><p className='captions'>{post.caption}</p>
+        </div>
+        {sessionUser?.id === post.user_id ? <EditPostModal posts={post} /> : <></>}
+        {sessionUser?.id === post.user_id ? <button onClick={handleDelete}>Delete Post</button> : <></>}
+      </div>
     </div>
   )
 
