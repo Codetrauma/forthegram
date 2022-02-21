@@ -76,8 +76,9 @@ function UserProfile() {
             </div>
           </div>
         </div>
-        <div className='profile-info-container'>
-          <h3>{user[0]?.fullname}</h3>
+        <div className='profile-info-wrapper'>
+          <div className='profile-info-container'>
+          {!showEditForm ? <h3>{user[0]?.fullname}</h3> : <></> }
           {sessionUser.id === user[0]?.id && !showEditForm ? <button className='edit-profile-button' onClick={() => setShowEditForm(!showEditForm)}>Edit Profile</button> : <></>}
           <div className='profile-fullname'>
             {showEditForm && (
@@ -93,7 +94,8 @@ function UserProfile() {
                 </form>
               </div>
             )}
-            <p>{user[0]?.description}</p>
+          </div>
+            {!showEditForm ? <p>{user[0]?.description}</p> : <></>}
           </div>
         </div>
         <div className='divider'></div>
