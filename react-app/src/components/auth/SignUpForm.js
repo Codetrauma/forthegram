@@ -11,6 +11,8 @@ const SignUpForm = () => {
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
   const [full_name, setFullName] = useState('');
+  const [image, setImage] = useState(null);
+  const [imageLoading, setImageLoading] = useState(false);
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
@@ -20,6 +22,12 @@ const SignUpForm = () => {
   const onSignUp = async (e) => {
     let newErrors = []
     e.preventDefault();
+    const formData = new FormData();
+    formData.append("username", username);
+    formData.append("full_name", full_name);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("image", image);
     if (!isEmail(email)) {
       newErrors.push('Please enter a valid email.')
       setErrors(newErrors)
@@ -30,17 +38,25 @@ const SignUpForm = () => {
     }
     else if (password.length < 8) {
       newErrors.push('Password must be at least 8 characters long')
+      setErrors(newErrors)
     }
     else if (username.length < 6) {
       newErrors.push('Username must be at least 6 characters long')
+      setErrors(newErrors)
     }
     else if (password === repeatPassword) {
-      const data = await dispatch(signUp(username, full_name, email, password));
+      // const data = await dispatch(signUp(formData));
+      const data = await dispatch(signUp(formData));
       if (data) {
         setErrors(data)
       }
     }
   };
+
+  const updateImage = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+  }
 
   const updateUsername = (e) => {
     setUsername(e.target.value);
@@ -127,6 +143,14 @@ const SignUpForm = () => {
               value={repeatPassword}
               required={true}
             ></input>
+          </div>
+          <div>
+            <input
+              className='upload-image-div'
+              type="file"
+              accept="image/*"
+              onChange={updateImage}
+            />
           </div>
           <button disabled={username.length > 0 && email.length > 0 && password.length > 0 && repeatPassword.length > 0 && full_name.length > 0 ? false : true} className='submit-signup-button' type='submit'>Sign Up</button>
         </form>
