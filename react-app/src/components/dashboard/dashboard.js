@@ -7,6 +7,7 @@ import Captions from './Caption'
 import Likes from './Likes'
 import './dashboard.css'
 import { loadAllLikes } from '../../store/likes';
+import { NavLink } from 'react-router-dom';
 
 function Dashboard() {
   const dispatch = useDispatch();
@@ -55,7 +56,7 @@ function Dashboard() {
           {posts?.map(post => (
             <li key={post.id} className='posts'>
               <div className='post-username-container'>
-                <h4 className='posts-username'>{post.user.username}</h4>
+                <h4 className='posts-username'><NavLink className='user-pictures' to={`/users/${post.user.id}`}><img src={post.user.picture} height='30' className='user-profile-picture'/></NavLink> {post.user.username}</h4>
                 {sessionUser?.id === post.user_id ? <button className='delete-post-button' value={post.id} onClick={handleDelete}>Delete Post</button> : <></>}
               </div>
               <img className='posts-images' src={post.photos[0]?.photo} alt={post.caption} />

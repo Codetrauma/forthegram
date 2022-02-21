@@ -11,7 +11,7 @@ import { authenticate } from './store/session';
 import Dashboard from './components/dashboard/dashboard';
 import { loadAllComments } from './store/comments';
 import { loadAllPosts } from './store/posts';
-
+import UserProfile from './components/UserProfile/UserProfile'
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -48,6 +48,10 @@ function App() {
         <ProtectedRoute path='/' exact={true} >
           <NavBar />
           <Dashboard />
+        </ProtectedRoute>
+        <ProtectedRoute path='/user/:id' exact={true} >
+          <NavBar />
+          <UserProfile />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>
