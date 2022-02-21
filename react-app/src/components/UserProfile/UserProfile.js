@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loadAllPosts } from '../../store/posts';
 import { useParams } from 'react-router-dom';
 import { loadAllUsers } from '../../store/users';
+import SinglePostModal from './SinglePostModal';
 import './UserProfile.css'
 
 
@@ -28,6 +29,7 @@ function UserProfile() {
   }, [dispatch]);
 
 
+
   return (
     <div className='profile-wrapper'>
       <div>
@@ -51,7 +53,8 @@ function UserProfile() {
         <div className='profile-post-wrapper'>
           <div className='profile-post-container'>
             {userPosts.map(userPost => (
-                <img value={userPost.id} className='profile-posts' src={userPost?.photos[0]?.photo} height='200' className='user-profile-post' />
+              <SinglePostModal post={userPost} key={userPost.id} />
+                // <img value={userPost.id} className='profile-posts' src={userPost?.photos[0]?.photo} height='200' className='user-profile-post' />
             ))}
           </div>
         </div>
