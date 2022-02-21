@@ -10,9 +10,11 @@ import { removePost } from '../../store/posts';
 import './SinglePost.css'
 import { NavLink } from 'react-router-dom';
 import { loadAllLikes } from '../../store/likes';
+import { useHistory } from 'react-router-dom';
 
 function SinglePost({ post }) {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [comment, setComment] = useState('');
 
   const postObj = useSelector(state => state.posts)
@@ -25,7 +27,7 @@ function SinglePost({ post }) {
     dispatch(loadAllPosts());
     dispatch(loadAllComments());
     dispatch(loadAllLikes());
-  }, [dispatch]);
+  }, [comment, dispatch]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,6 +48,7 @@ function SinglePost({ post }) {
       'id': e.target.value
     }
     dispatch(removePost(deletePost))
+    history.push(`/user/${sessionUser.id}`)
   }
 
 
@@ -75,23 +78,6 @@ function SinglePost({ post }) {
             </li>
         </ul>
       </div>
-    // <div className='single-post-wrapper'>
-    //     <img src={post?.user?.picture} height='30' className='user-profile-picture' /><h4>{post.user.username}</h4>
-    //     {sessionUser?.id === post?.user_id ? <button value={post?.id} className='delete-post-button' onClick={handleDelete}>Delete Post</button> : <></>}
-    //   <img className='single-posts-images' src={post?.photos[0].photo} />
-    //   {post?.comments?.map(comment => (
-    //     <Comments comments={comment} />
-    //   ))}
-    //   <div className='comment-form-container'>
-    //     <form className='post-comment-form'>
-    //       <div className='input-post-container'>
-    //         {/* {errors.map((error, idx) => <li className='errors' key={idx}>{error}</li>)} */}
-    //         <input className='single-post-comment-input' placeholder='Enter a comment' type='text' value={comment} onSubmit={e => setComment('')} onChange={e => setComment(e.target.value)} />
-    //         <button disabled={comment.length <= 0 ? true : false} className='post-button' type='submit' value={post.id} onClick={handleSubmit}>Post</button>
-    //       </div>
-    //     </form>
-    //   </div>
-    // </div>
   );
 }
 

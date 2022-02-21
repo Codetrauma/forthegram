@@ -50,6 +50,7 @@ function UserProfile() {
             <p>{user[0]?.description}</p>
           </div>
         </div>
+          <div className='divider'></div>
         <div className='profile-post-wrapper'>
           <div className='profile-post-container'>
             {userPosts.map(userPost => (

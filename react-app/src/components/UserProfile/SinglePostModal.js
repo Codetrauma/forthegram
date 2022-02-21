@@ -3,9 +3,9 @@ import { Modal } from '../../context/Modal';
 import SinglePost from './SinglePost';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import {loadAllPosts} from '../../store/posts';
-import {loadAllComments} from '../../store/comments';
-import {loadAllLikes} from '../../store/likes';
+import { loadAllPosts } from '../../store/posts';
+import { loadAllComments } from '../../store/comments';
+import { loadAllLikes } from '../../store/likes';
 import { useDispatch } from 'react-redux';
 
 function SinglePostModal({ post }) {
@@ -21,9 +21,9 @@ function SinglePostModal({ post }) {
   const comments = Object.values(commentObj)
 
   useEffect(() => {
-    dispatch(loadAllPosts());
-    dispatch(loadAllComments());
-    dispatch(loadAllLikes());
+    dispatch(loadAllPosts);
+    dispatch(loadAllComments);
+    dispatch(loadAllLikes);
   }, [dispatch]);
 
   return (

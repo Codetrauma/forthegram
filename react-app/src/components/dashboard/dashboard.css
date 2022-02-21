@@ -194,6 +194,7 @@
   background-color: light;
   border: 1px solid lightgray;
   cursor: pointer;
+  margin-right: 10px;
 }
 
 .comments-container {
@@ -331,8 +332,9 @@
   border-radius: 50%;
   margin-left: 20px;
   clip-path: circle();
+  object-fit: cover;
   overflow: hidden;
   align-items: center;
   justify-content: center;
-  margin-top: 100px;
+  margin-top: 30px;
 }
