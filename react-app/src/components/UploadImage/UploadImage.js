@@ -44,7 +44,7 @@ const UploadPicture = ({ setShowModal }) => {
                     accept="image/*"
                     onChange={updateImage}
                 />
-                <textarea className='post-textarea' rows='7' cols='40' value={caption} onChange={(e) => setCaption(e.target.value)} />
+                <textarea required={true} className='post-textarea' rows='7' cols='40' value={caption} onChange={(e) => setCaption(e.target.value)} />
                 <button className='post-modal-submit' type="submit">Submit</button>
                 {(imageLoading) && <p>Loading...</p>}
             </form>

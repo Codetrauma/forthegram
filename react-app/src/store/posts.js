@@ -53,6 +53,7 @@ export const removePost = (post) => async dispatch => {
   if (response.ok) {
     const deleted = await response.json();
     dispatch(remove(deleted));
+    return deleted;
   }
 }
 

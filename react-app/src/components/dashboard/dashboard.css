@@ -68,6 +68,7 @@
 
 .captions-wrapper {
   background-color: white;
+  border-bottom: 1px solid rgba(202, 202, 202, 0.4);
 }
 
 .captions {
@@ -289,7 +290,7 @@
 
 .edit-caption-button {
   background-color: white;
-  height: 25px;
+  height: 40px;
   color: gray;
   background-color: light;
   border: 1px solid lightgray;
@@ -297,6 +298,11 @@
   justify-content: center;
   align-items: center;
   margin-left: 30px;
+}
+
+.edit-button-container {
+  background-color: white;
+  width: 100%;
 }
 
 .edit-button-wrapper {
