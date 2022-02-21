@@ -3,6 +3,7 @@ from flask_login import current_user
 from app.models import db, User, Post, Comment, Photos, PostLikes
 from app.forms import CreatePostForm
 from app.s3_helpers import (upload_file_to_s3, allowed_file, get_unique_filename)
+from sqlalchemy import desc
 
 posts_routes = Blueprint('posts', __name__)
 
@@ -53,7 +54,7 @@ def create_post():
             return post.to_dict()
 
         return {'errors': form.errors}
-    
+
 @posts_routes.route('/<int:post_id>/', methods=['DELETE'])
 def delete_post(post_id):
     """
