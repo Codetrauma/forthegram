@@ -9,7 +9,7 @@ function EditPost({ posts }) {
   return (
     <div className='edit-button-wrapper'>
       <div className='edit-button-container'>
-        <button className='edit-caption-button' onClick={() => setShowModal(true)}>Edit Caption</button>
+        <button className='edit-caption-button' onClick={() => setShowModal(true)}>Edit</button>
         {showModal && (
           <Modal onClose={() => setShowModal(false)}>
             <EditCaption setShowModal={setShowModal} posts={posts} />

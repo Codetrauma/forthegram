@@ -33,6 +33,7 @@
   width: 100%;
   height: 10%;
   margin-bottom: 10px;
+  border-top: 1px solid lightgray;
 }
 
 .input-post-container {
@@ -291,7 +292,7 @@
 
 .edit-caption-button {
   background-color: white;
-  height: 40px;
+  height: 25px;
   color: gray;
   background-color: light;
   border: 1px solid lightgray;
@@ -316,16 +317,32 @@
 .user-profile-picture {
   background-color: white;
   border-radius: 50%;
-  margin-left: 20px;
+  /* margin-left: 20px; */
   clip-path: circle();
   overflow: hidden;
   align-items: center;
   justify-content: center;
 }
 
+.user-pictures.active {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+}
+
+
 .user-pictures {
   background-color: white;
+  border-radius: 50%;
+  clip-path: circle();
+  object-fit: cover;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
 }
+
 
 .user-profile-picture-profile {
   background-color: white;

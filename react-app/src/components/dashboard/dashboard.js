@@ -14,7 +14,7 @@ function Dashboard() {
 
   // const posts = useSelector(state => state.posts?.entries);
   const postObj = useSelector(state => state.posts)
-  const posts = Object.values(postObj)
+  const posts = Object.values(postObj).reverse();
   const sessionUser = useSelector(state => state.session.user);
   const commentObj = useSelector(state => state.comments)
   const comments = Object.values(commentObj)

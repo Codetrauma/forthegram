@@ -10,7 +10,7 @@ posts_routes = Blueprint('posts', __name__)
 
 @posts_routes.route('/')
 def get_all_posts():
-    posts = Post.query.all()
+    posts = Post.query.order_by(Post.id.desc()).all()
     return {'posts': [post.to_dict() for post in posts]}
 
 @posts_routes.route('/<int:post_id>/')

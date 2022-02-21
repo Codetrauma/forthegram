@@ -39,6 +39,7 @@
   flex-direction: row;
   padding: 0 1rem;
   background-color: white;
+
 }
 
 .navbar-container {
@@ -74,7 +75,10 @@
 .answer-button {
   border-radius: 20px;
   border: 1px solid black;
-
+  width: 30px;
+  height: 30px;
+  margin-left: 15px;
+  margin-right: 15px;
 }
 
 .form-wrapper {
@@ -116,4 +120,14 @@
 
 .post-textarea {
   resize: none;
+}
+
+
+.home-button {
+  background-color: white;
+  margin-right: 15px;
+}
+
+a.active {
+  background-color: white;
 }
