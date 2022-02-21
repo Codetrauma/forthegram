@@ -9,13 +9,6 @@ const Captions = ({ post }) => {
   const sessionUser = useSelector(state => state.session.user);
 
 
-  const handleDelete = async (e) => {
-    e.preventDefault();
-    const deletePost = {
-      'id': post.id
-    }
-    dispatch(removePost(deletePost))
-  }
 
   return (
     <div className='captions-wrapper'>
@@ -24,10 +17,9 @@ const Captions = ({ post }) => {
           <p className='likes-counter'>{post.likes.length} likes</p>
         </div>
         <div className='caption'>
-        <p className='caption-username'>{post.user.username}</p><p className='captions'>{post.caption}</p>
+        <p className='caption-username'>{post.user.username}</p><p className='captions'>{post.caption}</p> {sessionUser?.id === post.user_id ? <EditPostModal posts={post} /> : <></>}
         </div>
-        {sessionUser?.id === post.user_id ? <EditPostModal posts={post} /> : <></>}
-        {sessionUser?.id === post.user_id ? <button onClick={handleDelete}>Delete Post</button> : <></>}
+        {/* {sessionUser?.id === post.user_id ? <EditPostModal posts={post} /> : <></>} */}
       </div>
     </div>
   )

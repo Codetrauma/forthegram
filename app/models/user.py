@@ -18,6 +18,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
     full_name = db.Column(db.String, nullable=False)
+    description = db.Column(db.String(255))
     profile_pic = db.Column(db.String)
 
     user_likes = db.relationship('PostLikes', back_populates='user')
@@ -50,5 +51,8 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email
+            'email': self.email,
+            'picture': self.profile_pic,
+            'fullname': self.full_name,
+            'description': self.description
         }

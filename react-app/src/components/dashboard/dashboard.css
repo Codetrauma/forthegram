@@ -17,11 +17,15 @@
 }
 
 .posts-username {
+  display: flex;
   font-size: 1.2em;
   font-weight: bold;
   margin-bottom: 10px;
   margin-top: 10px;
+  align-items: center;
+  justify-content: center;
   background-color: white;
+  text-align: center;
   text-align: left;
 }
 
@@ -64,6 +68,7 @@
 
 .captions-wrapper {
   background-color: white;
+  border-bottom: 1px solid rgba(202, 202, 202, 0.4);
 }
 
 .captions {
@@ -145,8 +150,8 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
+  align-items: center;
+  justify-content: center;
 }
 
 .caption-username {
@@ -173,13 +178,23 @@
 
 .post-username-container {
   background-color: white;
-  width: 90%;
+  width: 99%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
-  padding-left: 20px;
+  justify-content: space-between;
+  padding-left: 5px;
   height: 50px;
+}
+
+.delete-post-button {
+  background-color: white;
+  height: 34px;
+  color: gray;
+  background-color: light;
+  border: 1px solid lightgray;
+  cursor: pointer;
+  margin-right: 10px;
 }
 
 .comments-container {
@@ -212,8 +227,11 @@
 
 .comment-buttons {
   background-color: white;
-  border: 1px solid black;
-  font-weight: bold;
+  height: 24px;
+  color: gray;
+  background-color: light;
+  border: 1px solid lightgray;
+  cursor: pointer;
 }
 
 .edit-comment-form {
@@ -229,8 +247,11 @@
 
 .comment-buttons-delete {
   background-color: white;
-  border: 1px solid black;
-  font-weight: bold;
+  height: 24px;
+  color: gray;
+  background-color: light;
+  border: 1px solid lightgray;
+  cursor: pointer;
   margin-left: 8px;
 }
 
@@ -266,4 +287,54 @@
   justify-content: center;
   padding-top: 15px;
   width: 120%;
+}
+
+.edit-caption-button {
+  background-color: white;
+  height: 40px;
+  color: gray;
+  background-color: light;
+  border: 1px solid lightgray;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  margin-left: 30px;
+}
+
+.edit-button-container {
+  background-color: white;
+  width: 100%;
+}
+
+.edit-button-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.user-profile-picture {
+  background-color: white;
+  border-radius: 50%;
+  margin-left: 20px;
+  clip-path: circle();
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-pictures {
+  background-color: white;
+}
+
+.user-profile-picture-profile {
+  background-color: white;
+  border-radius: 50%;
+  margin-left: 20px;
+  clip-path: circle();
+  object-fit: cover;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
 }

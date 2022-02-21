@@ -7,14 +7,16 @@ function EditPost({ posts }) {
 
 
   return (
-    <>
-      <button className='answer-button' onClick={() => setShowModal(true)}>Edit Caption</button>
-      {showModal && (
-        <Modal onClose={() => setShowModal(false)}>
-          <EditCaption setShowModal={setShowModal} posts={posts}/>
-        </Modal>
-      )}
-    </>
+    <div className='edit-button-wrapper'>
+      <div className='edit-button-container'>
+        <button className='edit-caption-button' onClick={() => setShowModal(true)}>Edit Caption</button>
+        {showModal && (
+          <Modal onClose={() => setShowModal(false)}>
+            <EditCaption setShowModal={setShowModal} posts={posts} />
+          </Modal>
+        )}
+      </div>
+    </div>
   );
 }
 

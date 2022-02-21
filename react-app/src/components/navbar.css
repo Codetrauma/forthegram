@@ -10,6 +10,7 @@
   position: fixed;
   width: 100%;
   top: 0;
+  z-index: 1;
 }
 
 .nav-wrapper {
@@ -96,7 +97,10 @@
 
 .post-modal-submit {
   background-color: white;
-  border: 1px solid black;
+  height: 25px;
+  color: gray;
+  background-color: light;
+  border: 1px solid lightgray;
   margin-top: 30px;
   margin-bottom: 30px;
 }

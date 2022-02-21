@@ -1,27 +1,27 @@
-import { React, useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadAllPosts, removePost } from '../../store/posts';
-import { loadAllComments, updateComment, addComment, removeComment } from '../../store/comments';
-import Comments from './Comments'
-import Captions from './Caption'
-import Likes from './Likes'
-import './dashboard.css'
-import { loadAllLikes } from '../../store/likes';
+import { loadAllPosts } from '../../store/posts';
+import { loadAllComments } from '../../store/comments';
+import Comments from '../dashboard/Comments';
+import Captions from '../dashboard/Caption';
+import Likes from '../dashboard/Likes';
+import { addComment } from '../../store/comments';
+import { removePost } from '../../store/posts';
+import './SinglePost.css'
 import { NavLink } from 'react-router-dom';
+import { loadAllLikes } from '../../store/likes';
+import { useHistory } from 'react-router-dom';
 
-function Dashboard() {
+function SinglePost({ post }) {
   const dispatch = useDispatch();
+  const history = useHistory();
+  const [comment, setComment] = useState('');
 
-  // const posts = useSelector(state => state.posts?.entries);
   const postObj = useSelector(state => state.posts)
   const posts = Object.values(postObj)
   const sessionUser = useSelector(state => state.session.user);
   const commentObj = useSelector(state => state.comments)
   const comments = Object.values(commentObj)
-
-  // console.log(posts)
-  const [comment, setComment] = useState('');
-
 
   useEffect(() => {
     dispatch(loadAllPosts());
@@ -41,25 +41,26 @@ function Dashboard() {
     setComment('');
     return newComment;
   }
+
   const handleDelete = async (e) => {
     e.preventDefault();
     const deletePost = {
       'id': e.target.value
     }
     dispatch(removePost(deletePost))
+    history.push(`/user/${sessionUser.id}`)
   }
 
-  if (sessionUser) {
-    return (
-      <div className='posts-wrapper'>
-        <ul className='ul-posts'>
-          {posts?.map(post => (
-            <li key={post?.id} className='posts'>
+
+  return (
+    <div className='single-posts-wrapper'>
+        <ul className='single-ul-posts'>
+            <li key={post?.id} className='single-posts'>
               <div className='post-username-container'>
                 <h4 className='posts-username'><NavLink className='user-pictures' to={`/users/${post?.user?.id}`}><img src={post?.user?.picture} height='30' className='user-profile-picture'/></NavLink> {post?.user?.username}</h4>
                 {sessionUser?.id === post?.user_id ? <button value={post?.id} className='delete-post-button' onClick={handleDelete}>Delete Post</button> : <></>}
               </div>
-              <img className='posts-images' src={post?.photos[0]?.photo} />
+              <img className='single-posts-images' src={post?.photos[0]?.photo} />
               <Likes post={post.id} />
               <Captions post={post} />
               {post?.comments?.map(comment => (
@@ -75,11 +76,10 @@ function Dashboard() {
                 </form>
               </div>
             </li>
-          ))}
         </ul>
       </div>
-    );
-  }
+  );
 }
 
-export default Dashboard;
+
+export default SinglePost;
