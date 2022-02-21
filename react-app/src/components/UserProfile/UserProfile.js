@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadAllPosts } from '../../store/posts';
 import { useParams } from 'react-router-dom';
-import { loadAllUsers } from '../../store/users';
+import { loadAllUsers, updateUserInfo } from '../../store/users';
 import SinglePostModal from './SinglePostModal';
 import './UserProfile.css'
 
@@ -10,6 +10,12 @@ import './UserProfile.css'
 function UserProfile() {
   const dispatch = useDispatch();
   const id = useParams();
+
+  const [showEditForm, setShowEditForm] = useState(false);
+  const [fullname, setFullname] = useState('');
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [description, setDescription] = useState('');
 
   const sessionUser = useSelector(state => state.session.user);
 
@@ -28,6 +34,18 @@ function UserProfile() {
     dispatch(loadAllUsers());
   }, [dispatch]);
 
+  const handleProfileSubmit = (e) => {
+    e.preventDefault();
+    const userInfo = {
+      id: sessionUser.id,
+      full_name: fullname,
+      username: username,
+      email: email,
+      description: description,
+    }
+    dispatch(updateUserInfo(userInfo));
+    setShowEditForm(!showEditForm);
+  }
 
 
   return (
@@ -46,7 +64,18 @@ function UserProfile() {
         </div>
         <div className='profile-info-container'>
           <div className='profile-fullname'>
-            <h3>{user[0]?.fullname}</h3>
+            <h3>{user[0]?.fullname}</h3>{sessionUser.id === user[0]?.id ? <button className='edit-profile-button' onClick={() => setShowEditForm(!showEditForm)}>Edit Profile</button> : <></>}
+            {showEditForm && (
+              <div className='edit-profile-form'>
+                <form className='edit-profile-form' onSubmit={handleProfileSubmit}>
+                  <input type='text' placeholder='Full Name' onChange={e => setFullname(e.target.value)}/>
+                  <input type='text' placeholder='Username' onChange={e => setUsername(e.target.value)}/>
+                  <input type='text' placeholder='Email' onChange={e => setEmail(e.target.value)}/>
+                  <input type='text' placeholder='Description' onChange={e => setDescription(e.target.value)}/>
+                  <button type='submit' value={user[0]?.id}>Save</button>
+                </form>
+              </div>
+            )}
             <p>{user[0]?.description}</p>
           </div>
         </div>
