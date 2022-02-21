@@ -36,7 +36,7 @@ const UploadPicture = ({ setShowModal }) => {
 
     return (
         <div className='form-wrapper'>
-            <h1>Create a Post!</h1>
+            <h1>Create a Post</h1>
             <form className='post-modal-form' onSubmit={handleSubmit}>
                 <input
                     className='upload-image-div'

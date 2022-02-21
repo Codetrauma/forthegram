@@ -1,6 +1,6 @@
 import { React, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadAllPosts } from '../../store/posts';
+import { loadAllPosts, removePost } from '../../store/posts';
 import { loadAllComments, updateComment, addComment, removeComment } from '../../store/comments';
 import Comments from './Comments'
 import Captions from './Caption'
@@ -40,6 +40,13 @@ function Dashboard() {
     setComment('');
     return newComment;
   }
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    const deletePost = {
+      'id': e.target.value
+    }
+    dispatch(removePost(deletePost))
+  }
 
   if (sessionUser) {
     return (
@@ -49,6 +56,7 @@ function Dashboard() {
             <li key={post.id} className='posts'>
               <div className='post-username-container'>
                 <h4 className='posts-username'>{post.user.username}</h4>
+                {sessionUser?.id === post.user_id ? <button className='delete-post-button' value={post.id} onClick={handleDelete}>Delete Post</button> : <></>}
               </div>
               <img className='posts-images' src={post.photos[0]?.photo} alt={post.caption} />
               <Likes post={post.id} />
