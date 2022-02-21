@@ -16,7 +16,6 @@ function SinglePostModal({ post }) {
   const postObj = useSelector(state => state.posts)
   const posts = Object.values(postObj)
   const userPosts = posts.filter(post => post.user_id === +id.id)
-
   const commentObj = useSelector(state => state.comments)
   const comments = Object.values(commentObj)
 
