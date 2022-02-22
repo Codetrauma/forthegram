@@ -18,7 +18,6 @@ const Comments = ({ comments }) => {
     const id = e.target.value;
     await dispatch(removeComment(id));
     await dispatch(loadAllPosts());
-    history.push('/')
   }
 
   const handleEdit = async (e) => {

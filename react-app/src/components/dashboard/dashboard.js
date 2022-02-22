@@ -14,7 +14,7 @@ function Dashboard() {
 
   // const posts = useSelector(state => state.posts?.entries);
   const postObj = useSelector(state => state.posts)
-  const posts = Object.values(postObj)
+  const posts = Object.values(postObj).reverse();
   const sessionUser = useSelector(state => state.session.user);
   const commentObj = useSelector(state => state.comments)
   const comments = Object.values(commentObj)
@@ -56,7 +56,7 @@ function Dashboard() {
           {posts?.map(post => (
             <li key={post?.id} className='posts'>
               <div className='post-username-container'>
-                <h4 className='posts-username'><NavLink className='user-pictures' to={`/users/${post?.user?.id}`}><img src={post?.user?.picture} height='30' className='user-profile-picture'/></NavLink> {post?.user?.username}</h4>
+                <h4 className='posts-username'><NavLink className='user-pictures' to={`/user/${post?.user?.id}`}><img src={post?.user?.picture} height='30' className='user-profile-picture'/></NavLink> {post?.user?.username}</h4>
                 {sessionUser?.id === post?.user_id ? <button value={post?.id} className='delete-post-button' onClick={handleDelete}>Delete Post</button> : <></>}
               </div>
               <img className='posts-images' src={post?.photos[0]?.photo} />

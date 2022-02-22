@@ -4,6 +4,7 @@ import { loadAllPosts } from '../../store/posts';
 import { useParams } from 'react-router-dom';
 import { loadAllUsers, updateUserInfo } from '../../store/users';
 import SinglePostModal from './SinglePostModal';
+import { followUser, unFollowUser } from '../../store/users';
 import './UserProfile.css'
 
 
@@ -11,11 +12,15 @@ function UserProfile() {
   const dispatch = useDispatch();
   const id = useParams();
 
+  const emailPattern = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+  const isEmail = field => emailPattern.test(field)
+
   const [showEditForm, setShowEditForm] = useState(false);
   const [fullname, setFullname] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [description, setDescription] = useState('');
+  const [errors, setErrors] = useState([])
 
   const sessionUser = useSelector(state => state.session.user);
 
@@ -26,7 +31,10 @@ function UserProfile() {
   const userObj = useSelector(state => state.users)
   const users = Object.values(userObj)
   const user = users.filter(user => user.id === +id.id)
-  console.log('USER', user);
+
+  const following = sessionUser.following.map(following => following.id)
+  const followingBool = following.includes(+id.id)
+
 
   console.log(posts);
   useEffect(() => {
@@ -35,16 +43,37 @@ function UserProfile() {
   }, [dispatch]);
 
   const handleProfileSubmit = (e) => {
+    let newErrors = [];
     e.preventDefault();
-    const userInfo = {
-      id: sessionUser.id,
-      full_name: fullname,
-      username: username,
-      email: email,
-      description: description,
+    if (!isEmail(email)) {
+      newErrors.push('Please enter a valid email.')
+      setErrors(newErrors)
     }
-    dispatch(updateUserInfo(userInfo));
+    else {
+      const userInfo = {
+        id: sessionUser.id,
+        full_name: fullname,
+        username: username,
+        email: email,
+        description: description,
+      }
+      dispatch(updateUserInfo(userInfo));
+      setShowEditForm(!showEditForm);
+    }
+  }
+  const handleCancel = (e) => {
+    e.preventDefault();
     setShowEditForm(!showEditForm);
+  }
+
+  const handleFollow = (e) => {
+    e.preventDefault();
+    dispatch(followUser(+id.id));
+  }
+
+  const handleUnfollow = (e) => {
+    e.preventDefault();
+    dispatch(unFollowUser(+id.id));
   }
 
 
@@ -55,36 +84,44 @@ function UserProfile() {
           <div className='profile-header'>
             <img src={user[0]?.picture} height='200' className='user-profile-picture-profile' />
             <div className='profile-info'>
-            <h1>{user[0]?.username}</h1>
-            <h4>Followers</h4>
-            <h4>Following</h4>
-            <h4>{userPosts.length} Posts</h4>
+              <h1>{user[0]?.username}</h1>
+              <div>
+                {followingBool ? <button onClick={handleUnfollow}>Unfollow</button> : <button onClick={handleFollow}>Follow</button>}
+              </div>
+              <h4>{user[0]?.followers?.length} Followers</h4>
+              <h4>{user[0]?.following?.length} Following</h4>
+              <h4>{userPosts.length} Posts</h4>
             </div>
           </div>
         </div>
-        <div className='profile-info-container'>
+        <div className='profile-info-wrapper'>
+          <div className='profile-info-container'>
+          {!showEditForm ? <h3>{user[0]?.fullname}</h3> : <></> }
+          {sessionUser.id === user[0]?.id && !showEditForm ? <button className='edit-profile-button' onClick={() => setShowEditForm(!showEditForm)}>Edit Profile</button> : <></>}
           <div className='profile-fullname'>
-            <h3>{user[0]?.fullname}</h3>{sessionUser.id === user[0]?.id ? <button className='edit-profile-button' onClick={() => setShowEditForm(!showEditForm)}>Edit Profile</button> : <></>}
             {showEditForm && (
-              <div className='edit-profile-form'>
-                <form className='edit-profile-form' onSubmit={handleProfileSubmit}>
-                  <input type='text' placeholder='Full Name' onChange={e => setFullname(e.target.value)}/>
-                  <input type='text' placeholder='Username' onChange={e => setUsername(e.target.value)}/>
-                  <input type='text' placeholder='Email' onChange={e => setEmail(e.target.value)}/>
-                  <input type='text' placeholder='Description' onChange={e => setDescription(e.target.value)}/>
-                  <button type='submit' value={user[0]?.id}>Save</button>
+              <div className='edit-profile-form-wrapper'>
+                <form className='edit-profile-form'>
+                  {errors.map(error => <p className='error-message'>{error}</p>)}
+                  <input type='text' className='edit-profile-inputs' placeholder='Full Name' onChange={e => setFullname(e.target.value)} />
+                  <input type='text' className='edit-profile-inputs' placeholder='Username' onChange={e => setUsername(e.target.value)} />
+                  <input type='email' className='edit-profile-inputs' placeholder='Email' onChange={e => setEmail(e.target.value)} />
+                  <textarea type='text'className='edit-profile-inputs-textarea' placeholder='Description' onChange={e => setDescription(e.target.value)} />
+                  <button type='submit' onClick={handleProfileSubmit} className='save-button' value={user[0]?.id}>Save</button>
+                  <button className='save-button' onClick={handleCancel}>Cancel</button>
                 </form>
               </div>
             )}
-            <p>{user[0]?.description}</p>
+          </div>
+            {!showEditForm ? <p>{user[0]?.description}</p> : <></>}
           </div>
         </div>
-          <div className='divider'></div>
+        <div className='divider'></div>
         <div className='profile-post-wrapper'>
           <div className='profile-post-container'>
             {userPosts.map(userPost => (
               <SinglePostModal post={userPost} key={userPost.id} />
-                // <img value={userPost.id} className='profile-posts' src={userPost?.photos[0]?.photo} height='200' className='user-profile-post' />
+              // <img value={userPost.id} className='profile-posts' src={userPost?.photos[0]?.photo} height='200' className='user-profile-post' />
             ))}
           </div>
         </div>

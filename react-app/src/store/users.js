@@ -1,6 +1,8 @@
 
 const LOAD_USERS = 'users/LOAD_USERS';
 const UPDATE = 'users/UPDATE';
+const FOLLOW = 'users/FOLLOW';
+const UNFOLLOW = 'users/UNFOLLOW';
 
 const loadUsers = (users) => ({
   type: LOAD_USERS,
@@ -11,6 +13,41 @@ const updateUser = (user) => ({
   type: UPDATE,
   user
 })
+
+const followUserId = (userId) => ({
+  type: FOLLOW,
+  userId
+})
+
+const unFollowUserId = (userId) => ({
+  type: UNFOLLOW,
+  userId
+})
+
+export const unFollowUser = (userId) => async (dispatch) => {
+  const response = await fetch(`/api/users/${userId}/unfollow`)
+  if (response.ok) {
+    const data = await response.json()
+    dispatch(unFollowUserId(userId))
+    return data;
+  }
+}
+
+
+export const followUser = (userId) => async dispatch => {
+  const response = await fetch(`/api/users/${userId}/follow`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ userId })
+  })
+  const data = await response.json();
+  dispatch(followUserId(data))
+}
+
+
+
 
 
 export const loadAllUsers = () => async dispatch => {
@@ -46,11 +83,20 @@ const userReducer = (state = initialState, action) => {
       action.users.users.forEach(user => {
         allUsers[user.id] = user;
       });
-      return {...allUsers};
-    case UPDATE:
-      const newState = {...state};
+      return { ...allUsers };
+    case UPDATE: {
+      const newState = { ...state };
       newState[action.user.id] = action.user;
       return newState;
+    }
+    case FOLLOW: {
+    const newState = { ...state };
+      return newState;
+    }
+    case UNFOLLOW: {
+    const newState = { ...state };
+      return newState;
+    }
     default:
       return state;
   }
