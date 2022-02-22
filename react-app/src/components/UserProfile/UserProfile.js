@@ -37,7 +37,7 @@ function UserProfile() {
   const followingBool = following.includes(+id.id)
 
 
-  console.log(posts);
+  console.log('USER', user);
   useEffect(() => {
     dispatch(loadAllPosts());
     dispatch(loadAllUsers());
@@ -91,7 +91,7 @@ function UserProfile() {
             <div className='profile-info'>
               <h1>{user[0]?.username}</h1>
               <div>
-                {sessionUser.id !== user[0]?.id && followings === true ? <button onClick={handleUnfollow}>Unfollow</button> : <button onClick={handleFollow}>Follow</button>}
+                {sessionUser.id !== user[0]?.id ? followings === true ? <button onClick={handleUnfollow}>Unfollow</button> : <button onClick={handleFollow}>Follow</button> : null}
               </div>
               <h4>{user[0]?.followers?.length} Followers</h4>
               <h4>{user[0]?.following?.length} Following</h4>
