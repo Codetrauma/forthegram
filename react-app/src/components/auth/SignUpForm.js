@@ -35,14 +35,24 @@ const SignUpForm = () => {
     else if (password !== repeatPassword) {
       newErrors.push('Passwords do not match')
       setErrors(newErrors)
+      setPassword('')
+      setRepeatPassword('')
     }
     else if (password.length < 8) {
       newErrors.push('Password must be at least 8 characters long')
       setErrors(newErrors)
+      setPassword('')
+      setRepeatPassword('')
     }
     else if (username.length < 6) {
       newErrors.push('Username must be at least 6 characters long')
       setErrors(newErrors)
+      setUsername('')
+    }
+    else if (username.length > 25) {
+      newErrors.push('Username cannot be longer than 25 characters')
+      setErrors(newErrors)
+      setUsername('')
     }
     else if (password === repeatPassword) {
       // const data = await dispatch(signUp(formData));
@@ -152,7 +162,7 @@ const SignUpForm = () => {
               onChange={updateImage}
             />
           </div>
-          <button disabled={username.length > 0 && email.length > 0 && password.length > 0 && repeatPassword.length > 0 && full_name.length > 0 ? false : true} className='submit-signup-button' type='submit'>Sign Up</button>
+          <button disabled={username.length >= 6 && email.length > 0 && password.length >= 8 && repeatPassword.length >= 8 && full_name.length > 0 ? false : true} className='submit-signup-button' type='submit'>Sign Up</button>
         </form>
         <p>Already have an account? <NavLink className='login-navlink' to='/login/'>Login</NavLink></p>
       </div>
