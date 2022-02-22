@@ -49,6 +49,7 @@ const UploadPicture = ({ setShowModal }) => {
             <form className='post-modal-form' onSubmit={handleSubmit}>
                 <input
                     className='upload-image-div'
+                    required={true}
                     type="file"
                     accept="image/*"
                     onChange={updateImage}

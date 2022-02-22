@@ -5,7 +5,7 @@ class Post(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    caption = db.Column(db.String(500))
+    caption = db.Column(db.String(100))
 
     user = db.relationship('User', back_populates='user_posts')
     comments = db.relationship('Comment', back_populates='post', cascade="all, delete-orphan")
