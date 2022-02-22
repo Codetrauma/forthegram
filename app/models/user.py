@@ -47,6 +47,16 @@ class User(db.Model, UserMixin):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
+    def f_to_dict(self):
+        return {
+            'id': self.id,
+            'full_name': self.full_name,
+            'username': self.username,
+            'email': self.email,
+            'picture': self.profile_pic,
+        }
+
+
     def to_dict(self):
         return {
             'id': self.id,
@@ -54,5 +64,7 @@ class User(db.Model, UserMixin):
             'email': self.email,
             'picture': self.profile_pic,
             'fullname': self.full_name,
-            'description': self.description
+            'description': self.description,
+            'followers': [follower.f_to_dict() for follower in self.following],
+            'following': [follow.f_to_dict() for follow in self.followers]
         }

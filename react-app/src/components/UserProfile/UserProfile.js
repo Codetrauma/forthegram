@@ -32,6 +32,9 @@ function UserProfile() {
   const user = users.filter(user => user.id === +id.id)
   console.log('USER', user);
 
+  const followers = user[0]?.followers?.filter(follower => follower.id)
+  console.log('FOLLOWERS', followers);
+
   console.log(posts);
   useEffect(() => {
     dispatch(loadAllPosts());
@@ -70,8 +73,11 @@ function UserProfile() {
             <img src={user[0]?.picture} height='200' className='user-profile-picture-profile' />
             <div className='profile-info'>
               <h1>{user[0]?.username}</h1>
-              <h4>Followers</h4>
-              <h4>Following</h4>
+              <div>
+                {sessionUser.id !== +id.id && sessionUser.id === followers?.id ? <button>Follow</button> : <button>Unfollow</button> }
+              </div>
+              <h4>{user[0]?.followers?.length} Followers</h4>
+              <h4>{user[0]?.following?.length} Following</h4>
               <h4>{userPosts.length} Posts</h4>
             </div>
           </div>

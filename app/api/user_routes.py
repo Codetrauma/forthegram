@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from flask_login import login_required
+from flask_login import login_required, current_user
 from app.models import db, User
 
 user_routes = Blueprint('users', __name__)
@@ -26,5 +26,21 @@ def update_user(id):
     user.username = request.json['username']
     user.email = request.json['email']
     user.description = request.json['description']
+    db.session.commit()
+    return user.to_dict()
+
+@user_routes.route('/<int:id>/follow', methods=['POST'])
+@login_required
+def follow_user(id):
+    user = User.query.get(id)
+    current_user.followers.append(user)
+    db.session.commit()
+    return user.to_dict()
+
+@user_routes.route('/<int:id>/unfollow', methods=['DELETE'])
+@login_required
+def unfollow_user(id):
+    user = User.query.get(id)
+    current_user.followers.remove(user)
     db.session.commit()
     return user.to_dict()
