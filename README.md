@@ -1,4 +1,4 @@
-<h1 align='center' style='font-weight: bold'> One-to-Ten</h1>
+<h1 align='center' style='font-weight: bold'> ForTheGram</h1>
 <div>
 <p align='center'>ForTheGram, a project inspired by <a style='font-weight: bold' href='https://www.instagram.com/'>Instagram</a>, is a platform that allows users to make posts of images they've taken or found and share with all of their followers!
 <br>
