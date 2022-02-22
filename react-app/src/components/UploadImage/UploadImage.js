@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { addPost } from "../../store/posts";
 import { useDispatch } from "react-redux";
@@ -9,6 +9,7 @@ const UploadPicture = ({ setShowModal }) => {
     const [image, setImage] = useState(null);
     const [imageLoading, setImageLoading] = useState(false);
     const [caption, setCaption] = useState('');
+    const [errors, setErrors] = useState([]);
 
 
     const handleSubmit = async (e) => {
@@ -29,6 +30,14 @@ const UploadPicture = ({ setShowModal }) => {
         }
     }
 
+    useEffect(() => {
+        let newErrors = []
+        if (caption.indexOf(' ') >= 0) {
+            newErrors.push('Please enter a valid caption.')
+            setErrors(newErrors)
+        }
+    }, [caption])
+
     const updateImage = (e) => {
         const file = e.target.files[0];
         setImage(file);
@@ -43,9 +52,10 @@ const UploadPicture = ({ setShowModal }) => {
                     type="file"
                     accept="image/*"
                     onChange={updateImage}
-                />
-                <textarea required={true} className='post-textarea' rows='7' cols='40' value={caption} onChange={(e) => setCaption(e.target.value)} />
-                <button className='post-modal-submit' type="submit">Submit</button>
+                    />
+                    {errors.map((error, idx) => <p className='errors' key={idx}>{error}</p>)}
+                <textarea  required={true} className='post-textarea' rows='7' cols='40' value={caption} onChange={(e) => setCaption(e.target.value)} />
+                <button disabled={caption.indexOf(' ') >= 0 ? true : false} className='post-modal-submit' type="submit">Submit</button>
                 {(imageLoading) && <p>Loading...</p>}
             </form>
         </div>

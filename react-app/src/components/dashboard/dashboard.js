@@ -1,7 +1,7 @@
 import { React, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadAllPosts, removePost } from '../../store/posts';
-import { loadAllComments, updateComment, addComment, removeComment } from '../../store/comments';
+import { loadAllComments, addComment } from '../../store/comments';
 import Comments from './Comments'
 import Captions from './Caption'
 import Likes from './Likes'

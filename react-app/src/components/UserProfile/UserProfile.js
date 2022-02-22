@@ -40,7 +40,7 @@ function UserProfile() {
   useEffect(() => {
     dispatch(loadAllPosts());
     dispatch(loadAllUsers());
-  }, [dispatch]);
+  }, [followingBool, dispatch]);
 
   const handleProfileSubmit = (e) => {
     let newErrors = [];
@@ -86,7 +86,7 @@ function UserProfile() {
             <div className='profile-info'>
               <h1>{user[0]?.username}</h1>
               <div>
-                {followingBool ? <button onClick={handleUnfollow}>Unfollow</button> : <button onClick={handleFollow}>Follow</button>}
+                {sessionUser.id !== user[0]?.id ? followingBool ? <button onClick={handleUnfollow}>Unfollow</button> : <button onClick={handleFollow}>Follow</button> : null}
               </div>
               <h4>{user[0]?.followers?.length} Followers</h4>
               <h4>{user[0]?.following?.length} Following</h4>
