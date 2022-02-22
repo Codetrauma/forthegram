@@ -30,14 +30,6 @@ function Dashboard() {
     dispatch(loadAllLikes());
   }, [comment, dispatch]);
 
-  useEffect(() => {
-    let newErrors = [];
-    if (comment.length >= 100) {
-      newErrors.push('Comment cannot be longer than 100 characters')
-      setErrors(newErrors);
-    }
-  }, [comment]);
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,8 +38,11 @@ function Dashboard() {
       comment,
       user_id: sessionUser.id,
     }
-    await dispatch(addComment(newComment));
-    dispatch(loadAllComments())
+    const data = await dispatch(addComment(newComment));
+    dispatch(loadAllComments)
+    if (data.errors) {
+      setErrors(data.errors)
+    }
     setComment('');
     return newComment;
   }
@@ -80,7 +75,7 @@ function Dashboard() {
                 <form className='post-comment-form'>
                   <div className='input-post-container'>
                     <input className='comment-input' placeholder='Enter a comment' type='text' value={comment} onSubmit={e => setComment('')} onChange={e => setComment(e.target.value)} />
-                    <button disabled={comment.length <= 0 || comment.length > 100 ? true : false} className='post-button' type='submit' value={post.id} onClick={handleSubmit}>Post</button>
+                    <button disabled={comment.length <= 0 || comment.length > 80 ? true : false} className='post-button' type='submit' value={post.id} onClick={handleSubmit}>Post</button>
                   </div>
                 </form>
               </div>

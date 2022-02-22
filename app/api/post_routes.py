@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from flask_login import current_user
 from app.models import db, User, Post, Comment, Photos, PostLikes
-from app.forms import CreatePostForm
+from app.forms import CreatePostForm, CommentForm
 from app.s3_helpers import (upload_file_to_s3, allowed_file, get_unique_filename)
 from sqlalchemy import desc
 
@@ -90,13 +90,23 @@ def create_comment(post_id):
     """
     Creates a comment
     """
-    user_id = request.json.get('user_id')
-    comment = request.json.get('comment')
-    comment = Comment(user_id=user_id, comment=comment)
-    post = Post.query.get(post_id)
-    post.comments.append(comment)
-    db.session.commit()
-    return {'comment': comment.to_dict()}
+    # user_id = request.json.get('user_id')
+    # comment = request.json.get('comment')
+    # comment = Comment(user_id=user_id, comment=comment)
+    # post = Post.query.get(post_id)
+    # post.comments.append(comment)
+    # db.session.commit()
+    # return {'comment': comment.to_dict()}
+    form = CommentForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        data = form.data
+        comment = Comment(user_id=current_user.id, comment=data['comment'])
+        post = Post.query.get(post_id)
+        post.comments.append(comment)
+        db.session.commit()
+        return {'comment': comment.to_dict()}
+    return {'errors': form.errors}
 
 @posts_routes.route('/<int:post_id>/comments/<int:comment_id>/', methods=['DELETE'])
 def delete_comment(post_id, comment_id):

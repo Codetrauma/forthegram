@@ -7,6 +7,7 @@ const EditCaption = ({ posts, setShowModal }) => {
   console.log(posts, setShowModal)
 
   const [caption, setCaption] = useState('')
+  const [errors, setErrors] = useState('')
 
   const handleSubmit = async (e) => {
     e.preventDefault();

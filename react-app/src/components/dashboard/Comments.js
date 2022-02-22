@@ -23,8 +23,8 @@ const Comments = ({ comments }) => {
 
   useEffect(() => {
     let newErrors = [];
-    if (comment.length >= 100) {
-      newErrors.push('Comment cannot be longer than 100 characters')
+    if (comment.length >= 80) {
+      newErrors.push('Comment cannot be longer than 80 characters')
       setErrors(newErrors);
     }
   }, [comment]);
@@ -47,7 +47,7 @@ const Comments = ({ comments }) => {
         {showEditForm && (
           <form className='edit-comment-form'>
             <input type='text' onChange={e => setComment(e.target.value)} />
-            <button disabled={comment.length <= 0 || comment.length > 100 ? true : false} type='submit' value={comments.id} onClick={handleEdit}>Edit Comment</button>
+            <button disabled={comment.length <= 0 || comment.length > 80 ? true : false} type='submit' value={comments.id} onClick={handleEdit}>Edit Comment</button>
             {errors.map(error => (
               <p key={error} className='comment-error'>{error}</p>
             ))}
