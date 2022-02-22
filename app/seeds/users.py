@@ -24,9 +24,36 @@ def seed_users():
         username='Peter', email='peter@aa.io', password='password', full_name='Peter "Parker" Shin', description='Spider-man <3', profile_pic='https://ca.slack-edge.com/T03GU501J-U02E2FVJ8RZ-a02c02dd1ce5-512'
     )
     denise = User(
-        username='durrneez', email='denise@aa.io', password='password', full_name='Denise "DENEEZ" Li', description='POPCORN DADDY', profile_pic='https://i.imgur.com/6UWeB0x.png'
+        username='durrneez', email='denise@aa.io', password='password', full_name='Denise "durrneez" Li', description='POPCORN DADDY', profile_pic='https://i.imgur.com/6UWeB0x.png'
     )
 
+    demo.followers.append(Thien)
+    demo.followers.append(fiona)
+    demo.followers.append(savnaha)
+    demo.followers.append(peter)
+    Thien.followers.append(demo)
+    fiona.followers.append(demo)
+    audrey.followers.append(demo)
+    audrey.followers.append(fiona)
+    audrey.followers.append(Thien)
+    audrey.followers.append(victoria)
+    audrey.followers.append(savnaha)
+    savnaha.followers.append(demo)
+    peter.followers.append(fiona)
+    peter.followers.append(denise)
+    peter.followers.append(nathan)
+    nathan.followers.append(peter)
+    nathan.followers.append(victoria)
+    victoria.followers.append(nathan)
+    denise.followers.append(peter)
+    denise.followers.append(tanner)
+    tanner.followers.append(denise)
+    tanner.followers.append(nathan)
+    tanner.followers.append(demo)
+    tanner.followers.append(victoria)
+    denise.followers.append(fiona)
+    denise.followers.append(demo)
+    denise.followers.append(Thien)
 
 
 

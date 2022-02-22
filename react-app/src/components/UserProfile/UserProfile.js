@@ -37,8 +37,8 @@ function UserProfile() {
   const followingBool = following.includes(+id.id)
 
 
-  console.log('USER', user);
   useEffect(() => {
+    window.scrollTo(0, 0);
     dispatch(loadAllPosts());
     dispatch(loadAllUsers());
   }, [followingBool, dispatch]);
