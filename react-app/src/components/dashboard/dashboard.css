@@ -28,7 +28,7 @@
   text-align: center;
   text-align: left;
   text-decoration: none;
-  color: black;
+
 }
 
 .posts-username:visited {
@@ -157,6 +157,7 @@
   background-color: white;
   width: 100%;
   display: flex;
+  flex-grow: 1;
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -219,7 +220,15 @@
 .single-comment {
   background-color: white;
   padding-left: 15px;
-  width: 100%;
+  width: 30%;
+  height: 30px;
+  font-size: small;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  flex-grow: none;
 }
 
 .comment-button-container {
@@ -329,8 +338,7 @@
   overflow: hidden;
   align-items: center;
   justify-content: center;
-  margin-right: 10px;
-  margin-left: 10px;
+
 }
 
 .user-pictures.active {

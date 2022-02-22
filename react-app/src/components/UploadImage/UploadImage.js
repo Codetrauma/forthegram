@@ -30,13 +30,13 @@ const UploadPicture = ({ setShowModal }) => {
         }
     }
 
-    // useEffect(() => {
-    //     let newErrors = []
-    //     if (caption.indexOf(' ') === 0) {
-    //         newErrors.push('Please enter a valid caption.')
-    //         setErrors(newErrors)
-    //     }
-    // }, [caption])
+    useEffect(() => {
+        let newErrors = []
+        if (caption.length > 100) {
+            newErrors.push('Caption must be less than 100 characters')
+            setErrors(newErrors)
+        }
+    }, [caption])
 
     const updateImage = (e) => {
         const file = e.target.files[0];

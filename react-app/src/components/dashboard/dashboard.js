@@ -21,6 +21,7 @@ function Dashboard() {
 
   // console.log(posts)
   const [comment, setComment] = useState('');
+  const [errors, setErrors] = useState([])
 
 
   useEffect(() => {
@@ -28,6 +29,15 @@ function Dashboard() {
     dispatch(loadAllComments());
     dispatch(loadAllLikes());
   }, [comment, dispatch]);
+
+  useEffect(() => {
+    let newErrors = [];
+    if (comment.length >= 100) {
+      newErrors.push('Comment cannot be longer than 100 characters')
+      setErrors(newErrors);
+    }
+  }, [comment]);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -56,7 +66,7 @@ function Dashboard() {
           {posts?.map(post => (
             <li key={post?.id} className='posts'>
               <div className='post-username-container'>
-                <NavLink to={`/user/${post?.user?.id}`} className='posts-username'><NavLink className='user-pictures' to={`/user/${post?.user?.id}`}><img src={post?.user?.picture} height='30' className='user-profile-picture'/></NavLink> {post?.user?.username} </NavLink>
+                <NavLink to={`/user/${post?.user?.id}`} className='posts-username'><NavLink className='user-pictures' to={`/user/${post?.user?.id}`}><img src={post?.user?.picture} height='30' className='user-profile-picture' /></NavLink> {post?.user?.username} </NavLink>
                 {sessionUser?.id === post?.user_id ? <button value={post?.id} className='delete-post-button' onClick={handleDelete}>Delete Post</button> : <></>}
               </div>
               <img className='posts-images' src={post?.photos[0]?.photo} />
@@ -65,12 +75,12 @@ function Dashboard() {
               {post?.comments?.map(comment => (
                 <Comments comments={comment} />
               ))}
+              {errors.map((error, idx) => <li className='errors' key={idx}>{error}</li>)}
               <div className='comment-form-container'>
                 <form className='post-comment-form'>
                   <div className='input-post-container'>
-                    {/* {errors.map((error, idx) => <li className='errors' key={idx}>{error}</li>)} */}
                     <input className='comment-input' placeholder='Enter a comment' type='text' value={comment} onSubmit={e => setComment('')} onChange={e => setComment(e.target.value)} />
-                    <button disabled={comment.length <= 0 ? true : false} className='post-button' type='submit' value={post.id} onClick={handleSubmit}>Post</button>
+                    <button disabled={comment.length <= 0 || comment.length > 100 ? true : false} className='post-button' type='submit' value={post.id} onClick={handleSubmit}>Post</button>
                   </div>
                 </form>
               </div>

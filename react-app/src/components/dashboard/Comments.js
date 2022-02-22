@@ -47,7 +47,7 @@ const Comments = ({ comments }) => {
         {showEditForm && (
           <form className='edit-comment-form'>
             <input type='text' onChange={e => setComment(e.target.value)} />
-            <button disabled={comment.length > 100 ? true : false} type='submit' value={comments.id} onClick={handleEdit}>Edit Comment</button>
+            <button disabled={comment.length <= 0 || comment.length > 100 ? true : false} type='submit' value={comments.id} onClick={handleEdit}>Edit Comment</button>
             {errors.map(error => (
               <p key={error} className='comment-error'>{error}</p>
             ))}
