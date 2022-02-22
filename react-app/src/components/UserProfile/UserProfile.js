@@ -4,6 +4,7 @@ import { loadAllPosts } from '../../store/posts';
 import { useParams } from 'react-router-dom';
 import { loadAllUsers, updateUserInfo } from '../../store/users';
 import SinglePostModal from './SinglePostModal';
+import { followUser, unFollowUser } from '../../store/users';
 import './UserProfile.css'
 
 
@@ -30,10 +31,10 @@ function UserProfile() {
   const userObj = useSelector(state => state.users)
   const users = Object.values(userObj)
   const user = users.filter(user => user.id === +id.id)
-  console.log('USER', user);
 
-  const followers = user[0]?.followers?.filter(follower => follower.id)
-  console.log('FOLLOWERS', followers);
+  const following = sessionUser.following.map(following => following.id)
+  const followingBool = following.includes(+id.id)
+
 
   console.log(posts);
   useEffect(() => {
@@ -65,6 +66,17 @@ function UserProfile() {
     setShowEditForm(!showEditForm);
   }
 
+  const handleFollow = (e) => {
+    e.preventDefault();
+    dispatch(followUser(+id.id));
+  }
+
+  const handleUnfollow = (e) => {
+    e.preventDefault();
+    dispatch(unFollowUser(+id.id));
+  }
+
+
   return (
     <div className='profile-wrapper'>
       <div>
@@ -74,7 +86,7 @@ function UserProfile() {
             <div className='profile-info'>
               <h1>{user[0]?.username}</h1>
               <div>
-                {sessionUser.id !== +id.id && sessionUser.id === followers?.id ? <button>Follow</button> : <button>Unfollow</button> }
+                {followingBool ? <button onClick={handleUnfollow}>Unfollow</button> : <button onClick={handleFollow}>Follow</button>}
               </div>
               <h4>{user[0]?.followers?.length} Followers</h4>
               <h4>{user[0]?.following?.length} Following</h4>
