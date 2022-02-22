@@ -20,6 +20,7 @@ function UserProfile() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [description, setDescription] = useState('');
+  const [followings, setFollowing] = useState(false);
   const [errors, setErrors] = useState([])
 
   const sessionUser = useSelector(state => state.session.user);
@@ -36,11 +37,11 @@ function UserProfile() {
   const followingBool = following.includes(+id.id)
 
 
-  console.log(posts);
   useEffect(() => {
+    window.scrollTo(0, 0);
     dispatch(loadAllPosts());
     dispatch(loadAllUsers());
-  }, [dispatch]);
+  }, [followingBool, dispatch]);
 
   const handleProfileSubmit = (e) => {
     let newErrors = [];
@@ -69,11 +70,15 @@ function UserProfile() {
   const handleFollow = (e) => {
     e.preventDefault();
     dispatch(followUser(+id.id));
+    setFollowing(!followings)
+    dispatch(loadAllUsers());
   }
 
   const handleUnfollow = (e) => {
     e.preventDefault();
     dispatch(unFollowUser(+id.id));
+    setFollowing(!followings)
+    dispatch(loadAllUsers());
   }
 
 
@@ -86,7 +91,7 @@ function UserProfile() {
             <div className='profile-info'>
               <h1>{user[0]?.username}</h1>
               <div>
-                {followingBool ? <button onClick={handleUnfollow}>Unfollow</button> : <button onClick={handleFollow}>Follow</button>}
+                {sessionUser.id !== user[0]?.id ? followings === true ? <button onClick={handleUnfollow}>Unfollow</button> : <button onClick={handleFollow}>Follow</button> : null}
               </div>
               <h4>{user[0]?.followers?.length} Followers</h4>
               <h4>{user[0]?.following?.length} Following</h4>

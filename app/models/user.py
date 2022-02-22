@@ -19,13 +19,12 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
     full_name = db.Column(db.String, nullable=False)
     description = db.Column(db.String(255))
-    profile_pic = db.Column(db.String)
+    profile_pic = db.Column(
+        db.String, default="https://icon-library.com/images/no-user-image-icon/no-user-image-icon-27.jpg")
 
     user_likes = db.relationship('PostLikes', back_populates='user')
     user_posts = db.relationship('Post', back_populates='user')
     user_comments = db.relationship('Comment', back_populates='user')
-
-
 
     followers = db.relationship(
         "User",
@@ -47,7 +46,7 @@ class User(db.Model, UserMixin):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
-    def f_to_dict(self):
+    def user_to_dict(self):
         return {
             'id': self.id,
             'full_name': self.full_name,
@@ -55,7 +54,6 @@ class User(db.Model, UserMixin):
             'email': self.email,
             'picture': self.profile_pic,
         }
-
 
     def to_dict(self):
         return {
@@ -65,6 +63,6 @@ class User(db.Model, UserMixin):
             'picture': self.profile_pic,
             'fullname': self.full_name,
             'description': self.description,
-            'followers': [follower.f_to_dict() for follower in self.following],
-            'following': [follow.f_to_dict() for follow in self.followers]
+            'followers': [follower.user_to_dict() for follower in self.following],
+            'following': [follow.user_to_dict() for follow in self.followers]
         }

@@ -27,6 +27,13 @@
   background-color: white;
   text-align: center;
   text-align: left;
+  text-decoration: none;
+
+}
+
+.posts-username:visited {
+  color: black;
+  text-decoration: none;
 }
 
 .posts-images {
@@ -322,6 +329,8 @@
   overflow: hidden;
   align-items: center;
   justify-content: center;
+  margin-right: 10px;
+  margin-left: 10px;
 }
 
 .user-pictures.active {
