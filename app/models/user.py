@@ -19,13 +19,11 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
     full_name = db.Column(db.String, nullable=False)
     description = db.Column(db.String(255))
-    profile_pic = db.Column(db.String)
+    profile_pic = db.Column(db.String, default="")
 
     user_likes = db.relationship('PostLikes', back_populates='user')
     user_posts = db.relationship('Post', back_populates='user')
     user_comments = db.relationship('Comment', back_populates='user')
-
-
 
     followers = db.relationship(
         "User",
@@ -56,7 +54,6 @@ class User(db.Model, UserMixin):
             'picture': self.profile_pic,
         }
 
-
     def to_dict(self):
         return {
             'id': self.id,
@@ -68,3 +65,4 @@ class User(db.Model, UserMixin):
             'followers': [follower.f_to_dict() for follower in self.following],
             'following': [follow.f_to_dict() for follow in self.followers]
         }
+
