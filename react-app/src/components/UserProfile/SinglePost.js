@@ -23,11 +23,11 @@ function SinglePost({ post }) {
   const commentObj = useSelector(state => state.comments)
   const comments = Object.values(commentObj)
 
-  useEffect(() => {
-    dispatch(loadAllPosts());
-    dispatch(loadAllComments());
-    dispatch(loadAllLikes());
-  }, [comment, dispatch]);
+  // useEffect(() => {
+  //   dispatch(loadAllPosts());
+  //   dispatch(loadAllComments());
+  //   dispatch(loadAllLikes());
+  // }, [comment, dispatch]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,7 +37,8 @@ function SinglePost({ post }) {
       user_id: sessionUser.id,
     }
     await dispatch(addComment(newComment));
-    dispatch(loadAllComments())
+    dispatch(loadAllPosts())
+    // dispatch(loadAllComments())
     setComment('');
     return newComment;
   }

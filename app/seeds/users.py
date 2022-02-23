@@ -32,7 +32,6 @@ def seed_users():
     demo.followers.append(savnaha)
     demo.followers.append(peter)
     Thien.followers.append(demo)
-    fiona.followers.append(demo)
     audrey.followers.append(demo)
     audrey.followers.append(fiona)
     audrey.followers.append(Thien)
