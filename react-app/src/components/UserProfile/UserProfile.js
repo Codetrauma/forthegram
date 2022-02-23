@@ -17,8 +17,6 @@ function UserProfile() {
 
   const [showEditForm, setShowEditForm] = useState(false);
   const [fullname, setFullname] = useState('');
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
   const [description, setDescription] = useState('');
 
   const [errors, setErrors] = useState([])
@@ -40,29 +38,23 @@ function UserProfile() {
 
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-    // dispatch(loadAllPosts());
+    window.scrollTo(0, 0, { behavior: 'smooth' });
     dispatch(loadAllUsers());
   }, [followings, dispatch]);
 
-  const handleProfileSubmit = (e) => {
-    let newErrors = [];
+  const handleProfileSubmit = async (e) => {
     e.preventDefault();
-    if (!isEmail(email)) {
-      newErrors.push('Please enter a valid email.')
-      setErrors(newErrors)
-    }
-    else {
-      const userInfo = {
-        id: sessionUser.id,
-        full_name: fullname,
-        username: username,
-        email: email,
-        description: description,
+    const userInfo = {
+      id: sessionUser.id,
+      full_name: fullname,
+      description: description,
       }
-      dispatch(updateUserInfo(userInfo));
+      const data = await dispatch(updateUserInfo(userInfo));
+      console.log('DATA', data);
+      if (data?.errors) {
+        setErrors(data.errors)
+      }
       setShowEditForm(!showEditForm);
-    }
   }
   const handleCancel = (e) => {
     e.preventDefault();
@@ -113,10 +105,10 @@ function UserProfile() {
                   <form className='edit-profile-form'>
                     {errors.map(error => <p className='error-message'>{error}</p>)}
                     <input type='text' className='edit-profile-inputs' placeholder='Full Name' onChange={e => setFullname(e.target.value)} />
-                    <input type='text' className='edit-profile-inputs' placeholder='Username' onChange={e => setUsername(e.target.value)} />
-                    <input type='email' className='edit-profile-inputs' placeholder='Email' onChange={e => setEmail(e.target.value)} />
+                    {/* <input type='text' className='edit-profile-inputs' placeholder='Username' onChange={e => setUsername(e.target.value)} /> */}
+                    {/* <input type='email' className='edit-profile-inputs' placeholder='Email' onChange={e => setEmail(e.target.value)} /> */}
                     <textarea type='text' className='edit-profile-inputs-textarea' placeholder='Description' onChange={e => setDescription(e.target.value)} />
-                    <button type='submit' onClick={handleProfileSubmit} className='save-button' value={userObj[+id]?.id}>Save</button>
+                    <button type='submit' disabled={fullname.length <= 1 && description.length <= 0 ? true : false} onClick={handleProfileSubmit} className='save-button' value={userObj[+id]?.id}>Save</button>
                     <button className='save-button' onClick={handleCancel}>Cancel</button>
                   </form>
                 </div>
