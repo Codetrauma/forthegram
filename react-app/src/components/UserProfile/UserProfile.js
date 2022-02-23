@@ -71,15 +71,13 @@ function UserProfile() {
   const handleFollow = async (e) => {
     e.preventDefault();
     await dispatch(followUser(+id));
-    setFollowing(!followings)
-    dispatch(loadAllUsers());
+    setFollowing(prev => !prev)
   }
 
   const handleUnfollow = async (e) => {
     e.preventDefault();
     await dispatch(unFollowUser(+id));
-    setFollowing(!followings)
-    dispatch(loadAllUsers());
+    setFollowing(prev => !prev)
   }
 
 
@@ -102,23 +100,23 @@ function UserProfile() {
         </div>
         <div className='profile-info-wrapper'>
           <div className='profile-info-container'>
-          {!showEditForm ? <h3>{user[0]?.fullname}</h3> : <></> }
-          {sessionUser.id === user[0]?.id && !showEditForm ? <button className='edit-profile-button' onClick={() => setShowEditForm(!showEditForm)}>Edit Profile</button> : <></>}
-          <div className='profile-fullname'>
-            {showEditForm && (
-              <div className='edit-profile-form-wrapper'>
-                <form className='edit-profile-form'>
-                  {errors.map(error => <p className='error-message'>{error}</p>)}
-                  <input type='text' className='edit-profile-inputs' placeholder='Full Name' onChange={e => setFullname(e.target.value)} />
-                  <input type='text' className='edit-profile-inputs' placeholder='Username' onChange={e => setUsername(e.target.value)} />
-                  <input type='email' className='edit-profile-inputs' placeholder='Email' onChange={e => setEmail(e.target.value)} />
-                  <textarea type='text'className='edit-profile-inputs-textarea' placeholder='Description' onChange={e => setDescription(e.target.value)} />
-                  <button type='submit' onClick={handleProfileSubmit} className='save-button' value={user[0]?.id}>Save</button>
-                  <button className='save-button' onClick={handleCancel}>Cancel</button>
-                </form>
-              </div>
-            )}
-          </div>
+            {!showEditForm ? <h3>{user[0]?.fullname}</h3> : <></>}
+            {sessionUser.id === user[0]?.id && !showEditForm ? <button className='edit-profile-button' onClick={() => setShowEditForm(!showEditForm)}>Edit Profile</button> : <></>}
+            <div className='profile-fullname'>
+              {showEditForm && (
+                <div className='edit-profile-form-wrapper'>
+                  <form className='edit-profile-form'>
+                    {errors.map(error => <p className='error-message'>{error}</p>)}
+                    <input type='text' className='edit-profile-inputs' placeholder='Full Name' onChange={e => setFullname(e.target.value)} />
+                    <input type='text' className='edit-profile-inputs' placeholder='Username' onChange={e => setUsername(e.target.value)} />
+                    <input type='email' className='edit-profile-inputs' placeholder='Email' onChange={e => setEmail(e.target.value)} />
+                    <textarea type='text' className='edit-profile-inputs-textarea' placeholder='Description' onChange={e => setDescription(e.target.value)} />
+                    <button type='submit' onClick={handleProfileSubmit} className='save-button' value={user[0]?.id}>Save</button>
+                    <button className='save-button' onClick={handleCancel}>Cancel</button>
+                  </form>
+                </div>
+              )}
+            </div>
             {!showEditForm ? <p>{user[0]?.description}</p> : <></>}
           </div>
         </div>

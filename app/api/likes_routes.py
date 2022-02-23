@@ -32,7 +32,6 @@ def delete_like(id):
     """
     Deletes a like
     """
-    print('IN THE ROUTE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', id)
     like = PostLikes.query.filter_by(user_id=current_user.id, post_id=id).first()
     if not like:
         return {'errors': 'Like not found'}, 400

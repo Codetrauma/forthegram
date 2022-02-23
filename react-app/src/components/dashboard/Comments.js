@@ -21,14 +21,6 @@ const Comments = ({ comments }) => {
     await dispatch(loadAllPosts());
   }
 
-  // useEffect(() => {
-  //   let newErrors = [];
-  //   if (comment.length >= 80) {
-  //     newErrors.push('Comment cannot be longer than 80 characters')
-  //     setErrors(newErrors);
-  //   }
-  // }, [comment]);
-
   const handleEdit = async (e) => {
     e.preventDefault();
     const editComment = {
