@@ -42,7 +42,7 @@ function UserProfile() {
     window.scrollTo(0, 0);
     dispatch(loadAllPosts());
     dispatch(loadAllUsers());
-  }, [dispatch]);
+  }, [followings, dispatch]);
 
   const handleProfileSubmit = (e) => {
     let newErrors = [];
@@ -68,16 +68,16 @@ function UserProfile() {
     setShowEditForm(!showEditForm);
   }
 
-  const handleFollow = (e) => {
+  const handleFollow = async (e) => {
     e.preventDefault();
-    dispatch(followUser(+id));
+    await dispatch(followUser(+id));
     setFollowing(!followings)
     dispatch(loadAllUsers());
   }
 
-  const handleUnfollow = (e) => {
+  const handleUnfollow = async (e) => {
     e.preventDefault();
-    dispatch(unFollowUser(+id));
+    await dispatch(unFollowUser(+id));
     setFollowing(!followings)
     dispatch(loadAllUsers());
   }

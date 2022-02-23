@@ -28,7 +28,7 @@ function Dashboard() {
     dispatch(loadAllPosts());
     dispatch(loadAllComments());
     dispatch(loadAllLikes());
-  }, [comment, dispatch]);
+  }, [dispatch]);
 
 
   const handleSubmit = async (e) => {
@@ -39,7 +39,8 @@ function Dashboard() {
       user_id: sessionUser.id,
     }
     const data = await dispatch(addComment(newComment));
-    dispatch(loadAllComments)
+    dispatch(loadAllComments())
+    dispatch(loadAllPosts())
     if (data.errors) {
       setErrors(data.errors)
     }
@@ -51,7 +52,8 @@ function Dashboard() {
     const deletePost = {
       'id': e.target.value
     }
-    dispatch(removePost(deletePost))
+    await dispatch(removePost(deletePost))
+    return deletePost;
   }
 
   if (sessionUser) {
