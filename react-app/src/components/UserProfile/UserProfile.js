@@ -36,6 +36,7 @@ function UserProfile() {
   const following = sessionUser.following.map(following => following.id)
   const followingBool = following.includes(+id)
   const [followings, setFollowing] = useState(followingBool);
+  const [control, setControl] = useState(false);
 
 
   useEffect(() => {
@@ -70,13 +71,17 @@ function UserProfile() {
 
   const handleFollow = async (e) => {
     e.preventDefault();
+    setControl(true)
     await dispatch(followUser(+id));
+    setControl(false)
     setFollowing(prev => !prev)
   }
 
   const handleUnfollow = async (e) => {
     e.preventDefault();
+    setControl(true)
     await dispatch(unFollowUser(+id));
+    setControl(false)
     setFollowing(prev => !prev)
   }
 
@@ -90,7 +95,7 @@ function UserProfile() {
             <div className='profile-info'>
               <h1>{userObj[+id]?.username}</h1>
               <div>
-                {sessionUser.id !== userObj[+id]?.id ? followings === true ? <button onClick={handleUnfollow}>Unfollow</button> : <button onClick={handleFollow}>Follow</button> : null}
+                {sessionUser.id !== userObj[+id]?.id ? followings === true ? <button disabled={control} onClick={handleUnfollow}>Unfollow</button> : <button disabled={control} onClick={handleFollow}>Follow</button> : null}
               </div>
               <h4>{userObj[+id]?.followers?.length} Followers</h4>
               <h4>{userObj[+id]?.following?.length} Following</h4>
