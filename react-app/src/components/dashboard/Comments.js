@@ -21,13 +21,13 @@ const Comments = ({ comments }) => {
     await dispatch(loadAllPosts());
   }
 
-  useEffect(() => {
-    let newErrors = [];
-    if (comment.length >= 80) {
-      newErrors.push('Comment cannot be longer than 80 characters')
-      setErrors(newErrors);
-    }
-  }, [comment]);
+  // useEffect(() => {
+  //   let newErrors = [];
+  //   if (comment.length >= 80) {
+  //     newErrors.push('Comment cannot be longer than 80 characters')
+  //     setErrors(newErrors);
+  //   }
+  // }, [comment]);
 
   const handleEdit = async (e) => {
     e.preventDefault();
@@ -35,7 +35,10 @@ const Comments = ({ comments }) => {
       id: e.target.value,
       'text': comment,
     }
-    await dispatch(updateComment(editComment));
+    const data = await dispatch(updateComment(editComment));
+    if (data.errors) {
+      setErrors(data.errors)
+    }
     setShowEditForm(!showEditForm);
     await dispatch(loadAllPosts());
   }
@@ -47,17 +50,19 @@ const Comments = ({ comments }) => {
         {showEditForm && (
           <form className='edit-comment-form'>
             <input type='text' onChange={e => setComment(e.target.value)} />
-            <button disabled={comment.length <= 0 || comment.length > 80 ? true : false} type='submit' value={comments.id} onClick={handleEdit}>Edit Comment</button>
+            <button disabled={comment.length <= 0 || comment.length > 80 ? true : false} type='submit' value={comments.id} onClick={handleEdit}>Submit</button>
             {errors.map(error => (
               <p key={error} className='comment-error'>{error}</p>
             ))}
           </form>
         )
-      }
+        }
         <p hidden={showEditForm === true ? true : false} className='single-comment'>{comments.comment}</p>
-        {sessionUser?.id === comments.user_id ? <button className='comment-buttons' type='submit' value={comments.id} onClick={(e) => setShowEditForm(!showEditForm)}>Edit</button> : <></>}
-        {sessionUser?.id === comments.user_id ? <button className='comment-buttons-delete' type='submit' value={comments.id} onClick={handleDelete}>X</button> : <></>}
+        <div className='comment-button-container'>
+          {sessionUser?.id === comments.user_id ? <button className='comment-buttons' type='submit' value={comments.id} onClick={(e) => setShowEditForm(!showEditForm)}>Edit</button> : <></>}
+          {sessionUser?.id === comments.user_id ? <button className='comment-buttons-delete' type='submit' value={comments.id} onClick={handleDelete}>X</button> : <></>}
         </div>
+      </div>
       {/* </div> */}
     </div>
   )

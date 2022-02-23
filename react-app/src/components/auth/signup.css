@@ -9,7 +9,7 @@
 
 .signup-form-wrapper {
   width: 22%;
-  height: 50%;
+  height: 60%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -94,4 +94,10 @@
   text-decoration: none;
   color: #0095f6;
   font-weight: bold;
+}
+
+.profile-picture {
+  font-size: small;
+  width: 100%;
+  text-align: center;
 }

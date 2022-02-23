@@ -106,7 +106,7 @@ const SignUpForm = () => {
           <div>
 
             <input className='username-input'
-              placeholder='Username'
+              placeholder='Username *'
               type='text'
               name='username'
               onChange={updateUsername}
@@ -116,7 +116,7 @@ const SignUpForm = () => {
           <div>
 
             <input className='email-input'
-              placeholder='Email Address'
+              placeholder='Email Address *'
               type='text'
               name='email'
               onChange={updateEmail}
@@ -126,7 +126,7 @@ const SignUpForm = () => {
           <div>
 
             <input className='name-input'
-              placeholder='Full Name'
+              placeholder='Full Name *'
               type='text'
               name='full_name'
               onChange={updateFullname}
@@ -136,7 +136,7 @@ const SignUpForm = () => {
           <div>
 
             <input className='password-input'
-              placeholder='Password'
+              placeholder='Password *'
               type='password'
               name='password'
               onChange={updatePassword}
@@ -146,7 +146,7 @@ const SignUpForm = () => {
           <div>
 
             <input className='password-input'
-              placeholder='Confirm Password'
+              placeholder='Confirm Password *'
               type='password'
               name='repeat_password'
               onChange={updateRepeatPassword}
@@ -155,7 +155,9 @@ const SignUpForm = () => {
             ></input>
           </div>
           <div>
+            <label className='profile-picture' for='file-input'>Profile Picture</label>
             <input
+              name='file-input'
               className='upload-image-div'
               type="file"
               accept="image/*"

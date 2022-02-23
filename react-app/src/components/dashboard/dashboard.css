@@ -56,11 +56,20 @@
 .post-button {
   border: none;
   height: 34px;
-  color: gray;
+  color: black;
   background-color: light;
   border-top: 1px solid lightgray;
   border-bottom: 1px solid lightgray;
   cursor: pointer;
+}
+
+.post-button:disabled {
+  border: none;
+  height: 34px;
+  color: gray;
+  background-color: light;
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
 }
 
 .comments-wrapper {
@@ -231,15 +240,19 @@
   flex-grow: none;
 }
 
+.comments-wrapper {
+  display: flex;
+}
+
 .comment-button-container {
   background-color: white;
-  width: 100%;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-end;
   justify-content: flex-end;
-  padding-left: 20px;
-  height: 50px;
+  /* padding-left: 20px; */
+
+  height: 30px;
 }
 
 .comment-buttons {

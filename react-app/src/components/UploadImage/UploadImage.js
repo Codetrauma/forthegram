@@ -55,7 +55,7 @@ const UploadPicture = ({ setShowModal }) => {
                     onChange={updateImage}
                 />
                 {errors.map((error, idx) => <p className='errors' key={idx}>{error}</p>)}
-                <textarea className='post-textarea' rows='7' cols='40' value={caption} onChange={(e) => setCaption(e.target.value)} />
+                <textarea placeholder='Caption (Optional)' className='post-textarea' rows='7' cols='40' value={caption} onChange={(e) => setCaption(e.target.value)} />
                 <button className='post-modal-submit' type="submit">Submit</button>
                 {(imageLoading) && <p>Loading...</p>}
             </form>
