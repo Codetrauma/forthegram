@@ -39,7 +39,7 @@ def follow_user(id):
 
 
 
-@user_routes.route('/<int:id>/unfollow', methods=['DELETE'])
+@user_routes.route('/<int:id>/unfollow')
 @login_required
 def unfollow_user(id):
     user = User.query.get(id)

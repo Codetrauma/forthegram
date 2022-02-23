@@ -25,9 +25,7 @@ const unFollowUserId = (userId) => ({
 })
 
 export const unFollowUser = (userId) => async (dispatch) => {
-  const response = await fetch(`/api/users/${userId}/unfollow`, {
-    method: 'DELETE'
-  });
+  const response = await fetch(`/api/users/${userId}/unfollow`)
   if (response.ok) {
     const data = await response.json()
     dispatch(unFollowUserId(userId))
