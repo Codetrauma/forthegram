@@ -8,7 +8,6 @@ const Comments = ({ comments }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const sessionUser = useSelector(state => state.session.user);
-  // const stateComments = useSelector(state => state.comments);
 
   const [showEditForm, setShowEditForm] = useState(false);
   const [comment, setComment] = useState('');

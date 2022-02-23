@@ -26,7 +26,7 @@ const Likes = ({ post }) => {
     }
     await dispatch(addLike(likePost))
     dispatch(loadAllPosts())
-    dispatch(loadAllLikes())
+    // dispatch(loadAllLikes())
   }
 
   const handleUnlike = async (e) => {

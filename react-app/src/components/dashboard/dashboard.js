@@ -24,11 +24,11 @@ function Dashboard() {
   const [errors, setErrors] = useState([])
 
 
-  useEffect(() => {
-    dispatch(loadAllPosts());
-    dispatch(loadAllComments());
-    dispatch(loadAllLikes());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(loadAllPosts());
+  //   dispatch(loadAllComments());
+  //   dispatch(loadAllLikes());
+  // }, [dispatch]);
 
 
   const handleSubmit = async (e) => {
@@ -39,13 +39,13 @@ function Dashboard() {
       user_id: sessionUser.id,
     }
     const data = await dispatch(addComment(newComment));
-    dispatch(loadAllComments())
+    // dispatch(loadAllComments())
     dispatch(loadAllPosts())
     if (data.errors) {
       setErrors(data.errors)
     }
     setComment('');
-    return newComment;
+    // return newComment;
   }
   const handleDelete = async (e) => {
     e.preventDefault();
@@ -53,7 +53,7 @@ function Dashboard() {
       'id': e.target.value
     }
     await dispatch(removePost(deletePost))
-    return deletePost;
+    // return deletePost;
   }
 
   if (sessionUser) {

@@ -25,7 +25,7 @@ const unFollowUserId = (userId) => ({
 })
 
 export const unFollowUser = (userId) => async (dispatch) => {
-  const response = await fetch(`/api/users/${userId}/unfollow`)
+  const response = await fetch(`/api/users/${userId}/unfollow/`)
   if (response.ok) {
     const data = await response.json()
     dispatch(unFollowUserId(userId))
@@ -35,7 +35,7 @@ export const unFollowUser = (userId) => async (dispatch) => {
 
 
 export const followUser = (userId) => async dispatch => {
-  const response = await fetch(`/api/users/${userId}/follow`, {
+  const response = await fetch(`/api/users/${userId}/follow/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -45,9 +45,6 @@ export const followUser = (userId) => async dispatch => {
   const data = await response.json();
   dispatch(followUserId(data))
 }
-
-
-
 
 
 export const loadAllUsers = () => async dispatch => {

@@ -31,7 +31,7 @@ function UserProfile() {
 
   const userObj = useSelector(state => state.users)
   const users = Object.values(userObj)
-  const user = users.filter(user => user.id === +id)
+  // const user = users.filter(user => user.id === +id)
 
   const following = sessionUser.following.map(following => following.id)
   const followingBool = following.includes(+id)
@@ -40,7 +40,7 @@ function UserProfile() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    dispatch(loadAllPosts());
+    // dispatch(loadAllPosts());
     dispatch(loadAllUsers());
   }, [followings, dispatch]);
 
@@ -86,22 +86,22 @@ function UserProfile() {
       <div>
         <div className='profile-header-container'>
           <div className='profile-header'>
-            <img src={user[0]?.picture} height='200' className='user-profile-picture-profile' />
+            <img src={userObj[+id]?.picture} height='200' className='user-profile-picture-profile' />
             <div className='profile-info'>
-              <h1>{user[0]?.username}</h1>
+              <h1>{userObj[+id]?.username}</h1>
               <div>
-                {sessionUser.id !== user[0]?.id ? followings === true ? <button onClick={handleUnfollow}>Unfollow</button> : <button onClick={handleFollow}>Follow</button> : null}
+                {sessionUser.id !== userObj[+id]?.id ? followings === true ? <button onClick={handleUnfollow}>Unfollow</button> : <button onClick={handleFollow}>Follow</button> : null}
               </div>
-              <h4>{user[0]?.followers?.length} Followers</h4>
-              <h4>{user[0]?.following?.length} Following</h4>
+              <h4>{userObj[+id]?.followers?.length} Followers</h4>
+              <h4>{userObj[+id]?.following?.length} Following</h4>
               <h4>{userPosts.length} Posts</h4>
             </div>
           </div>
         </div>
         <div className='profile-info-wrapper'>
           <div className='profile-info-container'>
-            {!showEditForm ? <h3>{user[0]?.fullname}</h3> : <></>}
-            {sessionUser.id === user[0]?.id && !showEditForm ? <button className='edit-profile-button' onClick={() => setShowEditForm(!showEditForm)}>Edit Profile</button> : <></>}
+            {!showEditForm ? <h3>{userObj[+id]?.fullname}</h3> : <></>}
+            {sessionUser.id === userObj[+id]?.id && !showEditForm ? <button className='edit-profile-button' onClick={() => setShowEditForm(!showEditForm)}>Edit Profile</button> : <></>}
             <div className='profile-fullname'>
               {showEditForm && (
                 <div className='edit-profile-form-wrapper'>
@@ -111,13 +111,13 @@ function UserProfile() {
                     <input type='text' className='edit-profile-inputs' placeholder='Username' onChange={e => setUsername(e.target.value)} />
                     <input type='email' className='edit-profile-inputs' placeholder='Email' onChange={e => setEmail(e.target.value)} />
                     <textarea type='text' className='edit-profile-inputs-textarea' placeholder='Description' onChange={e => setDescription(e.target.value)} />
-                    <button type='submit' onClick={handleProfileSubmit} className='save-button' value={user[0]?.id}>Save</button>
+                    <button type='submit' onClick={handleProfileSubmit} className='save-button' value={userObj[+id]?.id}>Save</button>
                     <button className='save-button' onClick={handleCancel}>Cancel</button>
                   </form>
                 </div>
               )}
             </div>
-            {!showEditForm ? <p>{user[0]?.description}</p> : <></>}
+            {!showEditForm ? <p>{userObj[+id]?.description}</p> : <></>}
           </div>
         </div>
         <div className='divider'></div>
