@@ -4,9 +4,11 @@ import { useDispatch } from 'react-redux';
 
 const EditCaption = ({ posts, setShowModal }) => {
   const dispatch = useDispatch();
-  console.log(posts, setShowModal)
+  console.log(posts)
 
-  const [caption, setCaption] = useState('')
+  localStorage.setItem('caption', posts.caption)
+
+  const [caption, setCaption] = useState(localStorage.getItem('caption'))
   const [errors, setErrors] = useState('')
 
   const handleSubmit = async (e) => {
@@ -16,7 +18,7 @@ const EditCaption = ({ posts, setShowModal }) => {
       'caption': caption
     }
     console.log(newCaption)
-    dispatch(updatePost(newCaption))
+    await dispatch(updatePost(newCaption))
     setShowModal(false);
   }
 

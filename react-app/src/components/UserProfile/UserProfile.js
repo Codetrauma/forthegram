@@ -105,8 +105,6 @@ function UserProfile() {
                   <form className='edit-profile-form'>
                     {errors.map(error => <p className='error-message'>{error}</p>)}
                     <input type='text' className='edit-profile-inputs' placeholder='Full Name' onChange={e => setFullname(e.target.value)} />
-                    {/* <input type='text' className='edit-profile-inputs' placeholder='Username' onChange={e => setUsername(e.target.value)} /> */}
-                    {/* <input type='email' className='edit-profile-inputs' placeholder='Email' onChange={e => setEmail(e.target.value)} /> */}
                     <textarea type='text' className='edit-profile-inputs-textarea' placeholder='Description' onChange={e => setDescription(e.target.value)} />
                     <button type='submit' disabled={fullname.length <= 1 && description.length <= 0 ? true : false} onClick={handleProfileSubmit} className='save-button' value={userObj[+id]?.id}>Save</button>
                     <button className='save-button' onClick={handleCancel}>Cancel</button>
@@ -122,7 +120,6 @@ function UserProfile() {
           <div className='profile-post-container'>
             {userPosts.map(userPost => (
               <SinglePostModal post={userPost} key={userPost.id} />
-              // <img value={userPost.id} className='profile-posts' src={userPost?.photos[0]?.photo} height='200' className='user-profile-post' />
             ))}
           </div>
         </div>

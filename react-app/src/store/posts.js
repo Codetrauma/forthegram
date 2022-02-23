@@ -93,7 +93,7 @@ const postReducer = (state = initialState, action) => {
     }
     case UPDATE: {
       const newState = {...state}
-      newState[action.post.post.id] = action.post.post
+      newState[action.post.post.id] = action.post
       return newState
     }
     default:
