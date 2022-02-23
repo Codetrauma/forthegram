@@ -29,7 +29,7 @@ def update_user(id):
     db.session.commit()
     return user.to_dict()
 
-@user_routes.route('/<int:id>/follow', methods=['POST'])
+@user_routes.route('/<int:id>/follow/', methods=['POST'])
 @login_required
 def follow_user(id):
     user = User.query.get(id)
@@ -38,8 +38,7 @@ def follow_user(id):
     return user.to_dict()
 
 
-
-@user_routes.route('/<int:id>/unfollow')
+@user_routes.route('/<int:id>/unfollow/')
 @login_required
 def unfollow_user(id):
     user = User.query.get(id)
