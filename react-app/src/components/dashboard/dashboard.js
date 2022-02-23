@@ -39,7 +39,7 @@ function Dashboard() {
       user_id: sessionUser.id,
     }
     const data = await dispatch(addComment(newComment));
-    // dispatch(loadAllComments())
+    dispatch(loadAllComments())
     dispatch(loadAllPosts())
     if (data.errors) {
       setErrors(data.errors)

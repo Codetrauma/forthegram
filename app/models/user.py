@@ -52,6 +52,14 @@ class User(db.Model, UserMixin):
             'username': self.username,
         }
 
+    def post_to_dict(self):
+        return {
+            'id': self.id,
+            'username': self.username,
+            'email': self.email,
+            'picture': self.profile_pic,
+        }
+
     def to_dict(self):
         return {
             'id': self.id,
