@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from flask_login import current_user
 from app.models import db, User, Post, Comment, Photos, PostLikes
-from app.forms import CreatePostForm
+from app.forms import CreatePostForm, CommentForm, EditPostForm
 from app.s3_helpers import (upload_file_to_s3, allowed_file, get_unique_filename)
 from sqlalchemy import desc
 
@@ -72,9 +72,14 @@ def update_post(post_id):
     Updates a post
     """
     post = Post.query.get(post_id)
-    post.caption = request.json.get('caption')
-    db.session.commit()
-    return {'post': post.to_dict()}
+    form = EditPostForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        data = form.data
+        post.caption = data['caption']
+        db.session.commit()
+        return {'post': post.to_dict()}
+    return {'errors': form.errors}
 
 
 @posts_routes.route('/<int:post_id>/comments')
@@ -90,13 +95,16 @@ def create_comment(post_id):
     """
     Creates a comment
     """
-    user_id = request.json.get('user_id')
-    comment = request.json.get('comment')
-    comment = Comment(user_id=user_id, comment=comment)
-    post = Post.query.get(post_id)
-    post.comments.append(comment)
-    db.session.commit()
-    return {'comment': comment.to_dict()}
+    form = CommentForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        data = form.data
+        comment = Comment(user_id=current_user.id, comment=data['comment'])
+        post = Post.query.get(post_id)
+        post.comments.append(comment)
+        db.session.commit()
+        return {'comment': comment.to_dict()}
+    return {'errors': form.errors}
 
 @posts_routes.route('/<int:post_id>/comments/<int:comment_id>/', methods=['DELETE'])
 def delete_comment(post_id, comment_id):
@@ -115,7 +123,17 @@ def update_comment(post_id, comment_id):
     """
     Updates a comment
     """
-    comment = Comment.query.get(comment_id)
-    comment.comment = request.json.get('comment')
-    db.session.commit()
-    return {'comment': comment.to_dict()}
+    # comment = Comment.query.get(comment_id)
+    # comment.comment = request.json.get('comment')
+    # db.session.commit()
+    # return {'comment': comment.to_dict()}
+
+    form = CommentForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        data = form.data
+        comment = Comment.query.get(comment_id)
+        comment.comment = data['comment']
+        db.session.commit()
+        return {'comment': comment.to_dict()}
+    return {'errors': form.errors}

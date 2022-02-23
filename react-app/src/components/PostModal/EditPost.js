@@ -7,6 +7,7 @@ const EditCaption = ({ posts, setShowModal }) => {
   console.log(posts, setShowModal)
 
   const [caption, setCaption] = useState('')
+  const [errors, setErrors] = useState('')
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,7 +25,7 @@ const EditCaption = ({ posts, setShowModal }) => {
         <h1>Edit Caption</h1>
         <form className='post-modal-form'>
           <textarea className='post-textarea' rows='7' cols='40' value={caption} onChange={(e) => setCaption(e.target.value)} />
-          <button className='post-modal-submit' type="submit" onClick={handleSubmit}>Submit</button>
+          <button disabled={caption.length <= 0 ? true : false} className='post-modal-submit' type="submit" onClick={handleSubmit}>Submit</button>
         </form>
       </div>
     )

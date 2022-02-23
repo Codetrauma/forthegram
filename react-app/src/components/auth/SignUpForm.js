@@ -35,14 +35,24 @@ const SignUpForm = () => {
     else if (password !== repeatPassword) {
       newErrors.push('Passwords do not match')
       setErrors(newErrors)
+      setPassword('')
+      setRepeatPassword('')
     }
     else if (password.length < 8) {
       newErrors.push('Password must be at least 8 characters long')
       setErrors(newErrors)
+      setPassword('')
+      setRepeatPassword('')
     }
     else if (username.length < 6) {
       newErrors.push('Username must be at least 6 characters long')
       setErrors(newErrors)
+      setUsername('')
+    }
+    else if (username.length > 25) {
+      newErrors.push('Username cannot be longer than 25 characters')
+      setErrors(newErrors)
+      setUsername('')
     }
     else if (password === repeatPassword) {
       // const data = await dispatch(signUp(formData));
@@ -96,7 +106,7 @@ const SignUpForm = () => {
           <div>
 
             <input className='username-input'
-              placeholder='Username'
+              placeholder='Username *'
               type='text'
               name='username'
               onChange={updateUsername}
@@ -106,7 +116,7 @@ const SignUpForm = () => {
           <div>
 
             <input className='email-input'
-              placeholder='Email Address'
+              placeholder='Email Address *'
               type='text'
               name='email'
               onChange={updateEmail}
@@ -116,7 +126,7 @@ const SignUpForm = () => {
           <div>
 
             <input className='name-input'
-              placeholder='Full Name'
+              placeholder='Full Name *'
               type='text'
               name='full_name'
               onChange={updateFullname}
@@ -126,7 +136,7 @@ const SignUpForm = () => {
           <div>
 
             <input className='password-input'
-              placeholder='Password'
+              placeholder='Password *'
               type='password'
               name='password'
               onChange={updatePassword}
@@ -136,7 +146,7 @@ const SignUpForm = () => {
           <div>
 
             <input className='password-input'
-              placeholder='Confirm Password'
+              placeholder='Confirm Password *'
               type='password'
               name='repeat_password'
               onChange={updateRepeatPassword}
@@ -145,14 +155,16 @@ const SignUpForm = () => {
             ></input>
           </div>
           <div>
+            <label className='profile-picture' for='file-input'>Profile Picture</label>
             <input
+              name='file-input'
               className='upload-image-div'
               type="file"
               accept="image/*"
               onChange={updateImage}
             />
           </div>
-          <button disabled={username.length > 0 && email.length > 0 && password.length > 0 && repeatPassword.length > 0 && full_name.length > 0 ? false : true} className='submit-signup-button' type='submit'>Sign Up</button>
+          <button disabled={username.length >= 6 && email.length > 0 && password.length >= 8 && repeatPassword.length >= 8 && full_name.length > 0 ? false : true} className='submit-signup-button' type='submit'>Sign Up</button>
         </form>
         <p>Already have an account? <NavLink className='login-navlink' to='/login/'>Login</NavLink></p>
       </div>

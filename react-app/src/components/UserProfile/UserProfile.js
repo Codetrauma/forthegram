@@ -10,7 +10,7 @@ import './UserProfile.css'
 
 function UserProfile() {
   const dispatch = useDispatch();
-  const id = useParams();
+  const { id } = useParams();
 
   const emailPattern = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
   const isEmail = field => emailPattern.test(field)
@@ -20,28 +20,29 @@ function UserProfile() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [description, setDescription] = useState('');
-  const [followings, setFollowing] = useState(false);
+
   const [errors, setErrors] = useState([])
 
   const sessionUser = useSelector(state => state.session.user);
 
   const postObj = useSelector(state => state.posts)
   const posts = Object.values(postObj)
-  const userPosts = posts.filter(post => post.user_id === +id.id)
+  const userPosts = posts.filter(post => post.user_id === +id)
 
   const userObj = useSelector(state => state.users)
   const users = Object.values(userObj)
-  const user = users.filter(user => user.id === +id.id)
+  const user = users.filter(user => user.id === +id)
 
   const following = sessionUser.following.map(following => following.id)
-  const followingBool = following.includes(+id.id)
+  const followingBool = following.includes(+id)
+  const [followings, setFollowing] = useState(followingBool);
 
 
   useEffect(() => {
     window.scrollTo(0, 0);
     dispatch(loadAllPosts());
     dispatch(loadAllUsers());
-  }, [followingBool, dispatch]);
+  }, [dispatch]);
 
   const handleProfileSubmit = (e) => {
     let newErrors = [];
@@ -69,14 +70,14 @@ function UserProfile() {
 
   const handleFollow = (e) => {
     e.preventDefault();
-    dispatch(followUser(+id.id));
+    dispatch(followUser(+id));
     setFollowing(!followings)
     dispatch(loadAllUsers());
   }
 
   const handleUnfollow = (e) => {
     e.preventDefault();
-    dispatch(unFollowUser(+id.id));
+    dispatch(unFollowUser(+id));
     setFollowing(!followings)
     dispatch(loadAllUsers());
   }
