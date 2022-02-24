@@ -216,13 +216,10 @@
 }
 
 .comments-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
+  display: grid;
+  grid-template-columns: 1.5fr 2fr 1.5fr;
   background-color: white;
   width: 90%;
-  height: 35px;
   padding-left: 20px;
 }
 
@@ -242,17 +239,17 @@
 
 .comments-wrapper {
   display: flex;
+  border-bottom : 1px solid lightgray;
 }
 
 .comment-button-container {
   background-color: white;
   display: flex;
   flex-direction: row;
-  align-items: flex-end;
+  align-items: center;
   justify-content: flex-end;
   /* padding-left: 20px; */
-
-  height: 30px;
+  height: auto;
 }
 
 .comment-buttons {
