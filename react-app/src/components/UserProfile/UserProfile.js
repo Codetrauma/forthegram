@@ -12,15 +12,6 @@ function UserProfile() {
   const dispatch = useDispatch();
   const { id } = useParams();
 
-  const emailPattern = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
-  const isEmail = field => emailPattern.test(field)
-
-  const [showEditForm, setShowEditForm] = useState(false);
-  const [fullname, setFullname] = useState('');
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [description, setDescription] = useState('');
-
   const [errors, setErrors] = useState([])
 
   const sessionUser = useSelector(state => state.session.user);
@@ -30,8 +21,13 @@ function UserProfile() {
   const userPosts = posts.filter(post => post.user_id === +id)
 
   const userObj = useSelector(state => state.users)
-  const users = Object.values(userObj)
-  // const user = users.filter(user => user.id === +id)
+
+  localStorage.setItem('name', sessionUser.fullname)
+  localStorage.setItem('description', sessionUser.description)
+  const [showEditForm, setShowEditForm] = useState(false);
+  const [fullname, setFullname] = useState(localStorage.getItem('name'));
+  const [description, setDescription] = useState(localStorage.getItem('description'));
+
 
   const following = sessionUser.following.map(following => following.id)
   const followingBool = following.includes(+id)
@@ -40,29 +36,23 @@ function UserProfile() {
 
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-    // dispatch(loadAllPosts());
+    window.scrollTo(0, 0, { behavior: 'smooth' });
     dispatch(loadAllUsers());
   }, [followings, dispatch]);
 
-  const handleProfileSubmit = (e) => {
-    let newErrors = [];
+  const handleProfileSubmit = async (e) => {
     e.preventDefault();
-    if (!isEmail(email)) {
-      newErrors.push('Please enter a valid email.')
-      setErrors(newErrors)
+    const userInfo = {
+      id: sessionUser.id,
+      full_name: fullname,
+      description: description,
     }
-    else {
-      const userInfo = {
-        id: sessionUser.id,
-        full_name: fullname,
-        username: username,
-        email: email,
-        description: description,
-      }
-      dispatch(updateUserInfo(userInfo));
-      setShowEditForm(!showEditForm);
+    const data = await dispatch(updateUserInfo(userInfo));
+    console.log('DATA', data);
+    if (data?.errors) {
+      setErrors(data.errors)
     }
+    setShowEditForm(!showEditForm);
   }
   const handleCancel = (e) => {
     e.preventDefault();
@@ -106,17 +96,19 @@ function UserProfile() {
         <div className='profile-info-wrapper'>
           <div className='profile-info-container'>
             {!showEditForm ? <h3>{userObj[+id]?.fullname}</h3> : <></>}
+            <div className='about-me-links'>
+            {+id === 6 ? <a className='github-link' href='https://github.com/JTannerShaw' target='_blank'>My Github</a> : <></>}
+            {+id === 6 ? <a className='linkedin-link' href='https://www.linkedin.com/in/tanner-shaw-a25702162/' target='_blank'>My LinkedIn</a> : <></>}
+            </div>
             {sessionUser.id === userObj[+id]?.id && !showEditForm ? <button className='edit-profile-button' onClick={() => setShowEditForm(!showEditForm)}>Edit Profile</button> : <></>}
             <div className='profile-fullname'>
               {showEditForm && (
                 <div className='edit-profile-form-wrapper'>
                   <form className='edit-profile-form'>
                     {errors.map(error => <p className='error-message'>{error}</p>)}
-                    <input type='text' className='edit-profile-inputs' placeholder='Full Name' onChange={e => setFullname(e.target.value)} />
-                    <input type='text' className='edit-profile-inputs' placeholder='Username' onChange={e => setUsername(e.target.value)} />
-                    <input type='email' className='edit-profile-inputs' placeholder='Email' onChange={e => setEmail(e.target.value)} />
-                    <textarea type='text' className='edit-profile-inputs-textarea' placeholder='Description' onChange={e => setDescription(e.target.value)} />
-                    <button type='submit' onClick={handleProfileSubmit} className='save-button' value={userObj[+id]?.id}>Save</button>
+                    <input type='text' className='edit-profile-inputs' value={fullname} placeholder='Full Name' onChange={e => setFullname(e.target.value)} />
+                    <textarea type='text' className='edit-profile-inputs-textarea' value={description} placeholder='Description' onChange={e => setDescription(e.target.value)} />
+                    <button type='submit' disabled={fullname.length <= 1 && description.length <= 0 ? true : false} onClick={handleProfileSubmit} className='save-button' value={userObj[+id]?.id}>Save</button>
                     <button className='save-button' onClick={handleCancel}>Cancel</button>
                   </form>
                 </div>
@@ -130,7 +122,6 @@ function UserProfile() {
           <div className='profile-post-container'>
             {userPosts.map(userPost => (
               <SinglePostModal post={userPost} key={userPost.id} />
-              // <img value={userPost.id} className='profile-posts' src={userPost?.photos[0]?.photo} height='200' className='user-profile-post' />
             ))}
           </div>
         </div>

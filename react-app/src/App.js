@@ -5,8 +5,7 @@ import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import NavBar from './components/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
-import UsersList from './components/UsersList';
-import User from './components/User';
+import Footer from './components/Footer/Footer'
 import { authenticate } from './store/session';
 import Dashboard from './components/dashboard/dashboard';
 import { loadAllComments } from './store/comments';
@@ -46,6 +45,7 @@ function App() {
           <SignUpForm />
         </Route>
         <ProtectedRoute path='/' exact={true} >
+          <Footer />
           <NavBar />
           <Dashboard />
         </ProtectedRoute>

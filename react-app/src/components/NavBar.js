@@ -19,13 +19,15 @@ const NavBar = () => {
           <div className='home-forthegram'>
             <NavLink className='forthegram-text' to='/'>ForTheGram</NavLink>
           </div>
-          <div className='right-side-navbar'>
-            <NavLink to='/' exact={true} activeClassName='active'>
-              <img className='home-button' src={homebutton} alt='home' height='25px' />
-            </NavLink>
-            <PostModal />
-            <NavLink to={`/user/${sessionUser.id}`} className='user-pictures' exact={true}><img className='user-profile-picture' src={sessionUser.picture} height='35'/></NavLink>
-            <LogoutButton />
+          <div className='right-side-wrapper'>
+            <div className='right-side-navbar'>
+              <NavLink to='/' exact={true} activeClassName='active'>
+                <img className='home-button' src={homebutton} alt='home' height='25px' />
+              </NavLink>
+              <PostModal />
+              <NavLink to={`/user/${sessionUser.id}`} className='user-pictures-navbar' exact={true}><img className='user-profile-picture' src={sessionUser.picture} height='35' /></NavLink>
+              <LogoutButton />
+            </div>
           </div>
         </nav>
       </div>

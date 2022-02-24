@@ -32,14 +32,17 @@
   justify-content: space-around;
 }
 
-.right-side-navbar {
+ .right-side-navbar {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
   padding: 0 1rem;
   background-color: white;
+}
 
+.right-side-wrapper {
+  display: flex;
 }
 
 .navbar-container {
@@ -50,7 +53,7 @@
 }
 
 .forthegram-text {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: bold;
   font-family: Dancing Script;
   text-decoration: none;
@@ -69,7 +72,8 @@
 .logout-button {
   border: none;
   background-color: white;
-  border: 1px solid black
+  border: 1px solid black;
+
 }
 
 .answer-button {

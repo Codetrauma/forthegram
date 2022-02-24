@@ -24,13 +24,6 @@ function Dashboard() {
   const [errors, setErrors] = useState([])
 
 
-  // useEffect(() => {
-  //   dispatch(loadAllPosts());
-  //   dispatch(loadAllComments());
-  //   dispatch(loadAllLikes());
-  // }, [dispatch]);
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newComment = {
@@ -45,7 +38,6 @@ function Dashboard() {
       setErrors(data.errors)
     }
     setComment('');
-    // return newComment;
   }
   const handleDelete = async (e) => {
     e.preventDefault();
@@ -53,7 +45,6 @@ function Dashboard() {
       'id': e.target.value
     }
     await dispatch(removePost(deletePost))
-    // return deletePost;
   }
 
   if (sessionUser) {

@@ -371,8 +371,18 @@
   overflow: hidden;
   align-items: center;
   justify-content: center;
+
 }
 
+.user-pictures-navbar {
+  background-color: white;
+  border-radius: 50%;
+  clip-path: circle();
+  object-fit: cover;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+}
 
 .user-profile-picture-profile {
   background-color: white;
@@ -384,4 +394,22 @@
   align-items: center;
   justify-content: center;
   margin-top: 30px;
+}
+
+.about-me-links {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.github-link {
+  margin-right: 10px;
+  color: black;
+  font-weight: bold;
+}
+
+.linkedin-link {
+  margin-left: 10px;
+  color: black;
+  font-weight: bold;
 }
