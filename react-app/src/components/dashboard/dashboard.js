@@ -23,6 +23,20 @@ function Dashboard() {
   const [comment, setComment] = useState('');
   const [errors, setErrors] = useState([])
 
+  useEffect(() => {
+    const newErrors = [];
+    if (comment.length > 80) {
+      newErrors.push('Comment is too long');
+    }
+    if (comment.length < 1 && comment.length) {
+      newErrors.push('Comment is too short');
+    }
+    if (comment.indexOf(' ') === 0) {
+      newErrors.push('Comment cannot start with a space');
+    }
+    setErrors(newErrors);
+  }, [comment])
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -68,7 +82,7 @@ function Dashboard() {
                 <form className='post-comment-form'>
                   <div className='input-post-container'>
                     <input className='comment-input' placeholder='Enter a comment' type='text' value={comment} onSubmit={e => setComment('')} onChange={e => setComment(e.target.value)} />
-                    <button disabled={comment.length <= 0 || comment.length > 80 ? true : false} className='post-button' type='submit' value={post.id} onClick={handleSubmit}>Post</button>
+                    <button disabled={comment.length <= 0 || comment.length > 80 || comment.indexOf(' ') === 0 ? true : false} className='post-button' type='submit' value={post.id} onClick={handleSubmit}>Post</button>
                   </div>
                 </form>
               </div>

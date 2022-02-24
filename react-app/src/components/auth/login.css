@@ -139,5 +139,5 @@ html {
 .errors {
   color: red;
   font-size: 0.8em;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
 }
