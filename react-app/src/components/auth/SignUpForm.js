@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect, NavLink } from 'react-router-dom';
 import { signUp } from '../../store/session';
@@ -18,6 +18,16 @@ const SignUpForm = () => {
 
   const emailPattern = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
   const isEmail = field => emailPattern.test(field)
+  useEffect(() => {
+    const errors = [];
+    if (username.length < 6) {
+      errors.push('Username must be atleast 6 characters')
+    }
+    if (password.length < 8) {
+      errors.push('Password must be atleast 8 characters')
+    }
+    setErrors(errors);
+  },[username, password])
 
   const onSignUp = async (e) => {
     let newErrors = []
@@ -28,7 +38,8 @@ const SignUpForm = () => {
     formData.append("email", email);
     formData.append("password", password);
     formData.append("image", image);
-    
+
+
     if (!isEmail(email)) {
       newErrors.push('Please enter a valid email.')
       setErrors(newErrors)
