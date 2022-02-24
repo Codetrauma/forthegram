@@ -18,7 +18,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
     full_name = db.Column(db.String, nullable=False)
-    description = db.Column(db.String(255))
+    description = db.Column(db.String(255), default=' ')
     profile_pic = db.Column(
         db.String, default="https://icon-library.com/images/no-user-image-icon/no-user-image-icon-27.jpg")
 

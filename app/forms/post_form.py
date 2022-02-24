@@ -15,4 +15,4 @@ class EditPostForm(FlaskForm):
     """
     Form for editing a post
     """
-    caption = StringField('caption', validators=[DataRequired(), Length(max=80, message='Caption must be less than 80 characters')])
+    caption = StringField('caption', validators=[Length(max=80, message='Caption must be less than 80 characters')])
