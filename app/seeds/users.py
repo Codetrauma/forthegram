@@ -12,7 +12,7 @@ def seed_users():
     audrey = User(
         username='Chanandler Bong', email='audrey@aa.io', password='password', full_name='Audrey')
     tanner = User(
-        username='tanner', email='tanner@aa.io', password='password', full_name='Tanner "tantan" Shaw', description='', profile_pic='https://i.imgur.com/FY0LbG9.jpg')
+        username='John Tanner Shaw', email='JTannerShaw@gmail.com', password='lolnotpassword', full_name='Tanner Shaw', description='Full Stack Software Engineer', profile_pic='https://i.imgur.com/FY0LbG9.jpg')
     nathan = User(
         username='nathan', email='nathan@aa.io', password='password', full_name='Nathan')
     victoria = User(

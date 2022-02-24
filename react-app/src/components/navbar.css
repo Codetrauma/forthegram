@@ -32,14 +32,17 @@
   justify-content: space-around;
 }
 
-.right-side-navbar {
+ .right-side-navbar {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
   padding: 0 1rem;
   background-color: white;
+}
 
+.right-side-wrapper {
+  display: flex;
 }
 
 .navbar-container {
@@ -69,7 +72,8 @@
 .logout-button {
   border: none;
   background-color: white;
-  border: 1px solid black
+  border: 1px solid black;
+
 }
 
 .answer-button {

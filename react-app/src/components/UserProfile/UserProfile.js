@@ -46,13 +46,13 @@ function UserProfile() {
       id: sessionUser.id,
       full_name: fullname,
       description: description,
-      }
-      const data = await dispatch(updateUserInfo(userInfo));
-      console.log('DATA', data);
-      if (data?.errors) {
-        setErrors(data.errors)
-      }
-      setShowEditForm(!showEditForm);
+    }
+    const data = await dispatch(updateUserInfo(userInfo));
+    console.log('DATA', data);
+    if (data?.errors) {
+      setErrors(data.errors)
+    }
+    setShowEditForm(!showEditForm);
   }
   const handleCancel = (e) => {
     e.preventDefault();
@@ -96,6 +96,10 @@ function UserProfile() {
         <div className='profile-info-wrapper'>
           <div className='profile-info-container'>
             {!showEditForm ? <h3>{userObj[+id]?.fullname}</h3> : <></>}
+            <div className='about-me-links'>
+            {+id === 6 ? <a className='github-link' href='https://github.com/JTannerShaw' target='_blank'>My Github</a> : <></>}
+            {+id === 6 ? <a className='linkedin-link' href='https://www.linkedin.com/in/tanner-shaw-a25702162/' target='_blank'>My LinkedIn</a> : <></>}
+            </div>
             {sessionUser.id === userObj[+id]?.id && !showEditForm ? <button className='edit-profile-button' onClick={() => setShowEditForm(!showEditForm)}>Edit Profile</button> : <></>}
             <div className='profile-fullname'>
               {showEditForm && (

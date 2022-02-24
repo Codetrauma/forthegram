@@ -50,7 +50,6 @@ function App() {
           <Dashboard />
         </ProtectedRoute>
         <ProtectedRoute path='/user/:id' exact={true} >
-          <Footer />
           <NavBar />
           <UserProfile />
         </ProtectedRoute>
