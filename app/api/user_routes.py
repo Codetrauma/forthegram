@@ -5,6 +5,7 @@ from app.models import db, User
 
 user_routes = Blueprint('users', __name__)
 
+
 def validation_errors_to_error_messages(validation_errors):
     """
     Simple function that turns the WTForms validation errors into a simple list
@@ -14,6 +15,7 @@ def validation_errors_to_error_messages(validation_errors):
         for error in validation_errors[field]:
             errorMessages.append(f'{field} : {error}')
     return errorMessages
+
 
 @user_routes.route('/')
 @login_required
@@ -27,6 +29,7 @@ def users():
 def user(id):
     user = User.query.get(id)
     return user.to_dict()
+
 
 @user_routes.route('/<int:id>/', methods=['PUT'])
 @login_required
@@ -46,7 +49,13 @@ def update_user(id):
 @user_routes.route('/<int:id>/follow/', methods=['POST'])
 @login_required
 def follow_user(id):
+
     user = User.query.get(id)
+    user_to_follow = current_user.to_dict()['following']
+    # print('CURRENT USER', user.id, [user['id'] for user in user_to_follow], user.id in [user['id'] for user in user_to_follow])
+    if user in [user['id'] for user in user_to_follow]:
+        return {'errors': 'You are already following this user'}, 401
+
     current_user.followers.append(user)
     db.session.commit()
     return user.to_dict()
