@@ -28,6 +28,7 @@ const SignUpForm = () => {
     formData.append("email", email);
     formData.append("password", password);
     formData.append("image", image);
+    
     if (!isEmail(email)) {
       newErrors.push('Please enter a valid email.')
       setErrors(newErrors)

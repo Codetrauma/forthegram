@@ -12,13 +12,6 @@ function UserProfile() {
   const dispatch = useDispatch();
   const { id } = useParams();
 
-  const emailPattern = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
-  const isEmail = field => emailPattern.test(field)
-
-  const [showEditForm, setShowEditForm] = useState(false);
-  const [fullname, setFullname] = useState('');
-  const [description, setDescription] = useState('');
-
   const [errors, setErrors] = useState([])
 
   const sessionUser = useSelector(state => state.session.user);
@@ -28,8 +21,13 @@ function UserProfile() {
   const userPosts = posts.filter(post => post.user_id === +id)
 
   const userObj = useSelector(state => state.users)
-  const users = Object.values(userObj)
-  // const user = users.filter(user => user.id === +id)
+
+  localStorage.setItem('name', sessionUser.fullname)
+  localStorage.setItem('description', sessionUser.description)
+  const [showEditForm, setShowEditForm] = useState(false);
+  const [fullname, setFullname] = useState(localStorage.getItem('name'));
+  const [description, setDescription] = useState(localStorage.getItem('description'));
+
 
   const following = sessionUser.following.map(following => following.id)
   const followingBool = following.includes(+id)
@@ -104,8 +102,8 @@ function UserProfile() {
                 <div className='edit-profile-form-wrapper'>
                   <form className='edit-profile-form'>
                     {errors.map(error => <p className='error-message'>{error}</p>)}
-                    <input type='text' className='edit-profile-inputs' placeholder='Full Name' onChange={e => setFullname(e.target.value)} />
-                    <textarea type='text' className='edit-profile-inputs-textarea' placeholder='Description' onChange={e => setDescription(e.target.value)} />
+                    <input type='text' className='edit-profile-inputs' value={fullname} placeholder='Full Name' onChange={e => setFullname(e.target.value)} />
+                    <textarea type='text' className='edit-profile-inputs-textarea' value={description} placeholder='Description' onChange={e => setDescription(e.target.value)} />
                     <button type='submit' disabled={fullname.length <= 1 && description.length <= 0 ? true : false} onClick={handleProfileSubmit} className='save-button' value={userObj[+id]?.id}>Save</button>
                     <button className='save-button' onClick={handleCancel}>Cancel</button>
                   </form>
