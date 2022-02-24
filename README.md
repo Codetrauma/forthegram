@@ -10,7 +10,7 @@
 <h1 align='center' style='font-weight: bold'> Index </h1>
 <br>
 <div align='center' style='font-weight: bold'>
- <a href='https://github.com/JTannerShaw/forthegram/wiki/Feature-List'>Feature List</a> - <a href='https://github.com/JTannerShaw/forthegram/wiki/DB-Schema'>DB Schema</a> - <a href='https://github.com/JTannerShaw/forthegram/wiki/API-Documentation'>API Documentation</a> - <a href='https://github.com/JTannerShaw/forthegram/wiki/Frontend-Routes'> Frontend Routes </a>
+ <a href='https://github.com/JTannerShaw/forthegram/wiki/Feature-List'>Feature List</a> - <a href='https://github.com/JTannerShaw/forthegram/wiki/DB-Schema'>DB Schema</a> - <a href='https://github.com/JTannerShaw/forthegram/wiki/API-Documentation'>API Documentation</a> - <a href='https://github.com/JTannerShaw/forthegram/wiki/Frontend-Routes'> Frontend Routes </a> - <a href='https://github.com/JTannerShaw/forthegram/wiki/User-Stories'>User Stories</a>
 <br>
 </br>
 </div>
@@ -97,3 +97,42 @@
     ```
     npm start
     ```
+
+<h1 align='center' style='font-weight: bold'>Functionality & Key Features</h1>
+
+<h2  align='center' style='font-weight: bold'>Splash Page and Signup</h2>
+
+
+<p align='center'>This is where a user lands when first getting to the app. A user cannot access any part of the site until they've successfully logged in or created an account.</p>
+
+<img src='https://i.imgur.com/z3fXR45.png' />
+<img src='https://i.imgur.com/vpEMM2K.png' />
+
+
+
+<h1  align='center' style='font-weight: bold'>Feed</h2>
+
+<p align='center'>Here is where a user can see and create all of their posts or posts of other users as well as comment and like posts.
+
+
+<img src='https://i.imgur.com/Z5aOX8w.png' />
+<img src='https://i.imgur.com/yD0Fp0A.png' />
+<img src='https://i.imgur.com/SjeiFhe.png' />
+<img src='https://i.gyazo.com/03c94c8ecdc72c71fb6c7e295a4fa914.png' />
+<h1  align='center' style='font-weight: bold'>User Profiles</h2>
+
+<p align='center'>Users can click their profile picture in the navbar at the top right of the page to access their profiles or access other users profiles by click their names/icons on posts. Here users can see all the posts of the user whose profile they are at as well as follow or unfollow the user. If a user is on their own profile they gain the ability to edit their Name and Description in their profile.
+
+<img src='https://i.imgur.com/sLRcM8i.png' />
+
+
+
+<h1  align='center' style='font-weight: bold'>Future Features</h2>
+
+<ul>
+<li>Follower/Following displays those users</li>
+<li>Feed only displays posts of users you're following</li>
+<li>Better/More Styling</li>
+<li>Private Messaging</li>
+<li>Block users</li>
+</ul>
