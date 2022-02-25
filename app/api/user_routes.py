@@ -85,7 +85,7 @@ def unfollow_user(id):
         db.session.commit()
         return user.to_dict()
     else:
-        return {'errors': "You either don't follow this user, or you need to stop abusing that button!"}
+        return {'errors': "Database loading..."}
     # user = User.query.get(id)
     # current_user.followers.remove(user)
     # db.session.commit()
