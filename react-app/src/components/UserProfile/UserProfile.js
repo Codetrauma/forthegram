@@ -94,7 +94,7 @@ function UserProfile() {
                 <h1>{userObj[+id]?.username}</h1>
                 <div>
                   {sessionUser.id !== userObj[+id]?.id ? <button onClick={handleUnfollow} disabled={control}>Unfollow</button> : <></>}
-                  {followErrors}
+                  <li className='errors'>{followErrors}</li>
                 </div>
                 <h4>{userObj[+id]?.followers?.length} Followers</h4>
                 <h4>{userObj[+id]?.following?.length} Following</h4>
@@ -150,7 +150,6 @@ function UserProfile() {
                 <h1>{userObj[+id]?.username}</h1>
                 <div>
                   {sessionUser.id !== userObj[+id]?.id ? <button onClick={handleFollow} disabled={control}>Follow</button> : <></>}
-                  {followErrors}
                 </div>
                 <h4>{userObj[+id]?.followers?.length} Followers</h4>
                 <h4>{userObj[+id]?.following?.length} Following</h4>
@@ -159,6 +158,7 @@ function UserProfile() {
             </div>
           </div>
           <div className='profile-info-wrapper'>
+            <li className='errors'>{followErrors}</li>
             <div className='profile-info-container'>
               {!showEditForm ? <h3>{userObj[+id]?.fullname}</h3> : <></>}
               {sessionUser.id === userObj[+id]?.id && !showEditForm ? <button className='edit-profile-button' onClick={() => setShowEditForm(!showEditForm)}>Edit Profile</button> : <></>}

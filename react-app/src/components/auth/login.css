@@ -139,5 +139,6 @@ html {
 .errors {
   color: red;
   font-size: 0.8em;
+  list-style: none;
   /* margin-bottom: 10px; */
 }

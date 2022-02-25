@@ -54,13 +54,13 @@ def follow_user(id):
     for each in current_user.followers:
         if each.id == user.id:
             no_go = True
-            return {'errors': 'You are already following this user.'}, 401
+            return {'errors': 'Database loading...'}, 401
     if no_go == False:
         current_user.followers.append(user)
         db.session.commit()
         return user.to_dict()
     else:
-        return {'errors': 'You are already following this user.'}, 401
+        return {'errors': 'Database loading...'}, 401
     # user = User.query.get(id)
     # user_to_follow = current_user.to_dict()['following']
     # # print('CURRENT USER', user.id, [user['id'] for user in user_to_follow], user.id in [user['id'] for user in user_to_follow])
