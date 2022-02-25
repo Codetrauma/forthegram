@@ -33,7 +33,9 @@ function UserProfile() {
   const followingBool = following.includes(+id)
   const [followings, setFollowing] = useState(followingBool);
   const [control, setControl] = useState(false);
+  const [followErrors, setFollowErrors] = useState([]);
 
+  let followed = userObj[+id]?.followers.filter(one => one.id == sessionUser.id)
 
   useEffect(() => {
     window.scrollTo(0, 0, { behavior: 'smooth' });
@@ -61,73 +63,133 @@ function UserProfile() {
 
   const handleFollow = async (e) => {
     e.preventDefault();
-    setControl(true)
-    await dispatch(followUser(+id));
-    setControl(false)
+    setFollowErrors([])
+
+    const follower = await dispatch(followUser(+id));
+    if (follower.errors) {
+      setFollowErrors(follower.errors)
+    }
     setFollowing(prev => !prev)
   }
 
   const handleUnfollow = async (e) => {
     e.preventDefault();
-    setControl(true)
-    await dispatch(unFollowUser(+id));
-    setControl(false)
+    setFollowErrors([])
+    const unfollower = await dispatch(unFollowUser(+id));
+    if (unfollower.errors) {
+      setFollowErrors(unfollower.errors)
+    }
     setFollowing(prev => !prev)
   }
 
+  if (followed?.length > 0) {
 
-  return (
-    <div className='profile-wrapper'>
-      <div>
-        <div className='profile-header-container'>
-          <div className='profile-header'>
-            <img src={userObj[+id]?.picture} height='200' className='user-profile-picture-profile' />
-            <div className='profile-info'>
-              <h1>{userObj[+id]?.username}</h1>
-              <div>
-                {sessionUser.id !== userObj[+id]?.id ? followings === true ? <button disabled={control} onClick={handleUnfollow}>Unfollow</button> : <button disabled={control} onClick={handleFollow}>Follow</button> : null}
-              </div>
-              <h4>{userObj[+id]?.followers?.length} Followers</h4>
-              <h4>{userObj[+id]?.following?.length} Following</h4>
-              <h4>{userPosts.length} Posts</h4>
-            </div>
-          </div>
-        </div>
-        <div className='profile-info-wrapper'>
-          <div className='profile-info-container'>
-            {!showEditForm ? <h3>{userObj[+id]?.fullname}</h3> : <></>}
-            <div className='about-me-links'>
-            {+id === 6 ? <a className='github-link' href='https://github.com/JTannerShaw' target='_blank'>My Github</a> : <></>}
-            {+id === 6 ? <a className='linkedin-link' href='https://www.linkedin.com/in/tanner-shaw-a25702162/' target='_blank'>My LinkedIn</a> : <></>}
-            </div>
-            {sessionUser.id === userObj[+id]?.id && !showEditForm ? <button className='edit-profile-button' onClick={() => setShowEditForm(!showEditForm)}>Edit Profile</button> : <></>}
-            <div className='profile-fullname'>
-              {showEditForm && (
-                <div className='edit-profile-form-wrapper'>
-                  <form className='edit-profile-form'>
-                    {errors.map(error => <p className='error-message'>{error}</p>)}
-                    <input type='text' className='edit-profile-inputs' value={fullname} placeholder='Full Name' onChange={e => setFullname(e.target.value)} />
-                    <textarea type='text' className='edit-profile-inputs-textarea' value={description} placeholder='Description' onChange={e => setDescription(e.target.value)} />
-                    <button type='submit' disabled={fullname.length <= 1 && description.length <= 0 ? true : false} onClick={handleProfileSubmit} className='save-button' value={userObj[+id]?.id}>Save</button>
-                    <button className='save-button' onClick={handleCancel}>Cancel</button>
-                  </form>
+    return (
+      <div className='profile-wrapper'>
+        <div>
+          <div className='profile-header-container'>
+            <div className='profile-header'>
+              <img src={userObj[+id]?.picture} height='200' className='user-profile-picture-profile' />
+              <div className='profile-info'>
+                <h1>{userObj[+id]?.username}</h1>
+                <div>
+                  {sessionUser.id !== userObj[+id]?.id ? <button onClick={handleUnfollow} disabled={control}>Unfollow</button> : <></>}
                 </div>
-              )}
+                <h4>{userObj[+id]?.followers?.length} Followers</h4>
+                <h4>{userObj[+id]?.following?.length} Following</h4>
+                <h4>{userPosts.length} Posts</h4>
+              </div>
             </div>
-            {!showEditForm ? <p>{userObj[+id]?.description}</p> : <></>}
           </div>
-        </div>
-        <div className='divider'></div>
-        <div className='profile-post-wrapper'>
-          <div className='profile-post-container'>
-            {userPosts.map(userPost => (
-              <SinglePostModal post={userPost} key={userPost.id} />
-            ))}
+          <div className='profile-info-wrapper'>
+            <div className='profile-info-container'>
+              {!showEditForm ? <h3>{userObj[+id]?.fullname}</h3> : <></>}
+              <div className='about-me-links'>
+                {+id === 6 ? <a className='github-link' href='https://github.com/JTannerShaw' target='_blank'>My Github</a> : <></>}
+                {+id === 6 ? <a className='linkedin-link' href='https://www.linkedin.com/in/tanner-shaw-a25702162/' target='_blank'>My LinkedIn</a> : <></>}
+              </div>
+              {sessionUser.id === userObj[+id]?.id && !showEditForm ? <button className='edit-profile-button' onClick={() => setShowEditForm(!showEditForm)}>Edit Profile</button> : <></>}
+              <div className='profile-fullname'>
+                {showEditForm && (
+                  <div className='edit-profile-form-wrapper'>
+                    <form className='edit-profile-form'>
+                      {errors.map(error => <p className='error-message'>{error}</p>)}
+                      <input type='text' className='edit-profile-inputs' value={fullname} placeholder='Full Name' onChange={e => setFullname(e.target.value)} />
+                      <textarea type='text' className='edit-profile-inputs-textarea' value={description} placeholder='Description' onChange={e => setDescription(e.target.value)} />
+                      <button type='submit' disabled={fullname.length <= 1 && description.length <= 0 ? true : false} onClick={handleProfileSubmit} className='save-button' value={userObj[+id]?.id}>Save</button>
+                      <button className='save-button' onClick={handleCancel}>Cancel</button>
+                    </form>
+                  </div>
+                )}
+              </div>
+              {!showEditForm ? <p>{userObj[+id]?.description}</p> : <></>}
+            </div>
+          </div>
+          <div className='divider'></div>
+          <div className='profile-post-wrapper'>
+            <div className='profile-post-container'>
+              {userPosts.map(userPost => (
+                <SinglePostModal post={userPost} key={userPost.id} />
+              ))}
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  )
+    )
+  }
+  else {
+    return (
+
+      <div className='profile-wrapper'>
+        <div>
+          <div className='profile-header-container'>
+            <div className='profile-header'>
+              <img src={userObj[+id]?.picture} height='200' className='user-profile-picture-profile' />
+              <div className='profile-info'>
+                <h1>{userObj[+id]?.username}</h1>
+                <div>
+                  {sessionUser.id !== userObj[+id]?.id ? <button onClick={handleFollow} disabled={control}>Follow</button> : <></>}
+                </div>
+                <h4>{userObj[+id]?.followers?.length} Followers</h4>
+                <h4>{userObj[+id]?.following?.length} Following</h4>
+                <h4>{userPosts.length} Posts</h4>
+              </div>
+            </div>
+          </div>
+          <div className='profile-info-wrapper'>
+            <div className='profile-info-container'>
+              {followErrors}
+              {!showEditForm ? <h3>{userObj[+id]?.fullname}</h3> : <></>}
+              {sessionUser.id === userObj[+id]?.id && !showEditForm ? <button className='edit-profile-button' onClick={() => setShowEditForm(!showEditForm)}>Edit Profile</button> : <></>}
+              <div className='profile-fullname'>
+                {showEditForm && (
+                  <div className='edit-profile-form-wrapper'>
+                    <form className='edit-profile-form'>
+                      {errors.map(error => <p className='error-message'>{error}</p>)}
+                      <input type='text' className='edit-profile-inputs' placeholder='Full Name' onChange={e => setFullname(e.target.value)} />
+                      <textarea type='text' className='edit-profile-inputs-textarea' placeholder='Description' onChange={e => setDescription(e.target.value)} />
+                      <button type='submit' onClick={handleProfileSubmit} className='save-button' value={userObj[+id]?.id}>Save</button>
+                      <button className='save-button' onClick={handleCancel}>Cancel</button>
+                    </form>
+                  </div>
+                )}
+              </div>
+              {!showEditForm ? <p>{userObj[+id]?.description}</p> : <></>}
+            </div>
+          </div>
+          <div className='divider'></div>
+          <div className='profile-post-wrapper'>
+            <div className='profile-post-container'>
+              {userPosts.map(userPost => (
+                <SinglePostModal post={userPost} key={userPost.id} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
 }
+
 
 export default UserProfile

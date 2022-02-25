@@ -44,6 +44,7 @@ export const followUser = (userId) => async dispatch => {
   })
   const data = await response.json();
   dispatch(followUserId(data))
+  return data;
 }
 
 
