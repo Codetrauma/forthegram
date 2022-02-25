@@ -49,22 +49,44 @@ def update_user(id):
 @user_routes.route('/<int:id>/follow/', methods=['POST'])
 @login_required
 def follow_user(id):
-
     user = User.query.get(id)
-    user_to_follow = current_user.to_dict()['following']
-    # print('CURRENT USER', user.id, [user['id'] for user in user_to_follow], user.id in [user['id'] for user in user_to_follow])
-    if user in [user['id'] for user in user_to_follow]:
-        return {'errors': 'You are already following this user'}, 401
+    no_go = False
+    for each in current_user.followers:
+        if each.id == user.id:
+            no_go = True
+            return {'errors': 'You are already following this user.'}, 401
+    if no_go == False:
+        current_user.followers.append(user)
+        db.session.commit()
+        return user.to_dict()
+    else:
+        return {'errors': 'You are already following this user.'}, 401
+    # user = User.query.get(id)
+    # user_to_follow = current_user.to_dict()['following']
+    # # print('CURRENT USER', user.id, [user['id'] for user in user_to_follow], user.id in [user['id'] for user in user_to_follow])
+    # if user in [user['id'] for user in user_to_follow]:
+    #     return {'errors': 'You are already following this user'}, 401
 
-    current_user.followers.append(user)
-    db.session.commit()
-    return user.to_dict()
+    # current_user.followers.append(user)
+    # db.session.commit()
+    # return user.to_dict()
 
 
 @user_routes.route('/<int:id>/unfollow/')
 @login_required
 def unfollow_user(id):
     user = User.query.get(id)
-    current_user.followers.remove(user)
-    db.session.commit()
-    return user.to_dict()
+    go = False
+    for each in current_user.followers:
+        if each.id == user.id:
+            go = True
+    if go == True:
+        current_user.followers.remove(user)
+        db.session.commit()
+        return user.to_dict()
+    else:
+        return {'errors': "You either don't follow this user, or you need to stop abusing that button!"}
+    # user = User.query.get(id)
+    # current_user.followers.remove(user)
+    # db.session.commit()
+    # return user.to_dict()
