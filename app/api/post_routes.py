@@ -123,11 +123,6 @@ def update_comment(post_id, comment_id):
     """
     Updates a comment
     """
-    # comment = Comment.query.get(comment_id)
-    # comment.comment = request.json.get('comment')
-    # db.session.commit()
-    # return {'comment': comment.to_dict()}
-
     form = CommentForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():

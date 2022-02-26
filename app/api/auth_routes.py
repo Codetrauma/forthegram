@@ -63,7 +63,6 @@ def sign_up():
     form = SignUpForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form['image'].data != 'null':
-        print('FORM DATA', form['image'].data)
         image = form['image'].data
         if not allowed_file(image.filename):
             return {'errors': 'Filetype not allowed'}, 400

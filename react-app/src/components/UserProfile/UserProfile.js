@@ -50,7 +50,6 @@ function UserProfile() {
       description: description,
     }
     const data = await dispatch(updateUserInfo(userInfo));
-    console.log('DATA', data);
     if (data?.errors) {
       setErrors(data.errors)
     }

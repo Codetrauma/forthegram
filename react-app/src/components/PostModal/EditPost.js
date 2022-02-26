@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 
 const EditCaption = ({ posts, setShowModal }) => {
   const dispatch = useDispatch();
-  console.log(posts)
 
   localStorage.setItem('caption', posts.caption)
 
@@ -25,7 +24,6 @@ const EditCaption = ({ posts, setShowModal }) => {
       'id': posts.id,
       'caption': caption
     }
-    console.log('NEW CAPTION', newCaption)
     await dispatch(updatePost(newCaption))
     await dispatch(loadAllPosts())
     setShowModal(false);

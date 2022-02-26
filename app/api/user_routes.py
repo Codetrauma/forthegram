@@ -61,16 +61,6 @@ def follow_user(id):
         return user.to_dict()
     else:
         return {'errors': 'Database loading...'}, 401
-    # user = User.query.get(id)
-    # user_to_follow = current_user.to_dict()['following']
-    # # print('CURRENT USER', user.id, [user['id'] for user in user_to_follow], user.id in [user['id'] for user in user_to_follow])
-    # if user in [user['id'] for user in user_to_follow]:
-    #     return {'errors': 'You are already following this user'}, 401
-
-    # current_user.followers.append(user)
-    # db.session.commit()
-    # return user.to_dict()
-
 
 @user_routes.route('/<int:id>/unfollow/')
 @login_required
@@ -86,7 +76,3 @@ def unfollow_user(id):
         return user.to_dict()
     else:
         return {'errors': "Database loading..."}
-    # user = User.query.get(id)
-    # current_user.followers.remove(user)
-    # db.session.commit()
-    # return user.to_dict()

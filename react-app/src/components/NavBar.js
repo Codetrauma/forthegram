@@ -11,7 +11,6 @@ const NavBar = () => {
 
   const sessionUser = useSelector(state => state.session.user);
 
-  console.log(sessionUser)
   return (
     <div className='navbar-wrapper'>
       <div className='navbar-container'>
