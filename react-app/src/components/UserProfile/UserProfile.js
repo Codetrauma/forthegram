@@ -166,8 +166,8 @@ function UserProfile() {
                   <div className='edit-profile-form-wrapper'>
                     <form className='edit-profile-form'>
                       {errors.map(error => <p className='error-message'>{error}</p>)}
-                      <input type='text' className='edit-profile-inputs' placeholder='Full Name' onChange={e => setFullname(e.target.value)} />
-                      <textarea type='text' className='edit-profile-inputs-textarea' placeholder='Description' onChange={e => setDescription(e.target.value)} />
+                      <input type='text' value={fullname} className='edit-profile-inputs' placeholder='Full Name' onChange={e => setFullname(e.target.value)} />
+                      <textarea type='text' value={description} className='edit-profile-inputs-textarea' placeholder='Description' onChange={e => setDescription(e.target.value)} />
                       <button type='submit' onClick={handleProfileSubmit} className='save-button' value={userObj[+id]?.id}>Save</button>
                       <button className='save-button' onClick={handleCancel}>Cancel</button>
                     </form>
