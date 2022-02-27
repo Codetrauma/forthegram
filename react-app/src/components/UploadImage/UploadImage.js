@@ -26,7 +26,6 @@ const UploadPicture = ({ setShowModal }) => {
         if (data) {
             setImageLoading(false);
             setShowModal(false);
-            // console.log("error");
         }
     }
 

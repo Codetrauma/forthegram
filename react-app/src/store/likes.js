@@ -51,7 +51,6 @@ export const addLike = (data) => async dispatch => {
 }
 
 export const removeLike = (id) => async dispatch => {
-  console.log('SOMETHING STUPID', id)
   const response = await fetch(`/api/likes/${id}/`, {
     method: 'DELETE',
   });

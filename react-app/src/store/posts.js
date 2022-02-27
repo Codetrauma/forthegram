@@ -58,7 +58,6 @@ export const removePost = (post) => async dispatch => {
 }
 
 export const updatePost = (post) => async dispatch => {
-  console.log('EDIT POST', post)
   const response = await fetch(`/api/posts/${post.id}/`, {
     method: 'PUT',
     headers: {
@@ -68,7 +67,6 @@ export const updatePost = (post) => async dispatch => {
   });
   if (response.ok) {
     const updated = await response.json();
-    console.log('UPDATED', updated)
     dispatch(update(updated));
   }
 }
