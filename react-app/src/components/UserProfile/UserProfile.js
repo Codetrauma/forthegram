@@ -160,6 +160,10 @@ function UserProfile() {
             <li className='errors'>{followErrors}</li>
             <div className='profile-info-container'>
               {!showEditForm ? <h3>{userObj[+id]?.fullname}</h3> : <></>}
+              <div className='about-me-links'>
+                {+id === 6 ? <a className='github-link' href='https://github.com/JTannerShaw' target='_blank'>My Github</a> : <></>}
+                {+id === 6 ? <a className='linkedin-link' href='https://www.linkedin.com/in/tanner-shaw-a25702162/' target='_blank'>My LinkedIn</a> : <></>}
+              </div>
               {sessionUser.id === userObj[+id]?.id && !showEditForm ? <button className='edit-profile-button' onClick={() => setShowEditForm(!showEditForm)}>Edit Profile</button> : <></>}
               <div className='profile-fullname'>
                 {showEditForm && (

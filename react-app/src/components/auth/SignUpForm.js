@@ -179,7 +179,7 @@ const SignUpForm = () => {
               onChange={updateImage}
             />
           </div>
-          <button disabled={username.length >= 6 && email.length > 0 && password.length >= 8 && repeatPassword.length >= 8 && full_name.length > 0 ? false : true} className='submit-signup-button' type='submit'>Sign Up</button>
+          <button disabled={username.length >= 6 && email.length > 0 && password.length >= 8 && repeatPassword.length >= 8 && full_name.length > 0 && password == repeatPassword ? false : true} className='submit-signup-button' type='submit'>Sign Up</button>
         </form>
         <p>Already have an account? <NavLink className='login-navlink' to='/login/'>Login</NavLink></p>
       </div>
