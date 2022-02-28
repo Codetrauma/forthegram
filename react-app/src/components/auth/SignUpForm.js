@@ -26,8 +26,11 @@ const SignUpForm = () => {
     if (password.length < 8) {
       errors.push('Password must be atleast 8 characters')
     }
+    if (password !== repeatPassword) {
+      errors.push('Passwords do not match')
+    }
     setErrors(errors);
-  },[username, password])
+  },[username, password, repeatPassword])
 
   const onSignUp = async (e) => {
     let newErrors = []
