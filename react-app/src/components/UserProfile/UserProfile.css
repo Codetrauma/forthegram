@@ -35,8 +35,8 @@
   grid-row-gap: 10px;
   grid-column-gap: 30px;
   grid-template-columns: repeat(3, 1fr);
-  width: 50%;
-  height: 50%;
+  width: 55%;
+  height: 100%;
   justify-items: center;
 }
 
