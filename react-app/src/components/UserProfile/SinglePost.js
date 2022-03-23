@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadAllPosts } from '../../store/posts';
-import { loadAllComments } from '../../store/comments';
 import Comments from '../dashboard/Comments';
 import Captions from '../dashboard/Caption';
 import Likes from '../dashboard/Likes';
 import { addComment } from '../../store/comments';
 import { removePost } from '../../store/posts';
 import './SinglePost.css'
-import { NavLink } from 'react-router-dom';
-import { loadAllLikes } from '../../store/likes';
+
 import { useHistory } from 'react-router-dom';
 
 function SinglePost({ post }) {
@@ -23,11 +21,6 @@ function SinglePost({ post }) {
   const commentObj = useSelector(state => state.comments)
   const comments = Object.values(commentObj)
 
-  // useEffect(() => {
-  //   dispatch(loadAllPosts());
-  //   dispatch(loadAllComments());
-  //   dispatch(loadAllLikes());
-  // }, [comment, dispatch]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,7 +31,6 @@ function SinglePost({ post }) {
     }
     await dispatch(addComment(newComment));
     dispatch(loadAllPosts())
-    // dispatch(loadAllComments())
     setComment('');
     return newComment;
   }

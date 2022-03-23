@@ -27,7 +27,7 @@ function SinglePostModal({ post }) {
 
   return (
     <>
-      <button className='single-post-button' onClick={() => setShowModal(true)}><img value={post.id} className='profile-posts' src={post?.photos[0]?.photo} height='200' className='user-profile-post' /></button>
+      <button className='single-post-button' onClick={() => setShowModal(true)}><img value={post.id} className='profile-posts' src={post?.photos[0]?.photo} height='200' /></button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
           <SinglePost setShowModal={setShowModal} post={post}/>
